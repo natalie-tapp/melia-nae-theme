@@ -33,25 +33,37 @@
   <aside class="filter-sidebar">
     <div class="filter-header">
       <h3>Filter</h3>
-      <span class="filter-clear">Clear all</span>
+      {%- if current_tags -%}
+        <a href="/collections/{{ collection.handle }}" class="filter-clear">Clear</a>
+      {%- else -%}
+        <span class="filter-clear" style="opacity:0.3;">Clear</span>
+      {%- endif -%}
     </div>
 
     <div class="filter-group">
-      <div class="filter-group-header"><h4>Price</h4><span>−</span></div>
-      <div class="price-inputs">
-        <div class="price-input-wrap"><span>$</span><input type="number" class="price-input" placeholder="Min" /></div>
-        <div class="price-input-wrap"><span>$</span><input type="number" class="price-input" placeholder="Max" /></div>
-      </div>
+      <div class="filter-group-header"><h4>Metal</h4><span>−</span></div>
+      {%- assign metal_tags = 'gold,rose-gold,silver,platinum,moissanite' | split: ',' -%}
+      {%- assign metal_labels = 'Gold,Rose Gold,Silver,Platinum,Moissanite' | split: ',' -%}
+      {%- for tag in metal_tags -%}
+        {%- assign is_active = false -%}
+        {%- if current_tags contains tag -%}{%- assign is_active = true -%}{%- endif -%}
+        <a href="{% if is_active %}/collections/{{ collection.handle }}{% else %}{{ collection.url }}/{{ tag }}{% endif %}"
+           class="filter-option{% if is_active %} checked{% endif %}">
+          <div class="filter-checkbox">{% if is_active %}✓{% endif %}</div>
+          <label>{{ metal_labels[forloop.index0] }}</label>
+        </a>
+      {%- endfor -%}
     </div>
 
     <div class="filter-group">
-      <div class="filter-group-header"><h4>Category</h4><span>+</span></div>
-      <div class="filter-option" data-filter="earrings"><div class="filter-checkbox"></div><label>Earrings</label></div>
-      <div class="filter-option" data-filter="necklaces"><div class="filter-checkbox"></div><label>Necklaces</label></div>
-      <div class="filter-option" data-filter="rings"><div class="filter-checkbox"></div><label>Rings</label></div>
-      <div class="filter-option" data-filter="bracelets"><div class="filter-checkbox"></div><label>Bracelets</label></div>
-      <div class="filter-option" data-filter="pendants"><div class="filter-checkbox"></div><label>Pendants</label></div>
-      <div class="filter-option" data-filter="bangles"><div class="filter-checkbox"></div><label>Bangles</label></div>
+      <div class="filter-group-header"><h4>Sort</h4><span>−</span></div>
+      <select class="sort-select" style="width:100%;margin-top:8px;" onchange="location.href='?sort_by='+this.value">
+        <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+        <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest First</option>
+        <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Price: Low → High</option>
+        <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Price: High → Low</option>
+        <option value="title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>A–Z</option>
+      </select>
     </div>
   </aside>
 
@@ -164,44 +176,4 @@
     });
   });
 
-  // Sidebar category checkboxes
-  document.querySelectorAll('.filter-option[data-filter]').forEach(opt => {
-    opt.addEventListener('click', () => {
-      opt.classList.toggle('checked');
-      opt.querySelector('.filter-checkbox').textContent = opt.classList.contains('checked') ? '✓' : '';
-      const checked = [...document.querySelectorAll('.filter-option[data-filter].checked')];
-      if (!checked.length) {
-        document.querySelector('.pill[data-filter="all"]').click();
-      } else {
-        const types = checked.map(c => c.dataset.filter);
-        let visible = 0;
-        document.querySelectorAll('.product-card').forEach(card => {
-          const show = types.includes(card.dataset.type);
-          card.style.display = show ? '' : 'none';
-          if (show) visible++;
-        });
-        document.getElementById('visible-count').textContent = visible + ' products';
-      }
-    });
-  });
-
-  function applyFilters() {
-    const activePill = document.querySelector('.pill.active')?.dataset.filter || 'all';
-    let visible = 0;
-    document.querySelectorAll('.product-card').forEach(card => {
-      const show = activePill === 'all' || card.dataset.type === activePill;
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-    document.getElementById('visible-count').textContent = visible + ' products';
-  }
-
-  // Filter clear
-  document.querySelector('.filter-clear')?.addEventListener('click', () => {
-    document.querySelectorAll('.filter-option[data-filter]').forEach(opt => {
-      opt.classList.remove('checked');
-      opt.querySelector('.filter-checkbox').textContent = '';
-    });
-    document.querySelector('.pill[data-filter="all"]').click();
-  });
 </script>
