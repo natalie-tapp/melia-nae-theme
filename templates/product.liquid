@@ -178,9 +178,25 @@
             {%- endif -%}
             {%- if metal != blank %}<li>Metal: {{ metal }}</li>{%- endif -%}
 
+            {%- comment -%}Stone type — from title{%- endcomment -%}
+            {%- assign stone = '' -%}
+            {%- if t contains 'Lab Grown Diamond' or t contains 'Lab-Grown Diamond' or t contains 'Lab Diamond' -%}{%- assign stone = 'Lab Grown Diamond' -%}
+            {%- elsif t contains 'Moissanite' -%}{%- assign stone = 'Moissanite' -%}
+            {%- elsif t contains 'Natural Diamond' -%}{%- assign stone = 'Natural Diamond' -%}
+            {%- elsif t contains 'Diamond' -%}{%- assign stone = 'Diamond' -%}
+            {%- elsif t contains 'Sapphire' -%}{%- assign stone = 'Sapphire' -%}
+            {%- elsif t contains 'Ruby' -%}{%- assign stone = 'Ruby' -%}
+            {%- elsif t contains 'Emerald' -%}{%- assign stone = 'Emerald' -%}
+            {%- elsif t contains 'Pearl' -%}{%- assign stone = 'Pearl' -%}
+            {%- elsif t contains 'Opal' -%}{%- assign stone = 'Opal' -%}
+            {%- elsif t contains 'Cubic Zirconia' or t contains 'CZ' -%}{%- assign stone = 'Cubic Zirconia' -%}
+            {%- endif -%}
+            {%- if stone != blank %}<li>Stone: {{ stone }}</li>{%- endif -%}
+
             {%- comment -%}Product type (if not generic){%- endcomment -%}
-            {%- unless product.type == blank or product.type == 'Fine Jewellery' or product.type == 'Jewellery' -%}
-              <li>Type: {{ product.type }}</li>
+            {%- assign type_display = product.type -%}
+            {%- unless type_display == blank or type_display == 'Fine Jewellery' or type_display == 'Jewellery' -%}
+              <li>Type: {{ type_display | capitalize }}</li>
             {%- endunless -%}
 
             {%- comment -%}Variant options (e.g. Size, Stone){%- endcomment -%}
