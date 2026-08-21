@@ -1,19 +1,11 @@
 <section class="hero">
   <div class="hero-bg"></div>
 
-  {%- if section.settings.video != blank -%}
-    <video class="hero-video"
-           autoplay muted loop playsinline
-           poster="{{ section.settings.image | img_url: '1400x' }}">
-      <source src="{{ section.settings.video }}" type="video/mp4" />
-    </video>
-    <div class="hero-video-overlay"></div>
-  {%- elsif section.settings.image != blank -%}
-    <img src="{{ section.settings.image | img_url: '1400x' }}"
-         alt="{{ section.settings.image.alt | default: shop.name }}"
-         class="hero-img-block"
-         loading="eager" />
-  {%- endif -%}
+  <video class="hero-video" autoplay muted loop playsinline
+         poster="{{ section.settings.image | img_url: '1400x' }}">
+    <source src="{{ 'hero-video.mp4' | asset_url }}" type="video/mp4" />
+  </video>
+  <div class="hero-video-overlay"></div>
 
   <div class="hero-content">
     {%- if section.settings.eyebrow != blank -%}
@@ -38,8 +30,7 @@
 {
   "name": "Hero",
   "settings": [
-    { "type": "text", "id": "video", "label": "Video URL (paste Shopify Files URL for hero-video.mp4)" },
-    { "type": "image_picker", "id": "image", "label": "Fallback Image (shown if no video)" },
+    { "type": "image_picker", "id": "image", "label": "Video Poster Image (shown while video loads)" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow Text", "default": "New Collection 2025" },
     { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Timeless<br />jewellery made<br />with <em>dedication</em><br />and love.</p>" },
     { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover our curated collection of fine jewellery — crafted for every moment that matters." },
