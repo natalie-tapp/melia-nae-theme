@@ -102,21 +102,23 @@
     .btn-dark:hover { background: var(--gold); }
     .btn-outline { display: inline-block; padding: 13px 40px; border: 1px solid var(--charcoal); color: var(--charcoal); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
     .btn-outline:hover { background: var(--charcoal); color: var(--white); }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 40px 20px; }
+      .page-wrap { padding: 40px 20px; }
+      .methods-grid { grid-template-columns: 1fr; }
+      .method-card { padding: 32px 24px; }
+      .calculator-section { grid-template-columns: 1fr; gap: 32px; padding: 36px 24px; }
+      .shapes-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .shape-card { padding: 20px 8px; }
+      .tips-grid { grid-template-columns: 1fr; gap: 16px; }
+      .tips-section { padding: 40px 24px; }
+      .cta-section { padding: 40px 24px; }
+      .table-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .size-table { min-width: 500px; }
+      .table-heading { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
 </style>
-
-<!-- Search overlay -->
-  <div class="search-overlay" id="search-overlay" onclick="closeSearchOutside(event)">
-    <div class="search-panel">
-    <div class="search-box">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--mid-grey);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="Search jewellery, collections..." onkeydown="handleSearchKey(event)" oninput="doSearch(this.value)" />
-      <button class="search-close" onclick="closeSearch()">✕</button>
-    </div>
-    <div class="search-results" id="search-results" style="display:none"></div>
-    </div>
-  </div>
-
-</div>
 
 <!-- HERO -->
 <div class="page-hero">

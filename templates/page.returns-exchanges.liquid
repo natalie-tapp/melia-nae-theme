@@ -1,87 +1,91 @@
 <style>
-
+  .page-hero { background: var(--blush); padding: 56px 40px; text-align: center; border-bottom: 1px solid var(--border); }
+  .page-hero p.eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; }
+  .page-hero h1 em { font-style: italic; }
+  .page-content { max-width: 800px; margin: 0 auto; padding: 64px 40px 80px; }
+  .page-content > p { font-size: 14px; color: var(--mid-grey); line-height: 1.9; margin-bottom: 16px; }
+  .page-content h2 { font-family: var(--font-serif); font-size: 24px; font-weight: 300; margin: 40px 0 16px; }
+  .page-content ol { padding-left: 20px; margin-bottom: 20px; }
+  .page-content ol li { font-size: 14px; color: var(--mid-grey); line-height: 1.9; margin-bottom: 8px; }
+  .policy-card { background: var(--white); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 4px; }
+  .policy-card h3 { font-family: var(--font-serif); font-size: 20px; font-weight: 400; margin-bottom: 12px; }
+  .policy-card ul { list-style: none; padding: 0; margin: 0; }
+  .policy-card ul li { font-size: 14px; color: var(--mid-grey); line-height: 1.9; padding: 6px 0 6px 20px; position: relative; border-bottom: 1px solid var(--blush); }
+  .policy-card ul li:last-child { border-bottom: none; }
+  .policy-card ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+  .highlight-box { background: var(--blush); padding: 24px 28px; margin: 32px 0; border-left: 3px solid var(--gold); }
+  .highlight-box p { margin: 0; color: var(--charcoal); font-size: 14px; line-height: 1.8; }
+  .contact-cta { background: var(--charcoal); color: var(--white); padding: 48px 40px; text-align: center; margin-top: 64px; }
+  .contact-cta h3 { font-family: var(--font-serif); font-size: 32px; font-weight: 300; margin-bottom: 12px; }
+  .contact-cta p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
+  .contact-cta a { display: inline-block; padding: 13px 40px; border: 1px solid var(--white); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
+  .contact-cta a:hover { background: var(--white); color: var(--charcoal); }
+  @media (max-width: 768px) {
+    .page-hero { padding: 40px 20px; }
+    .page-content { padding: 40px 20px 60px; }
+    .policy-card { padding: 20px; }
+    .contact-cta { padding: 40px 20px; }
+  }
 </style>
 
-<!-- Search overlay -->
-  <div class="search-overlay" id="search-overlay" onclick="closeSearchOutside(event)">
-    <div class="search-panel">
-    <div class="search-box">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--mid-grey);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="Search jewellery, collections..." onkeydown="handleSearchKey(event)" oninput="doSearch(this.value)" />
-      <button class="search-close" onclick="closeSearch()">✕</button>
-    </div>
-    <div class="search-results" id="search-results" style="display:none"></div>
-    </div>
-  </div>
-
-</div>
-
-<!-- PAGE HERO -->
 <div class="page-hero">
-  <p>Melia Nae</p>
+  <p class="eyebrow">Melia Nae</p>
   <h1>Returns &amp; <em>Exchanges</em></h1>
 </div>
 
-<!-- CONTENT -->
 <div class="page-content">
-
-  <p>At Melia Nae, we want every customer to feel truly valued, and we strive to offer exceptional quality and service. We understand that sometimes purchases may not meet your expectations, and we're here to make things right.</p>
+  <p>At Melia Nae, we want every customer to feel truly valued. We understand that sometimes purchases may not meet your expectations, and we're here to make things right.</p>
 
   <div class="highlight-box">
     <p>⏱ All exchange requests must be made within <strong>14 days</strong> from the date of purchase. Items must be returned in new, unworn condition with all tags, packaging, and receipts intact.</p>
   </div>
 
   <div class="policy-card">
-    <h3><span>↔</span> Exchanges</h3>
+    <h3>↔ Exchanges</h3>
     <ul>
       <li>We offer exchanges within 14 days from the date of purchase.</li>
-      <li>Exchanges can be made for products of the same price or greater. If exchanging for a higher-priced item, the customer will be required to pay the difference.</li>
-      <li>All exchanges must be made at the original store where the purchase was made. If the purchase was made online or through a different retail partner, please contact us for further instructions.</li>
+      <li>Exchanges can be made for products of the same price or greater. If exchanging for a higher-priced item, you will be required to pay the difference.</li>
+      <li>All exchanges must be made at the original store where the purchase was made. If purchased online, contact us for instructions.</li>
       <li>Items must be returned in new, unworn condition with all tags, packaging, and receipts intact.</li>
-      <li>If an exchange is not possible, we can issue a credit note for the value of the item, which can be used for future purchases.</li>
+      <li>If an exchange is not possible, we can issue a credit note for future purchases.</li>
     </ul>
   </div>
 
   <div class="policy-card">
-    <h3><span>↩</span> Refunds</h3>
+    <h3>↩ Refunds</h3>
     <ul>
       <li>We do not offer refunds for change of mind or incorrect purchases.</li>
       <li>Refunds will only be issued if the product is faulty or has a defect that affects its use.</li>
-      <li>If the product is faulty, it must be returned to the original store where the purchase was made for inspection and processing. You must provide proof of purchase (e.g., receipt or order confirmation).</li>
+      <li>Faulty items must be returned to the original store with proof of purchase for inspection and processing.</li>
     </ul>
   </div>
 
   <div class="policy-card">
-    <h3><span>✕</span> Non-Refundable / Non-Exchangeable Items</h3>
+    <h3>✕ Non-Refundable / Non-Exchangeable Items</h3>
     <ul>
-      <li>For hygiene reasons, earrings and personalised/custom jewellery are non-refundable and non-exchangeable unless they are faulty.</li>
+      <li>For hygiene reasons, earrings and personalised/custom jewellery are non-refundable and non-exchangeable unless faulty.</li>
       <li>Items purchased on sale or with a discount are final sale and cannot be returned or exchanged unless faulty.</li>
     </ul>
   </div>
 
   <div class="policy-card">
-    <h3><span>✈</span> Shipping Costs for Returns</h3>
+    <h3>✈ Shipping Costs for Returns</h3>
     <ul>
-      <li>Customers are responsible for any return shipping costs unless the item is deemed faulty or damaged.</li>
+      <li>Customers are responsible for return shipping costs unless the item is faulty or damaged.</li>
     </ul>
   </div>
 
   <h2>How to Request an Exchange or Refund</h2>
   <ol>
-    <li>Contact our customer service team at <a href="mailto:melianae@outlook.com" style="color:var(--gold);border-bottom:1px solid var(--gold);">melianae@outlook.com</a> with your order details and reason for the exchange or refund request.</li>
-    <li>If the item is eligible for an exchange or refund, we will provide instructions for returning the product to the original store.</li>
+    <li>Email us at <a href="mailto:melianae@outlook.com" style="color:var(--gold);border-bottom:1px solid var(--gold);">melianae@outlook.com</a> with your order details and reason for the request.</li>
+    <li>If eligible, we'll provide instructions for returning the item.</li>
+    <li>Exchanges, refunds, or credit notes are processed within <strong>5–7 business days</strong> of receiving the return.</li>
   </ol>
-
-  <h2>Processing Time</h2>
-  <p>We aim to process exchanges, refunds, or credit notes within <strong>5–7 business days</strong> after receiving the returned item.</p>
-
-  <p>We truly appreciate your business and are here to help make your shopping experience with Melia Nae as smooth and enjoyable as possible.</p>
-
 </div>
 
-<!-- CONTACT CTA -->
 <div class="contact-cta">
   <h3>Still Have Questions?</h3>
   <p>Our team is happy to help with any queries about your order.</p>
-  <a href="mailto:melianae@outlook.com">Contact Us</a>
+  <a href="/pages/contact">Contact Us</a>
 </div>
