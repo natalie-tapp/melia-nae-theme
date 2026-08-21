@@ -1,11 +1,12 @@
 <section class="hero">
   <div class="hero-bg"></div>
 
-  <video class="hero-video" autoplay muted loop playsinline
-         poster="{{ section.settings.image | img_url: '1400x' }}">
-    <source src="{{ 'hero-video.mp4' | asset_url }}" type="video/mp4" />
-  </video>
-  <div class="hero-video-overlay"></div>
+  {%- if section.settings.image != blank -%}
+    <img src="{{ section.settings.image | img_url: '1400x' }}"
+         alt="{{ section.settings.image.alt | default: shop.name }}"
+         class="hero-img-block"
+         loading="eager" />
+  {%- endif -%}
 
   <div class="hero-content">
     {%- if section.settings.eyebrow != blank -%}
