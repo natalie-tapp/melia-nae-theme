@@ -1,0 +1,45 @@
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-image-placeholder">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | img_url: '1200x' }}"
+           alt="{{ section.settings.image.alt | default: shop.name }}"
+           class="hero-img-block"
+           loading="eager" />
+    {%- endif -%}
+  </div>
+  <div class="hero-content">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="hero-eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    <h1 class="hero-title">{{ section.settings.heading }}</h1>
+    {%- if section.settings.subheading != blank -%}
+      <p class="hero-subtitle">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    <div class="hero-actions">
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="btn-primary">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.button2_label != blank -%}
+        <a href="{{ section.settings.button2_link }}" class="btn-outline">{{ section.settings.button2_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow Text", "default": "New Collection 2025" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<p>Timeless<br />jewellery made<br />with <em>dedication</em><br />and love.</p>" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover our curated collection of fine jewellery — crafted for every moment that matters." },
+    { "type": "text", "id": "button_label", "label": "Primary Button", "default": "Shop the Collection" },
+    { "type": "url", "id": "button_link", "label": "Primary Button Link" },
+    { "type": "text", "id": "button2_label", "label": "Secondary Button", "default": "Ring Builder" },
+    { "type": "url", "id": "button2_link", "label": "Secondary Button Link" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

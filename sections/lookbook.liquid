@@ -1,0 +1,47 @@
+<section class="lookbook">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    </div>
+  </div>
+  <div class="lookbook-grid">
+    {%- for block in section.blocks -%}
+      <div class="lookbook-item" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <img src="{{ block.settings.image | img_url: '500x500', crop: 'center' }}"
+               alt="{{ block.settings.image.alt | default: shop.name }}"
+               class="lookbook-item-bg"
+               loading="lazy" />
+        {%- endif -%}
+        <div class="lookbook-item-overlay"></div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "@melianae" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Browse the Lookbook" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Lookbook",
+    "blocks": [
+      { "type": "image" }, { "type": "image" }, { "type": "image" },
+      { "type": "image" }, { "type": "image" }, { "type": "image" }
+    ]
+  }]
+}
+{% endschema %}

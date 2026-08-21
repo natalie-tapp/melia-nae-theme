@@ -1,0 +1,210 @@
+<!-- COLLECTION HERO -->
+<div class="collection-hero">
+  <p>Melia Nae</p>
+  <h1>{{ collection.title | replace: 'All', '<em>All</em>' }}</h1>
+  <span id="product-count">{{ collection.products_count }} Products</span>
+</div>
+
+<!-- CATEGORY PILLS -->
+<div class="category-pills">
+  <div class="pills-inner">
+    <div class="pill active" data-filter="all">
+      <div class="pill-img">✦</div>
+      All
+    </div>
+    <div class="pill" data-filter="earrings"><div class="pill-img">◇</div>Earrings</div>
+    <div class="pill" data-filter="necklaces"><div class="pill-img">○</div>Necklaces</div>
+    <div class="pill" data-filter="rings"><div class="pill-img">◎</div>Rings</div>
+    <div class="pill" data-filter="bracelets"><div class="pill-img">∞</div>Bracelets</div>
+    <div class="pill" data-filter="pendants"><div class="pill-img">◈</div>Pendants</div>
+    <div class="pill" data-filter="bangles"><div class="pill-img">⬡</div>Bangles</div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="collection-layout">
+
+  <!-- FILTER SIDEBAR -->
+  <aside class="filter-sidebar">
+    <div class="filter-header">
+      <h3>Filter</h3>
+      <span class="filter-clear">Clear all</span>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-header"><h4>Availability</h4><span>−</span></div>
+      <div class="filter-option checked">
+        <div class="filter-checkbox">✓</div>
+        <label>In Stock</label>
+        <span class="filter-option-count">({{ collection.products_count }})</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-header"><h4>Price</h4><span>−</span></div>
+      <div class="price-inputs">
+        <div class="price-input-wrap"><span>$</span><input type="number" class="price-input" placeholder="Min" /></div>
+        <div class="price-input-wrap"><span>$</span><input type="number" class="price-input" placeholder="Max" /></div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-header"><h4>Metal</h4><span>−</span></div>
+      <div class="metal-swatches">
+        <div class="metal-swatch active">Gold</div>
+        <div class="metal-swatch">Rose Gold</div>
+        <div class="metal-swatch">Silver</div>
+        <div class="metal-swatch">Moissanite</div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-header"><h4>Category</h4><span>+</span></div>
+      <div class="filter-option" data-filter="earrings"><div class="filter-checkbox"></div><label>Earrings</label></div>
+      <div class="filter-option" data-filter="necklaces"><div class="filter-checkbox"></div><label>Necklaces</label></div>
+      <div class="filter-option" data-filter="rings"><div class="filter-checkbox"></div><label>Rings</label></div>
+      <div class="filter-option" data-filter="bracelets"><div class="filter-checkbox"></div><label>Bracelets</label></div>
+      <div class="filter-option" data-filter="pendants"><div class="filter-checkbox"></div><label>Pendants</label></div>
+      <div class="filter-option" data-filter="bangles"><div class="filter-checkbox"></div><label>Bangles</label></div>
+    </div>
+  </aside>
+
+  <!-- PRODUCTS AREA -->
+  <div class="products-area">
+    <div class="products-toolbar">
+      <span class="products-count" id="visible-count">{{ collection.products_count }} products</span>
+      <div class="products-sort">
+        <label for="sort">Sort by</label>
+        <select id="sort" class="sort-select" onchange="location.href='?sort_by='+this.value">
+          <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+          <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest First</option>
+          <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+          <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+          <option value="title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>A–Z</option>
+        </select>
+        <div class="view-toggle">
+          <div class="view-btn active" title="Grid">⊞</div>
+          <div class="view-btn" title="List">☰</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="collection-product-grid" id="product-grid">
+      {%- for product in collection.products -%}
+        {%- assign type_lower = product.type | downcase -%}
+        {%- if type_lower contains 'permanent' -%}{%- continue -%}{%- endif -%}
+        {%- if type_lower contains 'earring' -%}{%- assign filter_key = 'earrings' -%}
+        {%- elsif type_lower contains 'necklace' -%}{%- assign filter_key = 'necklaces' -%}
+        {%- elsif type_lower contains 'ring' -%}{%- assign filter_key = 'rings' -%}
+        {%- elsif type_lower contains 'bracelet' -%}{%- assign filter_key = 'bracelets' -%}
+        {%- elsif type_lower contains 'pendant' -%}{%- assign filter_key = 'pendants' -%}
+        {%- elsif type_lower contains 'bangle' -%}{%- assign filter_key = 'bangles' -%}
+        {%- else -%}{%- assign filter_key = 'other' -%}
+        {%- endif -%}
+
+        <a href="{{ product.url }}" class="product-card" data-type="{{ filter_key }}">
+          <div class="product-card-image">
+            {%- if product.featured_image -%}
+              <img src="{{ product.featured_image | img_url: '600x800' }}"
+                   alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                   class="product-card-image-bg"
+                   loading="lazy" />
+            {%- else -%}
+              <div class="product-card-image-bg" style="background:var(--blush)"></div>
+            {%- endif -%}
+            <div class="product-wishlist">♡</div>
+            <div class="product-quick-add">Quick Add</div>
+            {%- if product.available == false -%}
+              <div class="product-badge">Sold Out</div>
+            {%- elsif product.tags contains 'new' -%}
+              <div class="product-badge">New</div>
+            {%- elsif product.compare_at_price > product.price -%}
+              <div class="product-badge sale">Sale</div>
+            {%- endif -%}
+          </div>
+          <p class="product-card-brand">{{ shop.name }}</p>
+          <h3 class="product-card-name">{{ product.title }}</h3>
+          <p class="product-card-price">
+            {%- if product.compare_at_price > product.price -%}
+              <span class="price-original">{{ product.compare_at_price | money }}</span>
+              <span class="price-sale">{{ product.price | money }}</span>
+            {%- else -%}
+              {{ product.price | money }}
+            {%- endif -%}
+          </p>
+        </a>
+      {%- endfor -%}
+    </div>
+
+    <!-- Pagination -->
+    {%- if paginate.pages > 1 -%}
+    <div class="pagination">
+      {%- if paginate.previous -%}
+        <a href="{{ paginate.previous.url }}" class="page-btn prev-next">← Prev</a>
+      {%- endif -%}
+      {%- for part in paginate.parts -%}
+        {%- if part.is_link -%}
+          <a href="{{ part.url }}" class="page-btn">{{ part.title }}</a>
+        {%- else -%}
+          <span class="page-btn active">{{ part.title }}</span>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if paginate.next -%}
+        <a href="{{ paginate.next.url }}" class="page-btn prev-next">Next →</a>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  // Category pill filtering
+  document.querySelectorAll('.pill[data-filter]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const filter = pill.dataset.filter;
+      let visible = 0;
+      document.querySelectorAll('.product-card').forEach(card => {
+        const show = filter === 'all' || card.dataset.type === filter;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      document.getElementById('visible-count').textContent = visible + ' products';
+    });
+  });
+
+  // Sidebar category checkboxes
+  document.querySelectorAll('.filter-option[data-filter]').forEach(opt => {
+    opt.addEventListener('click', () => {
+      opt.classList.toggle('checked');
+      opt.querySelector('.filter-checkbox').textContent = opt.classList.contains('checked') ? '✓' : '';
+      const checked = [...document.querySelectorAll('.filter-option[data-filter].checked')];
+      if (!checked.length) {
+        document.querySelector('.pill[data-filter="all"]').click();
+      } else {
+        const types = checked.map(c => c.dataset.filter);
+        let visible = 0;
+        document.querySelectorAll('.product-card').forEach(card => {
+          const show = types.includes(card.dataset.type);
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        document.getElementById('visible-count').textContent = visible + ' products';
+      }
+    });
+  });
+
+  // Metal swatches
+  document.querySelectorAll('.metal-swatch').forEach(s => s.addEventListener('click', () => s.classList.toggle('active')));
+
+  // Filter clear
+  document.querySelector('.filter-clear')?.addEventListener('click', () => {
+    document.querySelectorAll('.filter-option[data-filter]').forEach(opt => {
+      opt.classList.remove('checked');
+      opt.querySelector('.filter-checkbox').textContent = '';
+    });
+    document.querySelector('.pill[data-filter="all"]').click();
+  });
+</script>

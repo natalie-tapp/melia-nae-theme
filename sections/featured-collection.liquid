@@ -1,0 +1,48 @@
+{%- assign featured = section.settings.collection | handle -%}
+{%- assign col = collections[featured] -%}
+
+<section class="featured">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+    <div class="product-grid">
+      {%- if col != blank -%}
+        {%- for product in col.products limit: section.settings.products_to_show -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for product in collections.all.products limit: section.settings.products_to_show -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    {%- if section.settings.button_label != blank -%}
+      <div class="section-cta">
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn-outline">
+          {{ section.settings.button_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Most Loved" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Our Favourites" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Explore our most-loved pieces, crafted with care and built to last." },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "min": 4, "max": 12, "step": 4, "label": "Products to show", "default": 8 },
+    { "type": "text", "id": "button_label", "label": "Button Label", "default": "View All Jewellery" },
+    { "type": "url", "id": "button_link", "label": "Button Link" }
+  ],
+  "presets": [{ "name": "Featured Collection" }]
+}
+{% endschema %}

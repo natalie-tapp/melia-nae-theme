@@ -1,0 +1,35 @@
+<a href="{{ product.url }}" class="product-card">
+  <div class="product-card-image">
+    {%- if product.featured_image != blank -%}
+      <img src="{{ product.featured_image | img_url: '600x800' }}"
+           alt="{{ product.featured_image.alt | default: product.title | escape }}"
+           class="product-card-image-bg"
+           loading="lazy"
+           width="600"
+           height="800" />
+    {%- else -%}
+      <div class="product-card-image-bg" style="background: var(--blush);"></div>
+    {%- endif -%}
+    <div class="product-wishlist">♡</div>
+    <div class="product-quick-add">Quick Add</div>
+    {%- if product.available == false -%}
+      <div class="product-badge">Sold Out</div>
+    {%- elsif product.tags contains 'new' or product.tags contains 'New' -%}
+      <div class="product-badge">New</div>
+    {%- elsif product.tags contains 'best-seller' or product.tags contains 'bestseller' -%}
+      <div class="product-badge">Best Seller</div>
+    {%- elsif product.compare_at_price > product.price -%}
+      <div class="product-badge sale">Sale</div>
+    {%- endif -%}
+  </div>
+  <p class="product-card-brand">{{ shop.name }}</p>
+  <h3 class="product-card-name">{{ product.title }}</h3>
+  <p class="product-card-price">
+    {%- if product.compare_at_price > product.price -%}
+      <span class="price-original">{{ product.compare_at_price | money }}</span>
+      <span class="price-sale">{{ product.price | money }}</span>
+    {%- else -%}
+      {{ product.price | money }}
+    {%- endif -%}
+  </p>
+</a>

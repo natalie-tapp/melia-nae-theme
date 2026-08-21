@@ -1,0 +1,99 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "New Collection 2025",
+        "heading": "<p>Timeless<br />jewellery made<br />with <em>dedication</em><br />and love.</p>",
+        "subheading": "Discover our curated collection of fine jewellery — crafted for every moment that matters.",
+        "button_label": "Shop the Collection",
+        "button_link": "/collections/all",
+        "button2_label": "Ring Builder",
+        "button2_link": "/pages/ring-builder"
+      }
+    },
+    "trust-bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "trust1": { "type": "item", "settings": { "icon": "✈", "title": "Fast Worldwide Shipping", "text": "Free on orders over $150" } },
+        "trust2": { "type": "item", "settings": { "icon": "♻", "title": "Ethically Sourced", "text": "Lab-grown & conflict-free stones" } },
+        "trust3": { "type": "item", "settings": { "icon": "↩", "title": "Easy Returns", "text": "30-day hassle-free returns" } },
+        "trust4": { "type": "item", "settings": { "icon": "✦", "title": "Afterpay Available", "text": "Buy now, pay in 4 instalments" } }
+      },
+      "block_order": ["trust1", "trust2", "trust3", "trust4"]
+    },
+    "category-tiles": {
+      "type": "category-tiles",
+      "settings": {
+        "eyebrow": "Browse by Category",
+        "title": "Shop Our Collections"
+      },
+      "blocks": {
+        "tile1": { "type": "tile", "settings": { "label": "Earrings", "sublabel": "Studs, hoops & drops", "link": "/collections/earrings" } },
+        "tile2": { "type": "tile", "settings": { "label": "Necklaces", "sublabel": "Pendants & chains", "link": "/collections/necklaces" } },
+        "tile3": { "type": "tile", "settings": { "label": "Rings", "sublabel": "Including custom builder", "link": "/collections/rings" } },
+        "tile4": { "type": "tile", "settings": { "label": "Bracelets", "sublabel": "Bangles & tennis", "link": "/collections/bracelets" } },
+        "tile5": { "type": "tile", "settings": { "label": "Bridal", "sublabel": "For your special day", "link": "/collections/bridal" } }
+      },
+      "block_order": ["tile1", "tile2", "tile3", "tile4", "tile5"]
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Most Loved",
+        "title": "Our Favourites",
+        "subtitle": "Explore our most-loved pieces, crafted with care and built to last.",
+        "products_to_show": 8,
+        "button_label": "View All Jewellery",
+        "button_link": "/collections/all"
+      }
+    },
+    "banner-split": {
+      "type": "banner-split",
+      "blocks": {
+        "panel1": { "type": "panel", "settings": { "heading": "Customise Your Piece", "text": "Our customisable jewellery collection", "button_label": "View Gallery →", "link": "/pages/customs-gallery" } },
+        "panel2": { "type": "panel", "settings": { "heading": "Create Your Dream Ring", "text": "Built for a lifetime — speak with our team", "button_label": "Our Services →", "link": "/pages/services" } }
+      },
+      "block_order": ["panel1", "panel2"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "Customer Love",
+        "title": "What Our Customers Say"
+      },
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "text": "\"Absolutely love my new necklace from Melia Nae! The quality is amazing, and it adds such a beautiful touch to any outfit.\"", "author": "Sophia W." } },
+        "t2": { "type": "testimonial", "settings": { "text": "\"The earrings I purchased are stunning! The detail is so intricate, and they arrived beautifully packaged. Very happy.\"", "author": "Isabella M." } },
+        "t3": { "type": "testimonial", "settings": { "text": "\"Great experience shopping with Melia Nae. The ring I ordered was even more beautiful in person, and the customer service was top-notch.\"", "author": "David T." } }
+      },
+      "block_order": ["t1", "t2", "t3"]
+    },
+    "lookbook": {
+      "type": "lookbook",
+      "settings": {
+        "eyebrow": "@melianae",
+        "title": "Browse the Lookbook"
+      },
+      "blocks": {
+        "lb1": { "type": "image" },
+        "lb2": { "type": "image" },
+        "lb3": { "type": "image" },
+        "lb4": { "type": "image" },
+        "lb5": { "type": "image" },
+        "lb6": { "type": "image" }
+      },
+      "block_order": ["lb1", "lb2", "lb3", "lb4", "lb5", "lb6"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join the Melia Nae Family",
+        "subheading": "Sign up for exclusive offers, new arrivals, and jewellery inspiration. Get 10% off your first order.",
+        "button_label": "Subscribe",
+        "disclaimer": "By subscribing you agree to our privacy policy. Unsubscribe any time."
+      }
+    }
+  },
+  "order": ["hero", "trust-bar", "category-tiles", "featured-collection", "banner-split", "testimonials", "lookbook", "newsletter"]
+}

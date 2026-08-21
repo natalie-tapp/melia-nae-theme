@@ -1,0 +1,49 @@
+<div class="banner-split">
+  {%- for block in section.blocks -%}
+    <a href="{{ block.settings.link }}" class="banner-panel" {{ block.shopify_attributes }}>
+      {%- if block.settings.image != blank -%}
+        <img src="{{ block.settings.image | img_url: '900x' }}"
+             alt="{{ block.settings.heading }}"
+             class="banner-panel-bg"
+             loading="lazy" />
+      {%- endif -%}
+      <div class="banner-panel-overlay"></div>
+      <div class="banner-panel-content">
+        <h3>{{ block.settings.heading }}</h3>
+        {%- if block.settings.text != blank -%}
+          <p>{{ block.settings.text }}</p>
+        {%- endif -%}
+        {%- if block.settings.button_label != blank -%}
+          <span class="banner-panel-link">{{ block.settings.button_label }}</span>
+        {%- endif -%}
+      </div>
+    </a>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Banner Split",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Panel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Customise Your Piece" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Our customisable jewellery collection" },
+        { "type": "text", "id": "button_label", "label": "Button Label", "default": "View Gallery →" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Banner Split",
+    "blocks": [
+      { "type": "panel", "settings": { "heading": "Customise Your Piece", "text": "Our customisable jewellery collection", "button_label": "View Gallery →" } },
+      { "type": "panel", "settings": { "heading": "Create Your Dream Ring", "text": "Built for a lifetime — speak with our team", "button_label": "Our Services →" } }
+    ]
+  }]
+}
+{% endschema %}

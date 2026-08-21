@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    {%- if page_title == blank -%}
+      {{ shop.name }}
+    {%- else -%}
+      {{ page_title }} — {{ shop.name }}
+    {%- endif -%}
+  </title>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}" />
+  {%- endif -%}
+
+  {{ content_for_header }}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+
+<div class="site-top">
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <span>Free Shipping on Orders Over $150 AUD</span>
+    <span class="divider">|</span>
+    <span>Afterpay &amp; Zip Available</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <nav>
+        <ul class="header-nav">
+          <li>
+            <a href="{{ routes.all_products_collection_url }}">Shop All</a>
+          </li>
+          <li>
+            <a href="{{ routes.all_products_collection_url }}">Jewellery ▾</a>
+            <div class="mega-menu">
+              <div>
+                <h4>Collections</h4>
+                <ul>
+                  <li><a href="/collections/earrings">Earrings</a></li>
+                  <li><a href="/collections/necklaces">Necklaces</a></li>
+                  <li><a href="/collections/rings">Rings</a></li>
+                  <li><a href="/collections/bracelets">Bracelets &amp; Bangles</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4>Speciality</h4>
+                <ul>
+                  <li><a href="/collections/moissanite">Moissanite</a></li>
+                  <li><a href="/collections/bridal">Bridal Collection</a></li>
+                  <li><a href="/collections/evil-eye">Evil Eye</a></li>
+                  <li><a href="/collections/engravable">Engravable</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="{{ routes.all_products_collection_url }}">Collections ▾</a>
+            <div class="mega-menu">
+              <div>
+                <h4>Shop By</h4>
+                <ul>
+                  <li><a href="/collections/best-sellers">Best Sellers</a></li>
+                  <li><a href="/collections/new-arrivals">New Arrivals</a></li>
+                  <li><a href="/collections/diamonds">Diamonds</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4>Gifting</h4>
+                <ul>
+                  <li><a href="/collections/gift-sets">Gift Sets</a></li>
+                  <li><a href="/collections/under-200">Under $200</a></li>
+                  <li><a href="/collections/under-350">Under $350</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li><a href="/pages/services">Services</a></li>
+          <li><a href="/pages/customs-gallery">Customs Gallery</a></li>
+        </ul>
+      </nav>
+
+      <div class="logo">
+        <a href="{{ routes.root_url }}">
+          <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" width="240" height="auto" />
+        </a>
+      </div>
+
+      <div class="header-actions">
+        <a href="{{ routes.search_url }}">Search</a>
+        <a href="{{ routes.account_url }}">Account</a>
+        <a href="{{ routes.cart_url }}" class="cart-icon">
+          Bag <span class="cart-count">{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+</div><!-- /.site-top -->
+
+<main>
+  {{ content_for_layout }}
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" class="footer-logo" />
+      <p>A jewellery brand founded on a strong maternal bond and a vision of providing excellent customer experiences while offering an extensive selection of alluring and modern jewellery.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/melianae/" aria-label="Instagram" target="_blank" rel="noopener">IG</a>
+        <a href="https://www.facebook.com/melianae/" aria-label="Facebook" target="_blank" rel="noopener">FB</a>
+        <a href="https://www.tiktok.com/@melianae" aria-label="TikTok" target="_blank" rel="noopener">TT</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="{{ routes.all_products_collection_url }}">Shop All</a></li>
+        <li><a href="/collections/earrings">Earrings</a></li>
+        <li><a href="/collections/necklaces">Necklaces</a></li>
+        <li><a href="/collections/rings">Rings</a></li>
+        <li><a href="/collections/bracelets">Bracelets</a></li>
+        <li><a href="/collections/bridal">Bridal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/pages/contact">Contact Us</a></li>
+        <li><a href="/pages/faq">FAQs</a></li>
+        <li><a href="/pages/ring-sizer">Ring Sizer</a></li>
+        <li><a href="/policies/refund-policy">Returns &amp; Exchanges</a></li>
+        <li><a href="/policies/shipping-policy">Shipping Info</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/pages/about">About Us</a></li>
+        <li><a href="/pages/stores">Store Locations</a></li>
+        <li><a href="/pages/ambassador-program">Ambassador Program</a></li>
+        <li><a href="/blogs/news">Blog</a></li>
+        <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <div class="footer-payments">
+      <span class="payment-icon">VISA</span>
+      <span class="payment-icon">MC</span>
+      <span class="payment-icon">AMEX</span>
+      <span class="payment-icon">PAYPAL</span>
+      <span class="payment-icon">AFTERPAY</span>
+      <span class="payment-icon">APPLEPAY</span>
+    </div>
+  </div>
+</footer>
+
+{{ 'theme.js' | asset_url | script_tag }}
+
+</body>
+</html>

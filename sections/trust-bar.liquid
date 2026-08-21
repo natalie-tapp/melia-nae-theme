@@ -1,0 +1,38 @@
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        <div class="trust-item-icon">{{ block.settings.icon }}</div>
+        <div class="trust-item-title">{{ block.settings.title }}</div>
+        <div class="trust-item-text">{{ block.settings.text }}</div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust Item",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "✦" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Fast Worldwide Shipping" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free on orders over $150" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Trust Bar",
+    "blocks": [
+      { "type": "item", "settings": { "icon": "✈", "title": "Fast Worldwide Shipping", "text": "Free on orders over $150" } },
+      { "type": "item", "settings": { "icon": "♻", "title": "Ethically Sourced", "text": "Lab-grown & conflict-free stones" } },
+      { "type": "item", "settings": { "icon": "↩", "title": "Easy Returns", "text": "30-day hassle-free returns" } },
+      { "type": "item", "settings": { "icon": "✦", "title": "Afterpay Available", "text": "Buy now, pay in 4 instalments" } }
+    ]
+  }]
+}
+{% endschema %}

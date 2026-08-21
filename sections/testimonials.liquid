@@ -1,0 +1,45 @@
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    </div>
+    <div class="testimonials-grid">
+      {%- for block in section.blocks -%}
+        <div class="testimonial-card" {{ block.shopify_attributes }}>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">{{ block.settings.text }}</p>
+          <p class="testimonial-author">— {{ block.settings.author }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer Love" },
+    { "type": "text", "id": "title", "label": "Title", "default": "What Our Customers Say" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "text", "label": "Quote" },
+        { "type": "text", "id": "author", "label": "Author" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Testimonials",
+    "blocks": [
+      { "type": "testimonial", "settings": { "text": "\"Absolutely love my new necklace from Melia Nae! The quality is amazing, and it adds such a beautiful touch to any outfit.\"", "author": "Sophia W." } },
+      { "type": "testimonial", "settings": { "text": "\"The earrings I purchased are stunning! The detail is so intricate, and they arrived beautifully packaged. Very happy.\"", "author": "Isabella M." } },
+      { "type": "testimonial", "settings": { "text": "\"Great experience shopping with Melia Nae. The ring I ordered was even more beautiful in person, and the customer service was top-notch.\"", "author": "David T." } }
+    ]
+  }]
+}
+{% endschema %}

@@ -1,0 +1,878 @@
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF8F5;
+      --blush: #F2EBE2;
+      --warm-nude: #E8DDD2;
+      --gold: #9C8060;
+      --gold-light: #C4A882;
+      --charcoal: #1C1C1A;
+      --mid-grey: #6B6B68;
+      --light-grey: #A8A8A5;
+      --border: #E0D9D0;
+      --white: #FFFFFF;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Jost', system-ui, sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--charcoal); font-family: var(--font-sans); font-weight: 300; line-height: 1.6; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    .announcement-bar {
+      background: var(--charcoal);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .announcement-bar span { opacity: 0.9; }
+    .announcement-bar .divider { opacity: 0.3; }
+
+    /* ─── STICKY TOP ─── */
+    .site-top { position: sticky; top: 0; z-index: 100; }
+
+    /* ─── HEADER ─── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 100px;
+    }
+    .header-nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .header-nav > li > a {
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--charcoal);
+      padding: 8px 0;
+      display: block;
+      transition: color 0.2s;
+    }
+    .header-nav > li > a:hover,
+    .header-nav > li > a.active { color: var(--gold); }
+    .logo { text-align: center; }
+    .logo a { display: inline-block; }
+    .logo a img { width: 240px; height: auto; display: block; }
+    .header-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .header-actions a {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .header-actions a:hover { color: var(--gold); }
+    .cart-count {
+      background: var(--charcoal);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 4px;
+      letter-spacing: 0;
+    }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      background: var(--blush);
+      padding: 80px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '✦';
+      position: absolute;
+      top: -20px;
+      
+      
+      font-size: 300px;
+      color: rgba(156,128,96,0.06);
+      pointer-events: none;
+      line-height: 1;
+    }
+    .page-hero p {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .page-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero .subtitle {
+      font-size: 15px;
+      color: var(--mid-grey);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ─── SERVICES GRID ─── */
+    .services-section {
+      padding: 80px 0;
+    }
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    /* ─── SERVICE CARD ─── */
+    .service-card {
+      background: var(--white);
+      padding: 56px 44px;
+      border: 1px solid var(--border);
+      margin: -1px 0 0 -1px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+    .service-card:hover {
+      box-shadow: 0 8px 40px rgba(28,28,26,0.08);
+      z-index: 1;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height 0.35s ease;
+    }
+    .service-card:hover::before { height: 100%; }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 28px;
+      color: var(--gold);
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .service-card:hover .service-icon {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+    .service-number {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--light-grey);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .service-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--charcoal);
+    }
+    .service-title em { font-style: italic; }
+    .service-desc {
+      font-size: 13px;
+      color: var(--mid-grey);
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--charcoal);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .service-link:hover { border-color: var(--gold); color: var(--gold); }
+    .service-link span { transition: transform 0.2s; }
+    .service-link:hover span { transform: translateX(4px); }
+
+    /* Wide card spanning full width */
+    .service-card.wide {
+      grid-column: span 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 64px 56px;
+    }
+    .service-card.wide .service-content {}
+    .service-card.wide .service-visual {
+      background: linear-gradient(135deg, #EDE4DC 0%, #D8CCBE 50%, #C4B4A0 100%);
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      color: rgba(156,128,96,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card.wide .service-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(28,28,26,0.05) 100%);
+    }
+
+    /* ─── PROCESS STRIP ─── */
+    .process-strip {
+      background: var(--charcoal);
+      padding: 64px 0;
+    }
+    .process-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .process-heading {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .process-heading p {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .process-heading h2 {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--white);
+    }
+    .process-heading h2 em { font-style: italic; }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+    .process-step {
+      text-align: center;
+      padding: 0 24px;
+      position: relative;
+    }
+    .step-number {
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--gold-light);
+      margin: 0 auto 20px;
+      background: var(--charcoal);
+      position: relative;
+      z-index: 1;
+    }
+    .step-title {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .step-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+    }
+
+    /* ─── FAQ ─── */
+    .faq-section {
+      padding: 80px 0;
+      background: var(--blush);
+    }
+    .faq-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .faq-heading {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .faq-heading p {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .faq-heading h2 {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 300;
+    }
+    .faq-heading h2 em { font-style: italic; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      cursor: pointer;
+    }
+    .faq-question h4 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--charcoal);
+    }
+    .faq-toggle {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--mid-grey);
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .faq-item.open .faq-toggle {
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+      color: white;
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      display: none;
+      padding-bottom: 20px;
+      font-size: 13px;
+      color: var(--mid-grey);
+      line-height: 1.9;
+    }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ─── CTA ─── */
+    .services-cta {
+      padding: 80px 40px;
+      background: var(--cream);
+      text-align: center;
+    }
+    .services-cta h2 {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .services-cta h2 em { font-style: italic; color: var(--gold); }
+    .services-cta p {
+      font-size: 14px;
+      color: var(--mid-grey);
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.8;
+    }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 40px;
+      background: var(--charcoal);
+      color: var(--white);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold); }
+    .btn-outline {
+      display: inline-block;
+      padding: 13px 40px;
+      border: 1px solid var(--charcoal);
+      color: var(--charcoal);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--charcoal); color: var(--white); }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 64px 0 0;
+    }
+    .footer-grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+      max-width: 280px;
+      margin-top: 16px;
+    }
+    .footer-logo { width: 220px; height: auto; margin-bottom: 0; filter: brightness(0) invert(1); opacity: 0.85; }
+    .footer-social { display: flex; gap: 12px; margin-top: 20px; }
+    .footer-social a {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: border-color 0.2s;
+    }
+    .footer-social a:hover { border-color: rgba(255,255,255,0.6); }
+    .footer-col h4 {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1440px;
+      margin: 48px auto 0;
+      padding: 20px 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.35); }
+    .payment-icon {
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      padding: 3px 8px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      margin-left: 6px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1280px) {
+      .header-inner { padding: 0 24px; }
+      .header-nav { gap: 16px; }
+    }
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+      .service-card.wide { grid-column: span 2; }
+      .process-steps { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+      .process-steps::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 20px; }
+      .header-nav { display: none; }
+      .container { padding: 0 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.wide { grid-column: span 1; grid-template-columns: 1fr; }
+      .service-card.wide .service-visual { display: none; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: 56px 24px; }
+    }
+  
+    /* Mega Menu */
+    .header-nav > li { position: relative; }
+    .mega-menu {
+      position: absolute; top: calc(100% + 1px);
+      left: 0;
+      left: 0; transform: none;
+      background: var(--white); border: 1px solid var(--border); border-top: none;
+      min-width: 680px; padding: 32px 40px; display: none;
+      grid-template-columns: repeat(3, 1fr); gap: 32px; z-index: 200;
+    }
+    .header-nav > li:hover .mega-menu { display: grid; }
+    .mega-menu h4 { font-family: var(--font-serif); font-size: 15px; font-weight: 500; letter-spacing: 1px; margin-bottom: 12px; color: var(--charcoal); }
+    .mega-menu ul { list-style: none; }
+    .mega-menu ul li a { font-size: 12px; color: var(--mid-grey); letter-spacing: 0.5px; padding: 4px 0; display: block; transition: color 0.2s; }
+    .mega-menu ul li a:hover { color: var(--charcoal); }
+  
+    /* Search overlay */
+    .search-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(28,28,26,0.5); align-items: flex-start; justify-content: center;
+    }
+    .search-overlay.open { display: flex; }
+    .search-box {
+      background: var(--white); width: 100%; max-width: 560px; margin-top: 60px;
+      padding: 20px 28px; display: flex; gap: 12px; align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .search-box input {
+      flex: 1; border: none; outline: none; font-family: var(--font-sans);
+      font-size: 14px; letter-spacing: 0.5px; color: var(--charcoal);
+      background: transparent;
+    }
+    .search-box input::placeholder { color: var(--light-grey); }
+    .search-close { background: none; border: none; cursor: pointer; font-size: 20px; color: var(--mid-grey); padding: 4px; }
+    .search-close:hover { color: var(--charcoal); }
+</style>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+        <nav>
+      <ul class="header-nav">
+        <li><a href="/pages/collection">Shop All</a></li>
+        <li>
+          <a href="/pages/collection">Jewellery ▾</a>
+          <div class="mega-menu">
+            <div>
+              <h4>Shop By Type</h4>
+              <ul>
+                <li><a href="collection.html?type=earrings">Earrings</a></li>
+                <li><a href="collection.html?type=necklaces">Necklaces</a></li>
+                <li><a href="collection.html?type=rings">Rings</a></li>
+                <li><a href="collection.html?type=bracelets-bangles">Bracelets &amp; Bangles</a></li>
+                <li><a href="collection.html?collection=locket">Lockets</a></li>
+                <li><a href="collection.html?collection=our-favourite-products">Best Sellers</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Collections</h4>
+              <ul>
+                <li><a href="collection.html?collection=gold">Gold</a></li>
+                <li><a href="collection.html#moissanite">Moissanite</a></li>
+                <li><a href="collection.html#sterling-silver">Sterling Silver</a></li>
+                <li><a href="collection.html?collection=evil-eye-collection">Evil Eye</a></li>
+                <li><a href="collection.html?collection=engravable-collection">Engravable</a></li>
+                <li><a href="collection.html?collection=classic-tennis-necklace-bracelet-set">Tennis</a></li>
+                                                              </ul>
+            </div>
+            <div>
+              <h4>Lab Grown</h4>
+              <ul>
+                <li><a href="collection.html#lab-diamonds">All Lab Diamonds</a></li>
+                <li><a href="collection.html#lab-earrings">Earrings</a></li>
+                <li><a href="collection.html#lab-rings">Rings</a></li>
+                <li><a href="collection.html#lab-necklaces">Necklaces</a></li>
+                <li><a href="collection.html#lab-pendants">Pendants</a></li>
+                <li><a href="collection.html#lab-bracelets">Bracelets</a></li>
+                <li><a href="collection.html#lab-bangles">Bangles</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="/pages/collection">Explore ▾</a>
+          <div class="mega-menu">
+            <div>
+              <h4>Shop By</h4>
+              <ul>
+                <li><a href="/pages/collection">Best Sellers</a></li>
+                <li><a href="/pages/collection">New Arrivals</a></li>
+                <li><a href="/pages/collection">Consignment Stock</a></li>
+                <li><a href="/pages/collection">Diamonds</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Gifting</h4>
+              <ul>
+                <li><a href="/pages/collection">Gift Sets</a></li>
+                <li><a href="/pages/collection">Under $200</a></li>
+                <li><a href="/pages/collection">Under $350</a></li>
+                <li><a href="/pages/collection">Luxury Gifts</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Lab Grown</h4>
+              <ul>
+                <li><a href="collection.html#lab-earrings">Earrings</a></li>
+                <li><a href="collection.html#lab-rings">Rings</a></li>
+                <li><a href="collection.html#lab-necklaces">Necklaces</a></li>
+                <li><a href="collection.html#lab-pendants">Pendants</a></li>
+                <li><a href="collection.html#lab-bracelets">Bracelets</a></li>
+                <li><a href="collection.html#lab-bangles">Bangles</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li><a href="/pages/services">Services</a></li>
+        <li><a href="/pages/customs-gallery">Customs Gallery</a></li>
+      </ul>
+    </nav>
+    <div class="logo">
+      <a href="/pages/index"><img src="logo.png" alt="Melia Nae" /></a>
+    </div>
+    <div class="header-actions">
+      <a href="#" onclick="openSearch();return false;">Search</a>
+      <a href="#">Account</a>
+      <a href="#">Bag <span class="cart-count">0</span></a>
+    </div>
+  </div>
+</header>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="search-overlay" onclick="closeSearchOutside(event)">
+    <div class="search-panel">
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--mid-grey);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" placeholder="Search jewellery, collections..." onkeydown="handleSearchKey(event)" oninput="doSearch(this.value)" />
+      <button class="search-close" onclick="closeSearch()">✕</button>
+    </div>
+    <div class="search-results" id="search-results" style="display:none"></div>
+    </div>
+  </div>
+
+
+</div><!-- /.site-top -->
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p>Expert Craftsmanship</p>
+  <h1>Our <em>Services</em></h1>
+  <p class="subtitle">From repairs and resizing to bespoke creations — our expert jewellers are here to bring your vision to life.</p>
+</div>
+
+<!-- SERVICES GRID -->
+<section class="services-section">
+  <div class="container">
+    <div class="services-grid">
+
+      <!-- Custom Jewellery — wide card (first) -->
+      <div class="service-card wide" style="background: var(--blush);">
+        <div class="service-visual" style="padding:0;background:none;">
+          <img src="https://melianae.com/cdn/shop/articles/73c1086a-88f0-4048-9437-fb0c270ca859_32bab569-9896-4170-9da8-a401fd1ed6b3.jpg?v=1782394044" alt="Custom Jewellery" style="width:100%;height:100%;object-fit:cover;display:block;" />
+        </div>
+        <div class="service-content">
+          <div class="service-icon">◇</div>
+          <p class="service-number">01</p>
+          <h2 class="service-title">Custom <em>Jewellery</em></h2>
+          <p class="service-desc">Your story, crafted in gold. Whether you have a sketch on a napkin or a fully realised vision, our designers will work alongside you from concept through to creation — producing a completely bespoke piece that is entirely yours.</p>
+          <ul style="font-size:13px; color:var(--mid-grey); line-height:2; margin-bottom:28px; padding-left:0;">
+            <li>— Engagement &amp; wedding rings</li>
+            <li>— Heirloom redesigns &amp; remodels</li>
+            <li>— Personalised pendants &amp; charms</li>
+            <li>— 3D CAD rendering before production</li>
+            <li>— Lab-grown &amp; natural stone sourcing</li>
+          </ul>
+          <a href="/pages/customs-gallery" class="service-link">Start Your Design <span>→</span></a>
+        </div>
+      </div>
+
+      <!-- Jewellery Repairs -->
+      <div class="service-card">
+        <div class="service-icon">⚒</div>
+        <p class="service-number">02</p>
+        <h2 class="service-title">Jewellery <em>Repairs</em></h2>
+        <p class="service-desc">Restore your most treasured pieces to their original brilliance. We handle everything from broken clasps and bent prongs to chain soldering, stone re-setting, and polish finishing — with care and precision.</p>
+        <ul style="font-size:13px; color:var(--mid-grey); line-height:2; margin-bottom:28px; padding-left:0;">
+          <li>— Clasp &amp; chain repair</li>
+          <li>— Stone re-setting &amp; tightening</li>
+          <li>— Prong re-tipping</li>
+          <li>— Polish &amp; rhodium plating</li>
+          <li>— Earring post replacement</li>
+        </ul>
+        <a href="/pages/contact" class="service-link">Enquire Now <span>→</span></a>
+      </div>
+
+      <!-- Ring Resizes -->
+      <div class="service-card">
+        <div class="service-icon">◎</div>
+        <p class="service-number">03</p>
+        <h2 class="service-title">Ring <em>Resizes</em></h2>
+        <p class="service-desc">A perfect fit makes all the difference. Our jewellers professionally resize rings up or down, maintaining the integrity of the metal and any stone settings throughout the process.</p>
+        <ul style="font-size:13px; color:var(--mid-grey); line-height:2; margin-bottom:28px; padding-left:0;">
+          <li>— Sizing up &amp; down available</li>
+          <li>— Gold, silver &amp; rose gold</li>
+          <li>— Eternity band specialists</li>
+          <li>— Same-week turnaround available</li>
+          <li>— Free ring sizing consultation</li>
+        </ul>
+        <a href="/pages/contact" class="service-link">Enquire Now <span>→</span></a>
+      </div>
+
+      <!-- Gold Buying -->
+      <div class="service-card">
+        <div class="service-icon">✦</div>
+        <p class="service-number">04</p>
+        <h2 class="service-title">Gold <em>Buying</em></h2>
+        <p class="service-desc">Turn your unwanted gold jewellery into cash. We offer fair, transparent market-rate assessments for all gold jewellery — whether it's broken, worn, or simply no longer your style.</p>
+        <ul style="font-size:13px; color:var(--mid-grey); line-height:2; margin-bottom:28px; padding-left:0;">
+          <li>— 9ct, 14ct, 18ct &amp; 22ct gold</li>
+          <li>— Instant in-store valuations</li>
+          <li>— Transparent market-rate pricing</li>
+          <li>— No appointment required</li>
+          <li>— Same-day payment</li>
+        </ul>
+        <a href="/pages/contact" class="service-link">Enquire Now <span>→</span></a>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS STRIP -->
+<div class="process-strip">
+  <div class="process-inner">
+    <div class="process-heading">
+      <p>How It Works</p>
+      <h2>Simple, <em>Seamless</em> Service</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <p class="step-title">Enquire</p>
+        <p class="step-desc">Contact us online or visit our store. Tell us what you need and we'll guide you from there.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <p class="step-title">Consult</p>
+        <p class="step-desc">We assess your piece or discuss your vision, provide a quote and agree on a timeline.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <p class="step-title">Create</p>
+        <p class="step-desc">Our expert jewellers get to work. We keep you updated throughout the process.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">4</div>
+        <p class="step-title">Collect</p>
+        <p class="step-desc">Pick up your finished piece in store or have it delivered securely to your door.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-heading">
+      <p>Common Questions</p>
+      <h2>FAQ<em>s</em></h2>
+    </div>
+
+    <div class="faq-item open">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h4>How long do repairs typically take?</h4>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Most standard repairs — clasps, prongs, soldering — are completed within 3–5 business days. More complex work such as stone sourcing or full restorations may take 1–2 weeks. We'll always give you a timeframe upfront.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h4>Can you resize any type of ring?</h4>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">We can resize most rings, including gold, silver, and rose gold bands. Some rings with full eternity settings or tension-set stones require special techniques — we'll advise you at consultation if there are any limitations.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h4>How does the gold buying process work?</h4>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Bring your gold jewellery into store — no appointment needed. We weigh and assess it on the spot, provide a transparent quote based on current market rates, and pay you same-day. There's no obligation to sell.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h4>How long does a custom jewellery piece take?</h4>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-answer">Custom pieces typically take 3–6 weeks from design approval to finished piece. We start with a consultation, move to CAD rendering for your approval, then into production. Rush timelines may be possible — contact us to discuss.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="services-cta">
+  <h2>Ready to Get <em>Started?</em></h2>
+  <p>Visit us in store or get in touch — we'd love to help with your next repair, resize, or bespoke creation.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn-primary">Contact Us</a>
+    <a href="/pages/index" class="btn-outline">Shop Jewellery</a>
+  </div>
+</section>
