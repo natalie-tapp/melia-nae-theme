@@ -50,9 +50,9 @@
 
 <div class="faq-layout">
   <div class="faq-tabs">
-    <button class="faq-tab active" onclick="showTab('orders')">Orders &amp; Shipping</button>
-    <button class="faq-tab" onclick="showTab('care')">Jewellery Care</button>
-    <button class="faq-tab" onclick="showTab('custom')">Custom &amp; Engraving</button>
+    <button class="faq-tab active" onclick="showTab('orders', this)">Orders &amp; Shipping</button>
+    <button class="faq-tab" onclick="showTab('care', this)">Jewellery Care</button>
+    <button class="faq-tab" onclick="showTab('custom', this)">Custom &amp; Engraving</button>
   </div>
 
   <!-- ORDERS & SHIPPING -->
@@ -118,10 +118,10 @@
 </div>
 
 <script>
-  function showTab(id) {
+  function showTab(id, btn) {
     document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.faq-section').forEach(s => s.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    btn.classList.add('active');
     document.getElementById('tab-' + id).classList.add('active');
   }
   function toggleFaq(btn) {
