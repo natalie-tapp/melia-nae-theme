@@ -1,12 +1,9 @@
 <section class="hero">
   <div class="hero-bg"></div>
 
-  {%- if section.settings.image != blank -%}
-    <img src="{{ section.settings.image | img_url: '1400x' }}"
-         alt="{{ section.settings.image.alt | default: shop.name }}"
-         class="hero-img-block"
-         loading="eager" />
-  {%- endif -%}
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="https://cdn.shopify.com/videos/c/o/v/3110f8059ae04c6b928351daf479c44d.mp4" type="video/mp4" />
+  </video>
 
   <div class="hero-content">
     {%- if section.settings.eyebrow != blank -%}
