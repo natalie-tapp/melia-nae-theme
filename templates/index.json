@@ -187,63 +187,9 @@
         "title": "What Our Customers Say"
       }
     },
-    "lookbook": {
-      "type": "lookbook",
-      "blocks": {
-        "image_Ydhhjx": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/LGNF-0612_42b8b06e-1c46-49f6-a2f2-1295f2f0e036.jpg"
-          }
-        },
-        "lb1": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/LGMBT-0210_LGFEF-0630_LGNF-0612.jpg"
-          }
-        },
-        "lb2": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/LGPF-8680_LGRE-20610_LGEF-7953_m.jpg"
-          }
-        },
-        "lb3": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/LGPF-8680.jpg"
-          }
-        },
-        "lb4": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/LGER-42408-025-W.jpg"
-          }
-        },
-        "lb5": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/LGSP-27036-025-W.jpg"
-          }
-        },
-        "lb6": {
-          "type": "image",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "image_Ydhhjx",
-        "lb1",
-        "lb2",
-        "lb3",
-        "lb4",
-        "lb5",
-        "lb6"
-      ],
-      "settings": {
-        "eyebrow": "@melianaejewellers",
-        "title": "Browse the Lookbook"
-      }
+    "fourcs-infographic": {
+      "type": "fourcs-infographic",
+      "settings": {}
     },
     "newsletter": {
       "type": "newsletter",
@@ -263,7 +209,7 @@
     "featured-collection",
     "banner-split",
     "testimonials",
-    "lookbook",
+    "fourcs-infographic",
     "newsletter"
   ]
 }

@@ -1,0 +1,142 @@
+<style>
+  .fourcs-infographic { background: var(--white); padding: 64px 0 0; }
+  .fourcs-inf-header { max-width: 1440px; margin: 0 auto; padding: 0 40px 40px; display: flex; align-items: flex-end; justify-content: space-between; }
+  .fourcs-inf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; text-decoration: none; border-top: 1px solid var(--border); }
+  .fourcs-inf-card { padding: 48px 40px; border-right: 1px solid var(--border); transition: background 0.25s; cursor: pointer; }
+  .fourcs-inf-card:last-child { border-right: none; }
+  .fourcs-inf-card:hover { background: var(--blush); }
+  .fourcs-inf-visual { height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+  .fourcs-inf-visual svg { width: 100px; height: 100px; }
+  .fourcs-inf-label { font-family: var(--font-serif); font-size: 28px; font-weight: 300; color: var(--charcoal); margin-bottom: 10px; }
+  .fourcs-inf-desc { font-size: 13px; color: var(--mid-grey); line-height: 1.8; margin-bottom: 20px; }
+  .fourcs-inf-scale { display: flex; gap: 4px; flex-wrap: wrap; }
+  .fourcs-scale-item { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--light-grey); font-weight: 500; }
+  .fourcs-scale-item.active { border-color: var(--gold); color: var(--gold); background: rgba(156,128,96,0.05); }
+  @media (max-width: 768px) { .fourcs-inf-grid { grid-template-columns: repeat(2, 1fr); } .fourcs-inf-card { padding: 32px 24px; } }
+</style>
+
+<section class="fourcs-infographic">
+  <div class="fourcs-inf-header">
+    <div>
+      <p class="section-eyebrow">Education</p>
+      <h2 class="section-title">The 4 C's of <em>Diamonds</em></h2>
+    </div>
+    <a href="/pages/4cs" class="section-link">Learn More →</a>
+  </div>
+  <a href="/pages/4cs" class="fourcs-inf-grid">
+    <div class="fourcs-inf-card">
+      <div class="fourcs-inf-visual">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="60,8 100,38 100,82 60,112 20,82 20,38" fill="none" stroke="#9C8060" stroke-width="1.5"/>
+          <polygon points="60,8 80,38 60,30 40,38" fill="rgba(156,128,96,0.12)" stroke="#9C8060" stroke-width="1"/>
+          <polygon points="60,30 80,38 70,70 60,78 50,70 40,38" fill="rgba(156,128,96,0.08)" stroke="#9C8060" stroke-width="0.8"/>
+          <polygon points="60,78 70,70 60,112 50,70" fill="rgba(156,128,96,0.15)" stroke="#9C8060" stroke-width="1"/>
+          <line x1="60" y1="8" x2="60" y2="30" stroke="#9C8060" stroke-width="0.6" stroke-dasharray="3,2"/>
+          <line x1="40" y1="38" x2="80" y2="38" stroke="#9C8060" stroke-width="0.6" stroke-dasharray="3,2"/>
+          <line x1="20" y1="60" x2="100" y2="60" stroke="#9C8060" stroke-width="0.6" stroke-dasharray="3,2"/>
+        </svg>
+      </div>
+      <div class="fourcs-inf-label">Cut</div>
+      <p class="fourcs-inf-desc">How well a diamond's facets interact with light. Determines brilliance and sparkle.</p>
+      <div class="fourcs-inf-scale">
+        <span class="fourcs-scale-item active">Excellent</span>
+        <span class="fourcs-scale-item active">Very Good</span>
+        <span class="fourcs-scale-item active">Good</span>
+        <span class="fourcs-scale-item">Fair</span>
+        <span class="fourcs-scale-item">Poor</span>
+      </div>
+    </div>
+    <div class="fourcs-inf-card">
+      <div class="fourcs-inf-visual">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="44" fill="rgba(156,128,96,0.06)" stroke="#9C8060" stroke-width="1.5"/>
+          <circle cx="60" cy="60" r="32" fill="rgba(156,128,96,0.08)" stroke="#9C8060" stroke-width="0.8" stroke-dasharray="4,3"/>
+          <circle cx="60" cy="60" r="20" fill="rgba(156,128,96,0.12)" stroke="#9C8060" stroke-width="0.8"/>
+          <circle cx="48" cy="50" r="3" fill="none" stroke="#9C8060" stroke-width="1.2"/>
+          <circle cx="72" cy="65" r="2" fill="none" stroke="#9C8060" stroke-width="1.2"/>
+          <line x1="55" y1="72" x2="62" y2="76" stroke="#9C8060" stroke-width="1.2"/>
+          <line x1="60" y1="16" x2="60" y2="104" stroke="#9C8060" stroke-width="0.4" stroke-dasharray="2,4"/>
+          <line x1="16" y1="60" x2="104" y2="60" stroke="#9C8060" stroke-width="0.4" stroke-dasharray="2,4"/>
+        </svg>
+      </div>
+      <div class="fourcs-inf-label">Clarity</div>
+      <p class="fourcs-inf-desc">The absence of inclusions and blemishes. Graded from Flawless to Included.</p>
+      <div class="fourcs-inf-scale">
+        <span class="fourcs-scale-item active">FL</span>
+        <span class="fourcs-scale-item active">VVS</span>
+        <span class="fourcs-scale-item active">VS</span>
+        <span class="fourcs-scale-item">SI</span>
+        <span class="fourcs-scale-item">I</span>
+      </div>
+    </div>
+    <div class="fourcs-inf-card">
+      <div class="fourcs-inf-visual">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="colourGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1"/>
+              <stop offset="40%" style="stop-color:#F5EDD8;stop-opacity:1"/>
+              <stop offset="100%" style="stop-color:#D4B483;stop-opacity:1"/>
+            </linearGradient>
+          </defs>
+          <rect x="12" y="44" width="96" height="18" rx="2" fill="url(#colourGrad)" stroke="#9C8060" stroke-width="1"/>
+          <text x="14" y="76" font-size="9" fill="#9C8060" font-family="Georgia,serif">D</text>
+          <text x="100" y="76" font-size="9" fill="#9C8060" font-family="Georgia,serif">Z</text>
+          <line x1="18" y1="42" x2="18" y2="64" stroke="#9C8060" stroke-width="1.5"/>
+          <line x1="36" y1="47" x2="36" y2="62" stroke="rgba(156,128,96,0.4)" stroke-width="0.8"/>
+          <line x1="54" y1="47" x2="54" y2="62" stroke="rgba(156,128,96,0.4)" stroke-width="0.8"/>
+          <line x1="72" y1="47" x2="72" y2="62" stroke="rgba(156,128,96,0.4)" stroke-width="0.8"/>
+          <line x1="90" y1="47" x2="90" y2="62" stroke="rgba(156,128,96,0.4)" stroke-width="0.8"/>
+          <polygon points="60,18 72,30 60,42 48,30" fill="rgba(156,128,96,0.15)" stroke="#9C8060" stroke-width="1.2"/>
+          <line x1="48" y1="30" x2="72" y2="30" stroke="#9C8060" stroke-width="0.8"/>
+          <line x1="60" y1="18" x2="60" y2="42" stroke="#9C8060" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="fourcs-inf-label">Colour</div>
+      <p class="fourcs-inf-desc">Graded D (colourless) to Z. The less colour, the rarer and more valuable the stone.</p>
+      <div class="fourcs-inf-scale">
+        <span class="fourcs-scale-item active">D–F</span>
+        <span class="fourcs-scale-item active">G–J</span>
+        <span class="fourcs-scale-item">K–M</span>
+        <span class="fourcs-scale-item">N–Z</span>
+      </div>
+    </div>
+    <div class="fourcs-inf-card">
+      <div class="fourcs-inf-visual">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <line x1="60" y1="20" x2="60" y2="55" stroke="#9C8060" stroke-width="1.5"/>
+          <line x1="25" y1="55" x2="95" y2="55" stroke="#9C8060" stroke-width="1.5"/>
+          <line x1="30" y1="55" x2="30" y2="70" stroke="#9C8060" stroke-width="1"/>
+          <path d="M18,70 Q30,68 42,70" fill="none" stroke="#9C8060" stroke-width="1.2"/>
+          <line x1="90" y1="55" x2="90" y2="77" stroke="#9C8060" stroke-width="1"/>
+          <path d="M78,77 Q90,75 102,77" fill="none" stroke="#9C8060" stroke-width="1.2"/>
+          <polygon points="30,62 35,66 30,70 25,66" fill="rgba(156,128,96,0.2)" stroke="#9C8060" stroke-width="1"/>
+          <circle cx="90" cy="71" r="5" fill="rgba(156,128,96,0.2)" stroke="#9C8060" stroke-width="1"/>
+          <circle cx="60" cy="20" r="3" fill="none" stroke="#9C8060" stroke-width="1.5"/>
+          <text x="22" y="90" font-size="8" fill="#9C8060" font-family="Georgia,serif">0.5ct</text>
+          <text x="55" y="90" font-size="8" fill="#9C8060" font-family="Georgia,serif">1ct</text>
+          <text x="84" y="90" font-size="8" fill="#9C8060" font-family="Georgia,serif">2ct</text>
+          <circle cx="27" cy="98" r="4" fill="rgba(156,128,96,0.15)" stroke="#9C8060" stroke-width="1"/>
+          <circle cx="62" cy="96" r="6" fill="rgba(156,128,96,0.2)" stroke="#9C8060" stroke-width="1"/>
+          <circle cx="90" cy="94" r="8" fill="rgba(156,128,96,0.25)" stroke="#9C8060" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="fourcs-inf-label">Carat</div>
+      <p class="fourcs-inf-desc">The weight of the diamond. One carat = 0.2 grams. Larger stones are exponentially rarer.</p>
+      <div class="fourcs-inf-scale">
+        <span class="fourcs-scale-item active">0.5ct</span>
+        <span class="fourcs-scale-item active">1ct</span>
+        <span class="fourcs-scale-item active">1.5ct</span>
+        <span class="fourcs-scale-item">2ct+</span>
+      </div>
+    </div>
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "4Cs Infographic",
+  "settings": [],
+  "presets": [{ "name": "4Cs Infographic" }]
+}
+{% endschema %}
