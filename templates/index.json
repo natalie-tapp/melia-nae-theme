@@ -105,6 +105,7 @@
           "type": "panel",
           "settings": {
             "video_url": "",
+            "image": "shopify://shop_images/RG1000440-MQ_YELLOW_DOWN0_25e1cf00-961d-4cec-bdf0-ac21bd6838d0.jpg",
             "heading": "Customise Your Piece",
             "text": "Our customisable jewellery collection",
             "button_label": "View Gallery →",
@@ -114,7 +115,7 @@
         "panel2": {
           "type": "panel",
           "settings": {
-            "video_url": "",
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/b9294f675150492ca25a38e713b5b300.mp4",
             "heading": "Create Your Dream Ring",
             "text": "Built for a lifetime — speak with our team",
             "button_label": "Our Services →",
