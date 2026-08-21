@@ -8,16 +8,21 @@
 <!-- CATEGORY PILLS -->
 <div class="category-pills">
   <div class="pills-inner">
-    <div class="pill active" data-filter="all">
-      <div class="pill-img">✦</div>
-      All
-    </div>
-    <div class="pill" data-filter="earrings"><div class="pill-img">◇</div>Earrings</div>
-    <div class="pill" data-filter="necklaces"><div class="pill-img">○</div>Necklaces</div>
-    <div class="pill" data-filter="rings"><div class="pill-img">◎</div>Rings</div>
-    <div class="pill" data-filter="bracelets"><div class="pill-img">∞</div>Bracelets</div>
-    <div class="pill" data-filter="pendants"><div class="pill-img">◈</div>Pendants</div>
-    <div class="pill" data-filter="bangles"><div class="pill-img">⬡</div>Bangles</div>
+    {%- assign handles = 'all,earrings,necklaces,rings,bracelets-bangles,pendants,bangles' | split: ',' -%}
+    {%- assign labels  = 'All,Earrings,Necklaces,Rings,Bracelets,Pendants,Bangles' | split: ',' -%}
+    {%- assign icons   = '✦,◇,○,◎,∞,◈,⬡' | split: ',' -%}
+    {%- for handle in handles -%}
+      {%- assign col_handle = handle -%}
+      {%- if handle == 'all' -%}{%- assign col_handle = 'all' -%}{%- endif -%}
+      {%- assign is_active = '' -%}
+      {%- if collection.handle == handle or (handle == 'all' and collection.handle == 'all') -%}
+        {%- assign is_active = ' active' -%}
+      {%- endif -%}
+      <a href="/collections/{{ col_handle }}" class="pill{{ is_active }}">
+        <div class="pill-img">{{ icons[forloop.index0] }}</div>
+        {{ labels[forloop.index0] }}
+      </a>
+    {%- endfor -%}
   </div>
 </div>
 
