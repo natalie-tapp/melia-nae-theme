@@ -199,11 +199,15 @@
               <li>Type: {{ type_display | capitalize }}</li>
             {%- endunless -%}
 
-            {%- comment -%}Variant options (e.g. Size, Stone){%- endcomment -%}
-            {%- for option in product.options -%}
-              {%- assign opt_lower = option | downcase -%}
+            {%- comment -%}Variant options (e.g. Stone) — skip Size when multiple sizes exist{%- endcomment -%}
+            {%- for option in product.options_with_values -%}
+              {%- assign opt_lower = option.name | downcase -%}
               {%- unless opt_lower == 'metal' or opt_lower == 'material' or opt_lower == 'colour' or opt_lower == 'color' or opt_lower == 'title' -%}
-                <li>{{ option }}: {{ product.selected_or_first_available_variant.options[forloop.index0] }}</li>
+                {%- if opt_lower == 'size' and option.values.size > 1 -%}
+                  {%- comment -%}Multiple sizes — customer selects, skip spec{%- endcomment -%}
+                {%- else -%}
+                  <li>{{ option.name }}: {{ product.selected_or_first_available_variant.options[forloop.index0] }}</li>
+                {%- endif -%}
               {%- endunless -%}
             {%- endfor -%}
           </ul>
