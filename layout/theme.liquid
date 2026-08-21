@@ -98,14 +98,26 @@
       </div>
 
       <div class="header-actions">
-        <a href="{{ routes.search_url }}">Search</a>
+        <a href="{{ routes.search_url }}" onclick="openSearch(); return false;">Search</a>
         <a href="{{ routes.account_url }}">Account</a>
-        <a href="{{ routes.cart_url }}" class="cart-icon">
+        <a href="{{ routes.cart_url }}" class="cart-icon" onclick="openCart(); return false;">
           Bag <span class="cart-count">{{ cart.item_count }}</span>
         </a>
       </div>
     </div>
   </header>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="search-overlay" onclick="closeSearchOutside(event)">
+    <div class="search-panel">
+      <div class="search-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--mid-grey);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="Search jewellery, collections..." onkeydown="handleSearchKey(event)" oninput="doSearch(this.value)" />
+        <button class="search-close" onclick="closeSearch()">✕</button>
+      </div>
+      <div class="search-results" id="search-results" style="display:none"></div>
+    </div>
+  </div>
 
 </div><!-- /.site-top -->
 
@@ -169,6 +181,26 @@
     </div>
   </div>
 </footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h3>Your Bag</h3>
+    <button class="cart-drawer-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-drawer-body" id="cartBody">
+    <div class="cart-empty"><span>◇</span>Your bag is empty</div>
+  </div>
+  <div class="cart-drawer-footer" id="cartFooter" style="display:none">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Subtotal</span>
+      <span class="cart-subtotal-amount" id="cartSubtotal">{{ 0 | money }}</span>
+    </div>
+    <a href="{{ routes.cart_url }}" class="cart-checkout-btn">Checkout</a>
+    <span class="cart-continue" onclick="closeCart()">Continue Shopping</span>
+  </div>
+</div>
 
 {{ 'theme.js' | asset_url | script_tag }}
 

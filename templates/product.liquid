@@ -29,6 +29,12 @@
              alt="{{ product.featured_image.alt | default: product.title | escape }}"
              class="gallery-main-bg" />
       {%- endif -%}
+      {%- if product.images.size > 1 -%}
+        <div class="gallery-nav">
+          <button type="button" class="gallery-prev" aria-label="Previous image">‹</button>
+          <button type="button" class="gallery-next" aria-label="Next image">›</button>
+        </div>
+      {%- endif -%}
       <div class="gallery-zoom-hint">Hover to zoom</div>
     </div>
   </div>
@@ -63,12 +69,24 @@
 
       {%- unless product.has_only_default_variant -%}
         {%- for option in product.options_with_values -%}
+          {%- assign opt_index = option.position | minus: 1 -%}
           <div class="option-group">
-            <div class="option-label">{{ option.name }}</div>
+            <div class="option-label">
+              {{ option.name }}
+              {%- if option.name == 'Length' or option.name == 'Size' -%}
+                <a class="size-guide" href="/pages/size-guide">Size Guide</a>
+              {%- endif -%}
+            </div>
             <div class="option-swatches">
               {%- for value in option.values -%}
+                {%- assign value_available = false -%}
+                {%- for variant in product.variants -%}
+                  {%- if variant.options[opt_index] == value and variant.available -%}
+                    {%- assign value_available = true -%}
+                  {%- endif -%}
+                {%- endfor -%}
                 <button type="button"
-                        class="swatch-btn {% if forloop.first %}active{% endif %}"
+                        class="swatch-btn {% if forloop.first %}active{% endif %} {% unless value_available %}soldout{% endunless %}"
                         data-option="{{ option.position }}"
                         data-value="{{ value | escape }}"
                         onclick="updateVariant(this)">
@@ -81,6 +99,7 @@
       {%- endunless -%}
 
       <input type="hidden" name="id" id="variant-id" value="{{ product.selected_or_first_available_variant.id }}" />
+      <input type="hidden" name="quantity" id="quantity-input" value="1" />
 
       <div class="add-to-cart-wrap">
         <div class="quantity-and-cart">
@@ -175,12 +194,12 @@
 {%- endif -%}
 
 <script>
-  // Quantity
+  // Quantity (accordion + gallery zoom/nav + add-to-cart are wired globally in theme.js)
   let qty = 1;
   function adjustQty(delta) {
     qty = Math.max(1, qty + delta);
     document.getElementById('qty').textContent = qty;
-    document.querySelector('[name="quantity"]') && (document.querySelector('[name="quantity"]').value = qty);
+    document.getElementById('quantity-input').value = qty;
   }
 
   // Variant selection
@@ -203,9 +222,4 @@
       document.getElementById('variant-id').value = match.id;
     }
   }
-
-  // Accordion
-  document.querySelectorAll('.accordion-header').forEach(h => {
-    h.addEventListener('click', () => h.closest('.accordion-item').classList.toggle('open'));
-  });
 </script>
