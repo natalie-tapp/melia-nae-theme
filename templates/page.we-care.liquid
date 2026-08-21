@@ -1,88 +1,98 @@
 <style>
+  .we-care-hero { background: var(--blush); padding: 56px 40px; text-align: center; border-bottom: 1px solid var(--border); }
+  .we-care-hero h1 { font-family: var(--font-serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; }
+  .we-care-hero h1 em { font-style: italic; color: var(--gold); }
 
+  .care-intro { max-width: 720px; margin: 0 auto; padding: 64px 40px 48px; text-align: center; }
+  .care-intro .eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 14px; display: block; }
+  .care-intro h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 42px); font-weight: 300; margin-bottom: 24px; }
+  .care-intro h2 em { font-style: italic; }
+  .care-intro p { font-size: 15px; color: var(--mid-grey); line-height: 1.9; }
+
+  .divider-line { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
+
+  .causes { padding: 64px 40px 80px; max-width: 1200px; margin: 0 auto; }
+  .causes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--border); }
+  .cause-card { background: var(--white); padding: 48px 40px; }
+  .cause-logo { height: 56px; display: flex; align-items: center; margin-bottom: 24px; }
+  .cause-logo img { max-height: 48px; max-width: 160px; object-fit: contain; }
+  .cause-number { font-family: var(--font-serif); font-size: 48px; font-weight: 300; color: rgba(156,128,96,0.15); line-height: 1; margin-bottom: 8px; }
+  .cause-card h3 { font-family: var(--font-serif); font-size: 26px; font-weight: 400; margin-bottom: 8px; }
+  .cause-card h3 em { font-style: italic; }
+  .cause-tagline { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 16px; }
+  .cause-card > p:last-child { font-size: 14px; color: var(--mid-grey); line-height: 1.9; }
+
+  .commitment { background: var(--charcoal); color: var(--white); padding: 72px 40px; text-align: center; }
+  .commitment h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 48px); font-weight: 300; margin-bottom: 14px; }
+  .commitment h2 em { font-style: italic; color: var(--gold); }
+  .commitment > p { font-size: 14px; color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto 36px; line-height: 1.8; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-light { display: inline-block; padding: 14px 40px; border: 1px solid var(--white); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
+  .btn-light:hover { background: var(--white); color: var(--charcoal); }
+  .btn-gold { display: inline-block; padding: 14px 40px; background: var(--gold); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: background 0.2s; }
+  .btn-gold:hover { background: #8a7054; }
+
+  @media (max-width: 768px) {
+    .we-care-hero { padding: 40px 20px; }
+    .care-intro { padding: 48px 20px 32px; }
+    .divider-line { margin: 0 20px; }
+    .causes { padding: 40px 20px 60px; }
+    .causes-grid { grid-template-columns: 1fr; }
+    .cause-card { padding: 32px 24px; }
+    .commitment { padding: 56px 20px; }
+  }
 </style>
 
-<!-- Search overlay -->
-  <div class="search-overlay" id="search-overlay" onclick="closeSearchOutside(event)">
-    <div class="search-panel">
-    <div class="search-box">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--mid-grey);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="Search jewellery, collections..." onkeydown="handleSearchKey(event)" oninput="doSearch(this.value)" />
-      <button class="search-close" onclick="closeSearch()">✕</button>
-    </div>
-    <div class="search-results" id="search-results" style="display:none"></div>
-    </div>
-  </div>
-
-</div>
-
-<!-- HERO -->
 <div class="we-care-hero">
   <h1>We <em>Care</em></h1>
 </div>
 
-<!-- INTRO -->
 <div class="care-intro">
-  <p class="eyebrow">Our Commitment</p>
+  <span class="eyebrow">Our Commitment</span>
   <h2>Crafting a Legacy of <em>Compassion</em></h2>
   <p>Melia Nae is not only dedicated to creating timeless jewellery — we are equally committed to making a positive impact on the world around us. We have established a tradition of regular donations to several reputable organisations, because we believe that business can and should be a force for good.</p>
 </div>
 
 <hr class="divider-line" />
 
-<!-- CAUSES -->
 <div class="causes">
   <div class="causes-grid">
-
     <div class="cause-card">
-      <div class="cause-logo">
-        <img src="logo-cancer-council.webp" alt="Cancer Council Australia" />
-      </div>
+      <div class="cause-logo"><img src="{{ 'logo-cancer-council.webp' | asset_url }}" alt="Cancer Council Australia" /></div>
       <p class="cause-number">01</p>
       <h3>Cancer <em>Council</em></h3>
       <p class="cause-tagline">A Beacon of Hope</p>
-      <p>Melia Nae recognises the importance of supporting initiatives that work towards a cancer-free future. We consistently donate a percentage of our profits to the Cancer Council, aiding in research, prevention, and support for those affected by cancer. By aligning with the Cancer Council, Melia Nae strives to be a beacon of hope in the fight against this formidable adversary.</p>
+      <p>Melia Nae recognises the importance of supporting initiatives that work towards a cancer-free future. We consistently donate a percentage of our profits to the Cancer Council, aiding in research, prevention, and support for those affected by cancer.</p>
     </div>
-
     <div class="cause-card">
-      <div class="cause-logo">
-        <img src="logo-red-cross.png" alt="Australian Red Cross Lifeblood" />
-      </div>
+      <div class="cause-logo"><img src="{{ 'logo-red-cross.png' | asset_url }}" alt="Australian Red Cross Lifeblood" /></div>
       <p class="cause-number">02</p>
       <h3>Red <em>Cross</em></h3>
       <p class="cause-tagline">Giving the Gift of Life</p>
-      <p>Our commitment to giving back extends to the health and well-being of our community. Melia Nae proudly partners with the Red Cross, actively encouraging and facilitating blood donations among our staff and customers. By promoting regular blood donation, we aim to contribute to the lifesaving efforts of the Red Cross and make a meaningful difference in the lives of those in need.</p>
+      <p>Our commitment to giving back extends to the health and well-being of our community. Melia Nae proudly partners with the Red Cross, actively encouraging and facilitating blood donations among our staff and customers.</p>
     </div>
-
     <div class="cause-card">
-      <div class="cause-logo">
-        <img src="logo-save-the-children.webp" alt="Save the Children" />
-      </div>
+      <div class="cause-logo"><img src="{{ 'logo-save-the-children.webp' | asset_url }}" alt="Save the Children" /></div>
       <p class="cause-number">03</p>
       <h3>Save the <em>Children</em></h3>
       <p class="cause-tagline">Investing in Tomorrow</p>
-      <p>Children are the future, and Melia Nae is dedicated to securing a brighter tomorrow. Regular contributions are made to Save the Children, an organisation focused on providing education, healthcare, and safety to children in need. Through these donations, Melia Nae aims to play a part in breaking the cycle of poverty and empowering the next generation.</p>
+      <p>Children are the future, and Melia Nae is dedicated to securing a brighter tomorrow. Regular contributions are made to Save the Children, an organisation focused on providing education, healthcare, and safety to children in need.</p>
     </div>
-
     <div class="cause-card">
-      <div class="cause-logo">
-        <img src="logo-beyond-blue.svg" alt="Beyond Blue" />
-      </div>
+      <div class="cause-logo"><img src="{{ 'logo-beyond-blue.svg' | asset_url }}" alt="Beyond Blue" /></div>
       <p class="cause-number">04</p>
       <h3>Beyond <em>Blue</em></h3>
       <p class="cause-tagline">Nurturing Mental Health</p>
-      <p>Mental health is a priority for Melia Nae, and we understand the profound impact it has on individuals and communities. By supporting Beyond Blue — an organisation dedicated to promoting mental health and providing support for those affected — Melia Nae strives to contribute to a healthier, more connected community.</p>
+      <p>Mental health is a priority for Melia Nae. By supporting Beyond Blue — an organisation dedicated to promoting mental health and providing support for those affected — Melia Nae strives to contribute to a healthier, more connected community.</p>
     </div>
-
   </div>
 </div>
 
-<!-- COMMITMENT CTA -->
 <div class="commitment">
   <h2>Jewellery That Gives <em>Back</em></h2>
   <p>Every purchase you make with Melia Nae contributes to causes that matter. Thank you for being part of our community.</p>
   <div class="cta-buttons">
-    <a href="/pages/collection" class="btn-light">Shop All Jewellery</a>
+    <a href="/collections/all" class="btn-light">Shop All Jewellery</a>
     <a href="/pages/about" class="btn-gold">Our Story</a>
   </div>
 </div>

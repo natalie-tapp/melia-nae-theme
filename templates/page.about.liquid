@@ -1,22 +1,67 @@
 <style>
+  .about-hero { position: relative; height: 520px; overflow: hidden; }
+  .about-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-hero-overlay { position: absolute; inset: 0; background: rgba(28,28,26,0.45); }
+  .about-hero-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: var(--white); padding: 40px; }
+  .about-hero-content p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px; font-weight: 500; }
+  .about-hero-content h1 { font-family: var(--font-serif); font-size: clamp(36px, 5vw, 64px); font-weight: 300; line-height: 1.15; }
+  .about-hero-content h1 em { font-style: italic; color: var(--gold); }
 
+  .about-intro { max-width: 720px; margin: 0 auto; padding: 72px 40px; text-align: center; }
+  .about-intro h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); font-weight: 300; margin-bottom: 28px; }
+  .about-intro h2 em { font-style: italic; }
+  .about-intro p { font-size: 15px; color: var(--mid-grey); line-height: 1.9; margin-bottom: 16px; }
+
+  .name-meaning { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); max-width: 900px; margin: 0 auto 72px; }
+  .name-card { background: var(--blush); padding: 56px 48px; text-align: center; }
+  .name-arabic { font-family: var(--font-serif); font-size: 64px; font-weight: 300; color: var(--gold); opacity: 0.4; line-height: 1; margin-bottom: 8px; }
+  .name-card h3 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; margin-bottom: 10px; }
+  .name-card p { font-size: 14px; color: var(--mid-grey); line-height: 1.8; }
+
+  .about-promise { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 40px; }
+  .about-promise-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .promise-text .eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 14px; display: block; }
+  .promise-text h2 { font-family: var(--font-serif); font-size: clamp(28px, 3vw, 42px); font-weight: 300; margin-bottom: 24px; line-height: 1.2; }
+  .promise-text h2 em { font-style: italic; }
+  .promise-text p { font-size: 14px; color: var(--mid-grey); line-height: 1.9; margin-bottom: 14px; }
+  .promise-image { position: relative; }
+  .promise-image img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+  .promise-image-caption { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey); margin-top: 12px; text-align: center; }
+
+  .about-values { padding: 80px 40px; background: var(--cream); }
+  .values-heading { text-align: center; margin-bottom: 56px; }
+  .values-heading p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 12px; }
+  .values-heading h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); font-weight: 300; }
+  .values-heading h2 em { font-style: italic; }
+  .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; max-width: 1100px; margin: 0 auto; background: var(--border); }
+  .value-card { background: var(--white); padding: 40px 32px; text-align: center; }
+  .value-icon { font-size: 28px; color: var(--gold); margin-bottom: 16px; }
+  .value-card h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 400; margin-bottom: 12px; }
+  .value-card p { font-size: 13px; color: var(--mid-grey); line-height: 1.8; }
+
+  .about-cta { background: var(--charcoal); color: var(--white); padding: 80px 40px; text-align: center; }
+  .about-cta h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 48px); font-weight: 300; margin-bottom: 14px; }
+  .about-cta h2 em { font-style: italic; color: var(--gold); }
+  .about-cta > p { font-size: 14px; color: rgba(255,255,255,0.6); max-width: 480px; margin: 0 auto 36px; line-height: 1.8; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-light { display: inline-block; padding: 14px 40px; border: 1px solid var(--white); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
+  .btn-light:hover { background: var(--white); color: var(--charcoal); }
+  .btn-gold { display: inline-block; padding: 14px 40px; background: var(--gold); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: background 0.2s; }
+  .btn-gold:hover { background: #8a7054; }
+
+  @media (max-width: 768px) {
+    .about-hero { height: 360px; }
+    .about-intro { padding: 48px 20px; }
+    .name-meaning { grid-template-columns: 1fr; }
+    .name-card { padding: 40px 24px; }
+    .about-promise { padding: 48px 20px; }
+    .about-promise-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-values { padding: 56px 20px; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .about-cta { padding: 56px 20px; }
+  }
 </style>
 
-<!-- Search overlay -->
-  <div class="search-overlay" id="search-overlay" onclick="closeSearchOutside(event)">
-    <div class="search-panel">
-    <div class="search-box">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--mid-grey);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="Search jewellery, collections..." onkeydown="handleSearchKey(event)" oninput="doSearch(this.value)" />
-      <button class="search-close" onclick="closeSearch()">✕</button>
-    </div>
-    <div class="search-results" id="search-results" style="display:none"></div>
-    </div>
-  </div>
-
-</div>
-
-<!-- HERO -->
 <div class="about-hero">
   <img src="https://melianae.com/cdn/shop/files/WhatsApp_Image_2025-03-06_at_2.20.44_PM.jpg" alt="Melia Nae" class="about-hero-img" />
   <div class="about-hero-overlay"></div>
@@ -26,15 +71,12 @@
   </div>
 </div>
 
-<!-- INTRO -->
 <div class="about-intro">
   <h2>A Brand Built on <em>Maternal Bond</em></h2>
   <p>Melia Nae was founded on a powerful maternal bond that inspired a vision of nurturing a child while creating an exceptional customer experience and offering an extensive selection of alluring and modern jewellery pieces.</p>
-  <br />
   <p>Driven by their passion for providing excellent service and unique pieces, the founder of Melia Nae set out to create a brand that would embody their values of love, care, and quality — a symbol of the cherished moments and memories of their customers' lives.</p>
 </div>
 
-<!-- NAME MEANING -->
 <div class="name-meaning">
   <div class="name-card">
     <div class="name-arabic">Melia</div>
@@ -48,11 +90,10 @@
   </div>
 </div>
 
-<!-- OUR PROMISE -->
 <div class="about-promise">
   <div class="about-promise-inner">
     <div class="promise-text">
-      <p class="eyebrow">Our Promise</p>
+      <span class="eyebrow">Our Promise</span>
       <h2>Jewellery That <em>Marks the Moments</em></h2>
       <p>Melia Nae recognises that jewellery holds a special place in people's hearts and lives, marking milestones and memories that are cherished forever.</p>
       <p>Whether it's a birthday, an anniversary, a graduation, Christmas, or simply a desire to treat oneself, Melia Nae has something for everyone. We take pride in offering a variety of styles to suit all tastes and budgets, from classic and timeless pieces to bold and modern designs.</p>
@@ -65,7 +106,6 @@
   </div>
 </div>
 
-<!-- VALUES -->
 <div class="about-values">
   <div class="values-heading">
     <p>What We Stand For</p>
@@ -95,12 +135,11 @@
   </div>
 </div>
 
-<!-- CTA -->
 <div class="about-cta">
   <h2>Everyone Deserves to <em>Sparkle</em></h2>
   <p>Whether it's for a special occasion or simply to brighten an ordinary day, we're here to help you find your perfect piece.</p>
   <div class="cta-buttons">
-    <a href="/pages/collection" class="btn-light">Shop All Jewellery</a>
+    <a href="/collections/all" class="btn-light">Shop All Jewellery</a>
     <a href="/pages/services" class="btn-gold">Our Services</a>
   </div>
 </div>
