@@ -671,7 +671,7 @@ section { padding: 48px 0; }
   .gallery { grid-template-columns: 80px 1fr; }
   .gallery-thumbs { flex-direction: column; overflow-x: unset; }
   .gallery-thumb { width: 80px; height: 80px; }
-  .gallery-main { aspect-ratio: 3/4; }
+  .gallery-main { aspect-ratio: 1/1; max-height: 600px; }
   .related-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .related .container { padding: 0 32px; }
 }

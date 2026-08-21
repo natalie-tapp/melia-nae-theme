@@ -142,24 +142,15 @@
         </div>
         <div class="accordion-body">
           <ul>
-            {%- comment -%}Output structured tags (Key:Value format){%- endcomment -%}
-            {%- for tag in product.tags -%}
-              {%- if tag contains ':' -%}
-                {%- assign tag_parts = tag | split: ':' -%}
-                {%- assign tag_key = tag_parts[0] | strip -%}
-                {%- assign tag_val = tag_parts[1] | strip -%}
-                {%- unless tag_val == blank or tag_val == 'Fine Jewellery' or tag_val == 'Jewellery' -%}
-                  <li>{{ tag_key }}: {{ tag_val }}</li>
-                {%- endunless -%}
+            {%- comment -%}Metal — check variant options first, then title{%- endcomment -%}
+            {%- assign metal = '' -%}
+            {%- for option in product.options -%}
+              {%- assign opt_lower = option | downcase -%}
+              {%- if opt_lower == 'metal' or opt_lower == 'material' or opt_lower == 'colour' or opt_lower == 'color' -%}
+                {%- assign metal = product.selected_or_first_available_variant.options[forloop.index0] -%}
               {%- endif -%}
             {%- endfor -%}
-            {%- comment -%}Metal from variant option or title if not in tags{%- endcomment -%}
-            {%- assign has_metal_tag = false -%}
-            {%- for tag in product.tags -%}
-              {%- if tag contains 'Metal:' or tag contains 'metal:' -%}{%- assign has_metal_tag = true -%}{%- endif -%}
-            {%- endfor -%}
-            {%- unless has_metal_tag -%}
-              {%- assign metal = '' -%}
+            {%- if metal == blank -%}
               {%- if product.title contains 'Rose Gold' -%}{%- assign metal = 'Rose Gold' -%}
               {%- elsif product.title contains 'Yellow Gold' -%}{%- assign metal = 'Yellow Gold' -%}
               {%- elsif product.title contains 'White Gold' -%}{%- assign metal = 'White Gold' -%}
@@ -167,17 +158,21 @@
               {%- elsif product.title contains 'Silver' -%}{%- assign metal = 'Sterling Silver' -%}
               {%- elsif product.title contains 'Platinum' -%}{%- assign metal = 'Platinum' -%}
               {%- endif -%}
-              {%- comment -%}Also check variant option names{%- endcomment -%}
-              {%- for option in product.options -%}
-                {%- assign opt_lower = option | downcase -%}
-                {%- if opt_lower == 'metal' or opt_lower == 'material' or opt_lower == 'colour' or opt_lower == 'color' -%}
-                  {%- assign metal = product.selected_or_first_available_variant.options[forloop.index0] -%}
-                {%- endif -%}
-              {%- endfor -%}
-              {%- if metal != blank -%}
-                <li>Metal: {{ metal }}</li>
-              {%- endif -%}
+            {%- endif -%}
+            {%- if metal != blank %}<li>Metal: {{ metal }}</li>{%- endif -%}
+
+            {%- comment -%}Product type (if not generic){%- endcomment -%}
+            {%- unless product.type == blank or product.type == 'Fine Jewellery' or product.type == 'Jewellery' -%}
+              <li>Type: {{ product.type }}</li>
             {%- endunless -%}
+
+            {%- comment -%}Variant options (e.g. Size, Stone){%- endcomment -%}
+            {%- for option in product.options -%}
+              {%- assign opt_lower = option | downcase -%}
+              {%- unless opt_lower == 'metal' or opt_lower == 'material' or opt_lower == 'colour' or opt_lower == 'color' or opt_lower == 'title' -%}
+                <li>{{ option }}: {{ product.selected_or_first_available_variant.options[forloop.index0] }}</li>
+              {%- endunless -%}
+            {%- endfor -%}
           </ul>
         </div>
       </div>
