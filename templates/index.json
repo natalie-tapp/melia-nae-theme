@@ -23,37 +23,6 @@
     },
     "trust-bar": {
       "type": "trust-bar",
-      "blocks": {
-        "trust1": {
-          "type": "item",
-          "settings": {
-            "icon": "✈",
-            "title": "Fast Worldwide Shipping",
-            "text": "Free on orders over $150"
-          }
-        },
-        "trust2": {
-          "type": "item",
-          "settings": {
-            "icon": "♻",
-            "title": "Ethically Sourced",
-            "text": "Lab-grown & conflict-free stones"
-          }
-        },
-        "trust4": {
-          "type": "item",
-          "settings": {
-            "icon": "✦",
-            "title": "Afterpay Available",
-            "text": "Buy now, pay in 4 instalments"
-          }
-        }
-      },
-      "block_order": [
-        "trust1",
-        "trust2",
-        "trust4"
-      ],
       "settings": {}
     },
     "category-tiles": {
@@ -130,6 +99,7 @@
         "panel1": {
           "type": "panel",
           "settings": {
+            "video_url": "",
             "heading": "Customise Your Piece",
             "text": "Our customisable jewellery collection",
             "button_label": "View Gallery →",
@@ -139,6 +109,7 @@
         "panel2": {
           "type": "panel",
           "settings": {
+            "video_url": "",
             "heading": "Create Your Dream Ring",
             "text": "Built for a lifetime — speak with our team",
             "button_label": "Our Services →",
@@ -187,10 +158,6 @@
         "title": "What Our Customers Say"
       }
     },
-    "fourcs-infographic": {
-      "type": "fourcs-infographic",
-      "settings": {}
-    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -200,6 +167,11 @@
         "button_label": "Subscribe",
         "disclaimer": "By subscribing you agree to our privacy policy. Unsubscribe any time."
       }
+    },
+    "fourcs_infographic_hFY386": {
+      "type": "fourcs-infographic",
+      "name": "4Cs Infographic",
+      "settings": {}
     }
   },
   "order": [
@@ -209,7 +181,7 @@
     "featured-collection",
     "banner-split",
     "testimonials",
-    "fourcs-infographic",
+    "fourcs_infographic_hFY386",
     "newsletter"
   ]
 }
