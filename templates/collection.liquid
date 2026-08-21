@@ -8,9 +8,9 @@
 <!-- CATEGORY PILLS -->
 <div class="category-pills">
   <div class="pills-inner">
-    {%- assign handles = 'all,earrings,necklaces,rings,bracelets,pendants' | split: ',' -%}
-    {%- assign labels  = 'All,Earrings,Necklaces,Rings,Bracelets,Pendants' | split: ',' -%}
-    {%- assign icons   = '✦,◇,○,◎,∞,◈' | split: ',' -%}
+    {%- assign handles = 'all,earrings,necklaces,rings,bracelets,pendants,moissanite,lab-diamonds' | split: ',' -%}
+    {%- assign labels  = 'All,Earrings,Necklaces,Rings,Bracelets,Pendants,Moissanite,Lab Diamonds' | split: ',' -%}
+    {%- assign icons   = '✦,◇,○,◎,∞,◈,◉,◆' | split: ',' -%}
     {%- for handle in handles -%}
       {%- assign col_handle = handle -%}
       {%- if handle == 'all' -%}{%- assign col_handle = 'all' -%}{%- endif -%}
