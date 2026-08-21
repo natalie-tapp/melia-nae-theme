@@ -31,6 +31,7 @@
         "tile1": {
           "type": "tile",
           "settings": {
+            "image": "shopify://shop_images/LGER-230026-050-Y.jpg",
             "label": "Earrings",
             "sublabel": "Studs, hoops & drops",
             "link": "/collections/earrings"
@@ -39,6 +40,7 @@
         "tile2": {
           "type": "tile",
           "settings": {
+            "image": "shopify://shop_images/LGNK-51216-070.jpg",
             "label": "Necklaces",
             "sublabel": "Pendants & chains",
             "link": "/collections/necklaces"
@@ -47,6 +49,7 @@
         "tile3": {
           "type": "tile",
           "settings": {
+            "image": "shopify://shop_images/LGRE-24751-Y-L.jpg",
             "label": "Rings",
             "sublabel": "Including custom builder",
             "link": "/collections/rings"
@@ -55,6 +58,7 @@
         "tile4": {
           "type": "tile",
           "settings": {
+            "image": "shopify://shop_images/LGMBT-0240-W.jpg",
             "label": "Bracelets",
             "sublabel": "Bangles & tennis",
             "link": "/collections/bracelets"
@@ -63,7 +67,8 @@
         "tile5": {
           "type": "tile",
           "settings": {
-            "label": "Bridal",
+            "image": "shopify://shop_images/LGSP-29841M-015-Y.jpg",
+            "label": "Pendants",
             "sublabel": "For your special day",
             "link": "/collections/bridal"
           }
@@ -78,7 +83,7 @@
       ],
       "settings": {
         "eyebrow": "Browse by Category",
-        "title": "Shop Our Collections"
+        "title": "Shop Our Jewellery"
       }
     },
     "featured-collection": {
@@ -158,6 +163,11 @@
         "title": "What Our Customers Say"
       }
     },
+    "fourcs_infographic_hFY386": {
+      "type": "fourcs-infographic",
+      "name": "4Cs Infographic",
+      "settings": {}
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -167,11 +177,6 @@
         "button_label": "Subscribe",
         "disclaimer": "By subscribing you agree to our privacy policy. Unsubscribe any time."
       }
-    },
-    "fourcs_infographic_hFY386": {
-      "type": "fourcs-infographic",
-      "name": "4Cs Infographic",
-      "settings": {}
     }
   },
   "order": [
