@@ -142,28 +142,38 @@
         </div>
         <div class="accordion-body">
           <ul>
-            {%- comment -%}Metal — check variant options first, then title{%- endcomment -%}
+            {%- comment -%}Metal — extract from title (preserves karat e.g. 9K Yellow Gold){%- endcomment -%}
             {%- assign metal = '' -%}
-            {%- for option in product.options -%}
-              {%- assign opt_lower = option | downcase -%}
-              {%- if opt_lower == 'metal' or opt_lower == 'material' or opt_lower == 'colour' or opt_lower == 'color' -%}
-                {%- assign metal_raw = product.selected_or_first_available_variant.options[forloop.index0] -%}
-                {%- assign metal_raw_lower = metal_raw | downcase -%}
-                {%- if metal_raw_lower == 'yellow' -%}{%- assign metal = 'Yellow Gold' -%}
-                {%- elsif metal_raw_lower == 'rose' -%}{%- assign metal = 'Rose Gold' -%}
-                {%- elsif metal_raw_lower == 'white' -%}{%- assign metal = 'White Gold' -%}
-                {%- elsif metal_raw_lower == 'silver' or metal_raw_lower == 'sterling' or metal_raw_lower == 'sterling silver' -%}{%- assign metal = 'Sterling Silver' -%}
-                {%- else -%}{%- assign metal = metal_raw -%}
-                {%- endif -%}
+            {%- assign t = product.title -%}
+            {%- if t contains '24K' or t contains '22K' or t contains '18K' or t contains '14K' or t contains '10K' or t contains '9K' -%}
+              {%- if t contains '24K Yellow Gold' -%}{%- assign metal = '24K Yellow Gold' -%}
+              {%- elsif t contains '22K Yellow Gold' -%}{%- assign metal = '22K Yellow Gold' -%}
+              {%- elsif t contains '18K Rose Gold' -%}{%- assign metal = '18K Rose Gold' -%}
+              {%- elsif t contains '18K Yellow Gold' -%}{%- assign metal = '18K Yellow Gold' -%}
+              {%- elsif t contains '18K White Gold' -%}{%- assign metal = '18K White Gold' -%}
+              {%- elsif t contains '18K Gold' -%}{%- assign metal = '18K Gold' -%}
+              {%- elsif t contains '14K Rose Gold' -%}{%- assign metal = '14K Rose Gold' -%}
+              {%- elsif t contains '14K Yellow Gold' -%}{%- assign metal = '14K Yellow Gold' -%}
+              {%- elsif t contains '14K White Gold' -%}{%- assign metal = '14K White Gold' -%}
+              {%- elsif t contains '14K Gold' -%}{%- assign metal = '14K Gold' -%}
+              {%- elsif t contains '10K Rose Gold' -%}{%- assign metal = '10K Rose Gold' -%}
+              {%- elsif t contains '10K Yellow Gold' -%}{%- assign metal = '10K Yellow Gold' -%}
+              {%- elsif t contains '10K White Gold' -%}{%- assign metal = '10K White Gold' -%}
+              {%- elsif t contains '10K Gold' -%}{%- assign metal = '10K Gold' -%}
+              {%- elsif t contains '9K Rose Gold' -%}{%- assign metal = '9K Rose Gold' -%}
+              {%- elsif t contains '9K Yellow Gold' -%}{%- assign metal = '9K Yellow Gold' -%}
+              {%- elsif t contains '9K White Gold' -%}{%- assign metal = '9K White Gold' -%}
+              {%- elsif t contains '9K Gold' -%}{%- assign metal = '9K Gold' -%}
               {%- endif -%}
-            {%- endfor -%}
+            {%- endif -%}
             {%- if metal == blank -%}
-              {%- if product.title contains 'Rose Gold' -%}{%- assign metal = 'Rose Gold' -%}
-              {%- elsif product.title contains 'Yellow Gold' -%}{%- assign metal = 'Yellow Gold' -%}
-              {%- elsif product.title contains 'White Gold' -%}{%- assign metal = 'White Gold' -%}
-              {%- elsif product.title contains 'Gold' -%}{%- assign metal = 'Gold' -%}
-              {%- elsif product.title contains 'Silver' -%}{%- assign metal = 'Sterling Silver' -%}
-              {%- elsif product.title contains 'Platinum' -%}{%- assign metal = 'Platinum' -%}
+              {%- if t contains '925' or t contains 'Sterling Silver' -%}{%- assign metal = '925 Sterling Silver' -%}
+              {%- elsif t contains 'Rose Gold' -%}{%- assign metal = 'Rose Gold' -%}
+              {%- elsif t contains 'Yellow Gold' -%}{%- assign metal = 'Yellow Gold' -%}
+              {%- elsif t contains 'White Gold' -%}{%- assign metal = 'White Gold' -%}
+              {%- elsif t contains 'Gold' -%}{%- assign metal = 'Gold' -%}
+              {%- elsif t contains 'Silver' -%}{%- assign metal = 'Sterling Silver' -%}
+              {%- elsif t contains 'Platinum' -%}{%- assign metal = 'Platinum' -%}
               {%- endif -%}
             {%- endif -%}
             {%- if metal != blank %}<li>Metal: {{ metal }}</li>{%- endif -%}
