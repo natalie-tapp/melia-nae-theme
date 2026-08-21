@@ -147,7 +147,14 @@
             {%- for option in product.options -%}
               {%- assign opt_lower = option | downcase -%}
               {%- if opt_lower == 'metal' or opt_lower == 'material' or opt_lower == 'colour' or opt_lower == 'color' -%}
-                {%- assign metal = product.selected_or_first_available_variant.options[forloop.index0] -%}
+                {%- assign metal_raw = product.selected_or_first_available_variant.options[forloop.index0] -%}
+                {%- assign metal_raw_lower = metal_raw | downcase -%}
+                {%- if metal_raw_lower == 'yellow' -%}{%- assign metal = 'Yellow Gold' -%}
+                {%- elsif metal_raw_lower == 'rose' -%}{%- assign metal = 'Rose Gold' -%}
+                {%- elsif metal_raw_lower == 'white' -%}{%- assign metal = 'White Gold' -%}
+                {%- elsif metal_raw_lower == 'silver' or metal_raw_lower == 'sterling' or metal_raw_lower == 'sterling silver' -%}{%- assign metal = 'Sterling Silver' -%}
+                {%- else -%}{%- assign metal = metal_raw -%}
+                {%- endif -%}
               {%- endif -%}
             {%- endfor -%}
             {%- if metal == blank -%}
