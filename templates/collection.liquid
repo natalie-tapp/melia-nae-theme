@@ -103,7 +103,15 @@
         {%- else -%}{%- assign filter_key = 'other' -%}
         {%- endif -%}
 
-        <a href="{{ product.url }}" class="product-card" data-type="{{ filter_key }}">
+        {%- assign title_lower = product.title | downcase -%}
+        {%- assign tags_lower = product.tags | join: ',' | downcase -%}
+        {%- if tags_lower contains 'moissanite' or title_lower contains 'moissanite' -%}{%- assign metal_key = 'moissanite' -%}
+        {%- elsif tags_lower contains 'rose-gold' or tags_lower contains 'rose gold' or title_lower contains 'rose gold' or title_lower contains 'in rose' -%}{%- assign metal_key = 'rose-gold' -%}
+        {%- elsif tags_lower contains 'silver' or tags_lower contains 'sterling' or title_lower contains 'silver' or title_lower contains 'sterling' -%}{%- assign metal_key = 'silver' -%}
+        {%- elsif tags_lower contains 'gold' or title_lower contains 'gold' -%}{%- assign metal_key = 'gold' -%}
+        {%- else -%}{%- assign metal_key = 'other' -%}
+        {%- endif -%}
+        <a href="{{ product.url }}" class="product-card" data-type="{{ filter_key }}" data-metal="{{ metal_key }}">
           <div class="product-card-image">
             {%- if product.featured_image -%}
               <img src="{{ product.featured_image | img_url: '600x800' }}"
@@ -164,14 +172,7 @@
     pill.addEventListener('click', () => {
       document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
-      const filter = pill.dataset.filter;
-      let visible = 0;
-      document.querySelectorAll('.product-card').forEach(card => {
-        const show = filter === 'all' || card.dataset.type === filter;
-        card.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      document.getElementById('visible-count').textContent = visible + ' products';
+      applyFilters();
     });
   });
 
@@ -197,7 +198,36 @@
   });
 
   // Metal swatches
-  document.querySelectorAll('.metal-swatch').forEach(s => s.addEventListener('click', () => s.classList.toggle('active')));
+  let activeMetal = null;
+  document.querySelectorAll('.metal-swatch').forEach(s => {
+    s.addEventListener('click', () => {
+      const metal = s.textContent.trim().toLowerCase().replace(' ', '-');
+      if (activeMetal === metal) {
+        // deselect
+        s.classList.remove('active');
+        activeMetal = null;
+        applyFilters();
+      } else {
+        document.querySelectorAll('.metal-swatch').forEach(x => x.classList.remove('active'));
+        s.classList.add('active');
+        activeMetal = metal;
+        applyFilters();
+      }
+    });
+  });
+
+  function applyFilters() {
+    const activePill = document.querySelector('.pill.active')?.dataset.filter || 'all';
+    let visible = 0;
+    document.querySelectorAll('.product-card').forEach(card => {
+      const typeMatch = activePill === 'all' || card.dataset.type === activePill;
+      const metalMatch = !activeMetal || card.dataset.metal === activeMetal;
+      const show = typeMatch && metalMatch;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('visible-count').textContent = visible + ' products';
+  }
 
   // Filter clear
   document.querySelector('.filter-clear')?.addEventListener('click', () => {
