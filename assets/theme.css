@@ -157,35 +157,21 @@ section { padding: 80px 0; }
 /* ─── HERO ─── */
 .hero {
   position: relative;
-  height: 65vh;
   min-height: 620px;
-  overflow: hidden;
   background: var(--blush);
   display: flex;
-  align-items: center;
-}
-.hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #F5EDE2 0%, #EDE0D4 40%, #E0D0C0 100%); }
-.hero-image-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: stretch;
   overflow: hidden;
 }
-.hero-image-placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(245,237,226,0.95) 30%, rgba(245,237,226,0.3) 70%);
-}
-.hero-img-block { width: 55%; height: 100%; flex-shrink: 0; object-fit: cover; display: block; }
-.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #F5EDE2 0%, #EDE0D4 40%, #E0D0C0 100%); }
+.hero-image-placeholder { display: none; }
+.hero-img-block { display: none; }
+.hero-video { position: relative; width: 45%; flex-shrink: 0; object-fit: cover; display: block; order: 2; z-index: 1; }
 .hero-video-overlay { display: none; }
 .hero .hero-content { position: relative; z-index: 2; }
-.hero-content { position: relative; z-index: 2; max-width: 1440px; margin: 0 auto; padding: 0 80px; width: 100%; }
+.hero-content { position: relative; z-index: 2; flex: 1; padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; order: 1; }
 .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 500; }
-.hero-title { font-family: var(--font-serif); font-size: clamp(52px, 6vw, 86px); font-weight: 300; line-height: 1.1; color: var(--charcoal); margin-bottom: 24px; max-width: 600px; }
+.hero-title { font-family: var(--font-serif); font-size: clamp(42px, 5vw, 76px); font-weight: 300; line-height: 1.1; color: var(--charcoal); margin-bottom: 24px; max-width: 520px; }
 .hero-title em { font-style: italic; color: var(--gold); }
 .hero-subtitle { font-size: 15px; color: var(--mid-grey); max-width: 400px; margin-bottom: 40px; font-weight: 300; line-height: 1.8; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
