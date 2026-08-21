@@ -37,29 +37,10 @@
     </div>
 
     <div class="filter-group">
-      <div class="filter-group-header"><h4>Availability</h4><span>−</span></div>
-      <div class="filter-option checked">
-        <div class="filter-checkbox">✓</div>
-        <label>In Stock</label>
-        <span class="filter-option-count">({{ collection.products_count }})</span>
-      </div>
-    </div>
-
-    <div class="filter-group">
       <div class="filter-group-header"><h4>Price</h4><span>−</span></div>
       <div class="price-inputs">
         <div class="price-input-wrap"><span>$</span><input type="number" class="price-input" placeholder="Min" /></div>
         <div class="price-input-wrap"><span>$</span><input type="number" class="price-input" placeholder="Max" /></div>
-      </div>
-    </div>
-
-    <div class="filter-group">
-      <div class="filter-group-header"><h4>Metal</h4><span>−</span></div>
-      <div class="metal-swatches">
-        <div class="metal-swatch active">Gold</div>
-        <div class="metal-swatch">Rose Gold</div>
-        <div class="metal-swatch">Silver</div>
-        <div class="metal-swatch">Moissanite</div>
       </div>
     </div>
 
@@ -204,32 +185,11 @@
     });
   });
 
-  // Metal swatches
-  let activeMetal = null;
-  document.querySelectorAll('.metal-swatch').forEach(s => {
-    s.addEventListener('click', () => {
-      const metal = s.textContent.trim().toLowerCase().replace(' ', '-');
-      if (activeMetal === metal) {
-        // deselect
-        s.classList.remove('active');
-        activeMetal = null;
-        applyFilters();
-      } else {
-        document.querySelectorAll('.metal-swatch').forEach(x => x.classList.remove('active'));
-        s.classList.add('active');
-        activeMetal = metal;
-        applyFilters();
-      }
-    });
-  });
-
   function applyFilters() {
     const activePill = document.querySelector('.pill.active')?.dataset.filter || 'all';
     let visible = 0;
     document.querySelectorAll('.product-card').forEach(card => {
-      const typeMatch = activePill === 'all' || card.dataset.type === activePill;
-      const metalMatch = !activeMetal || card.dataset.metal === activeMetal;
-      const show = typeMatch && metalMatch;
+      const show = activePill === 'all' || card.dataset.type === activePill;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
