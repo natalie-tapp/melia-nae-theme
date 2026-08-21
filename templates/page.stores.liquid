@@ -1,0 +1,84 @@
+<style>
+  .page-hero { background: var(--blush); padding: 56px 40px; text-align: center; border-bottom: 1px solid var(--border); }
+  .page-hero p.eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; }
+  .page-hero h1 em { font-style: italic; }
+  .stores-layout { max-width: 1100px; margin: 0 auto; padding: 64px 40px 80px; }
+  .stores-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; }
+  .store-card { border: 1px solid var(--border); background: var(--white); overflow: hidden; }
+  .store-map { width: 100%; height: 240px; background: var(--blush); display: block; border: none; }
+  .store-info { padding: 28px 32px 32px; }
+  .store-badge { display: inline-block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; background: var(--charcoal); color: var(--white); padding: 4px 10px; margin-bottom: 16px; }
+  .store-name { font-family: var(--font-serif); font-size: 26px; font-weight: 300; margin-bottom: 6px; }
+  .store-address { font-size: 14px; color: var(--mid-grey); line-height: 1.7; margin-bottom: 20px; }
+  .store-meta { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .store-meta-row { display: flex; gap: 12px; align-items: flex-start; font-size: 13px; color: var(--mid-grey); }
+  .store-meta-label { font-weight: 500; color: var(--charcoal); min-width: 80px; font-size: 11px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .store-hours-grid { font-size: 13px; color: var(--mid-grey); line-height: 2; }
+  .store-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .store-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-directions { display: inline-block; padding: 12px 28px; background: var(--charcoal); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: background 0.2s; }
+  .btn-directions:hover { background: var(--gold); }
+  .btn-call { display: inline-block; padding: 11px 28px; border: 1px solid var(--border); color: var(--charcoal); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
+  .btn-call:hover { border-color: var(--charcoal); background: var(--charcoal); color: var(--white); }
+  .contact-cta { background: var(--charcoal); color: var(--white); padding: 48px 40px; text-align: center; margin-top: 64px; }
+  .contact-cta h3 { font-family: var(--font-serif); font-size: 32px; font-weight: 300; margin-bottom: 12px; }
+  .contact-cta p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
+  .contact-cta a { display: inline-block; padding: 13px 40px; border: 1px solid var(--white); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
+  .contact-cta a:hover { background: var(--white); color: var(--charcoal); }
+  @media (max-width: 640px) { .stores-layout { padding: 40px 20px 60px; } .store-actions { flex-direction: column; } .btn-directions, .btn-call { text-align: center; } }
+</style>
+
+<div class="page-hero">
+  <p class="eyebrow">Melia Nae</p>
+  <h1>Store <em>Locations</em></h1>
+</div>
+
+<div class="stores-layout">
+  <div class="stores-grid">
+
+    <!-- Campbelltown Store -->
+    <div class="store-card">
+      <iframe
+        class="store-map"
+        src="https://maps.google.com/maps?q=L03+KU15,+200+Gilchrist+Dr,+Campbelltown+NSW+2560&output=embed"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Melia Nae Campbelltown"
+      ></iframe>
+      <div class="store-info">
+        <span class="store-badge">Now Open</span>
+        <h2 class="store-name">Campbelltown</h2>
+        <p class="store-address">
+          Shop KU15, Level 3<br />
+          200 Gilchrist Drive<br />
+          Campbelltown NSW 2560
+        </p>
+        <hr class="store-divider" />
+        <div class="store-meta">
+          <div class="store-meta-row">
+            <span class="store-meta-label">Hours</span>
+            <div class="store-hours-grid">
+              Monday – Wednesday &amp; Friday: 9am – 5:30pm<br />
+              Thursday: 9am – 9pm<br />
+              Saturday: 9am – 5pm<br />
+              Sunday: 10am – 4pm
+            </div>
+          </div>
+        </div>
+        <div class="store-actions">
+          <a href="https://maps.google.com/maps?q=200+Gilchrist+Dr,+Campbelltown+NSW+2560" target="_blank" rel="noopener" class="btn-directions">Get Directions</a>
+          <a href="/pages/contact" class="btn-call">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="contact-cta">
+  <h3>Can't Make It In?</h3>
+  <p>Shop our full collection online with free shipping on orders over $150 AUD.</p>
+  <a href="/collections/all">Shop Online</a>
+</div>
