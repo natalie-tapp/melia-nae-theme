@@ -711,7 +711,7 @@ section { padding: 48px 0; }
 .cart-item-price { font-size: 14px; font-weight: 400; }
 .cart-item-remove { font-size: 18px; color: var(--light-grey); cursor: pointer; background: none; border: none; line-height: 1; padding: 0; }
 .cart-item-remove:hover { color: var(--charcoal); }
-.cart-drawer-footer { padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 16px)); border-top: 1px solid var(--border); }
+.cart-drawer-footer { padding: 20px 20px calc(32px + env(safe-area-inset-bottom, 24px)); border-top: 1px solid var(--border); }
 .cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .cart-subtotal-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); }
 .cart-subtotal-amount { font-family: var(--font-serif); font-size: 22px; font-weight: 400; }
@@ -723,7 +723,7 @@ section { padding: 48px 0; }
 @media (min-width: 480px) {
   .cart-drawer-header { padding: 28px 32px; }
   .cart-drawer-body { padding: 24px 32px; }
-  .cart-drawer-footer { padding: 24px 32px; }
+  .cart-drawer-footer { padding: 24px 32px calc(32px + env(safe-area-inset-bottom, 24px)); }
   .cart-item { grid-template-columns: 80px 1fr auto; gap: 16px; }
 }
 
