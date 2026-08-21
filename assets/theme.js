@@ -258,3 +258,32 @@ function handleSearchKey(e) {
     if (q) window.location.href = '/search?q=' + encodeURIComponent(q);
   }
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE NAV
+   ═══════════════════════════════════════════════ */
+function openMobileNav() {
+  document.getElementById('mobileNav').classList.add('open');
+  document.getElementById('mobileNavOverlay').classList.add('open');
+  document.getElementById('hamburger').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('mobileNavOverlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function toggleMobileSubmenu(btn) {
+  const submenu = btn.nextElementSibling;
+  const isOpen = submenu.classList.contains('open');
+  // Close all open submenus first
+  document.querySelectorAll('.mobile-nav-submenu.open').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.mobile-nav-toggle.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) {
+    submenu.classList.add('open');
+    btn.classList.add('open');
+  }
+}

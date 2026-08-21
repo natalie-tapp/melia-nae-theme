@@ -38,6 +38,12 @@
   <!-- HEADER -->
   <header class="site-header">
     <div class="header-inner">
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="openMobileNav()">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Desktop nav -->
       <nav>
         <ul class="header-nav">
           <li>
@@ -95,16 +101,67 @@
 
       <div class="logo">
         <a href="{{ routes.root_url }}">
-          <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" width="240" height="auto" />
+          <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" width="200" height="auto" />
         </a>
       </div>
 
       <div class="header-actions">
-        <a href="{{ routes.search_url }}" onclick="openSearch(); return false;">Search</a>
-        <a href="{{ routes.account_url }}">Account</a>
+        <a href="{{ routes.search_url }}" class="header-search" onclick="openSearch(); return false;">Search</a>
+        <a href="{{ routes.account_url }}" class="header-account">Account</a>
         <a href="{{ routes.cart_url }}" class="cart-icon" onclick="openCart(); return false;">
           Bag <span class="cart-count">{{ cart.item_count }}</span>
         </a>
+      </div>
+    </div>
+
+    <!-- Mobile nav overlay + drawer -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+    <div class="mobile-nav" id="mobileNav">
+      <div class="mobile-nav-header">
+        <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" width="120" />
+        <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="{{ routes.all_products_collection_url }}">Shop All</a></li>
+        <li>
+          <button class="mobile-nav-toggle" onclick="toggleMobileSubmenu(this)">
+            Jewellery <span class="toggle-icon">+</span>
+          </button>
+          <div class="mobile-nav-submenu mobile-nav-sub">
+            <a href="/collections/earrings">Earrings</a>
+            <a href="/collections/necklaces">Necklaces</a>
+            <a href="/collections/rings">Rings</a>
+            <a href="/collections/bracelets">Bracelets &amp; Bangles</a>
+            <a href="/collections/moissanite">Moissanite</a>
+            <a href="/collections/bridal">Bridal Collection</a>
+            <a href="/collections/evil-eye">Evil Eye</a>
+            <a href="/collections/engravable">Engravable</a>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-nav-toggle" onclick="toggleMobileSubmenu(this)">
+            Collections <span class="toggle-icon">+</span>
+          </button>
+          <div class="mobile-nav-submenu mobile-nav-sub">
+            <a href="/collections/best-sellers">Best Sellers</a>
+            <a href="/collections/new-arrivals">New Arrivals</a>
+            <a href="/collections/lab-diamonds">Lab Diamonds</a>
+            <a href="/collections/diamonds">Diamonds</a>
+            <a href="/collections/gift-sets">Gift Sets</a>
+            <a href="/collections/under-200">Under $200</a>
+            <a href="/collections/under-350">Under $350</a>
+          </div>
+        </li>
+        <li><a href="/pages/services">Services</a></li>
+        <li><a href="/pages/customs-gallery">Customs Gallery</a></li>
+        <li><a href="/pages/about">About</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
+      </ul>
+      <div class="mobile-nav-bottom">
+        <a href="{{ routes.search_url }}" onclick="closeMobileNav(); openSearch(); return false;">Search</a>
+        <a href="{{ routes.account_url }}">Account</a>
+        <a href="/pages/ring-sizer">Ring Sizer</a>
+        <a href="/pages/4cs">The 4 C's</a>
       </div>
     </div>
   </header>
