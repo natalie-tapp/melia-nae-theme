@@ -217,6 +217,17 @@
   </div>
 </div>
 
+<script>
+  document.querySelectorAll('.cs-nav-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      document.querySelectorAll('.cs-nav-item').forEach(function(i) { i.classList.remove('active'); });
+      this.classList.add('active');
+      var target = document.getElementById(this.dataset.target);
+      if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+
 <!-- FINAL CTA -->
 <div class="final-section">
   <h2>Ready to Find Your <em>Perfect Diamond?</em></h2>
