@@ -173,6 +173,20 @@
           </li>
           <li><a href="/pages/services">Services</a></li>
           <li><a href="/pages/customs-gallery">Customs Gallery</a></li>
+          <li>
+            <a href="/pages/contact">Support ▾</a>
+            <div class="mega-menu">
+              <div>
+                <ul>
+                  <li><a href="/pages/contact">Contact Us</a></li>
+                  <li><a href="/pages/faq">FAQs</a></li>
+                  <li><a href="/pages/ring-sizer">Ring Sizer</a></li>
+                  <li><a href="/pages/returns-exchanges">Returns &amp; Exchanges</a></li>
+                  <li><a href="/pages/shipping">Shipping Info</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
         </ul>
       </nav>
 
@@ -217,8 +231,19 @@
         </li>
         <li><a href="/pages/services">Services</a></li>
         <li><a href="/pages/customs-gallery">Customs Gallery</a></li>
+        <li>
+          <button class="mobile-nav-toggle" onclick="toggleMobileSubmenu(this)">
+            Support <span class="toggle-icon">+</span>
+          </button>
+          <div class="mobile-nav-submenu mobile-nav-sub">
+            <a href="/pages/contact">Contact Us</a>
+            <a href="/pages/faq">FAQs</a>
+            <a href="/pages/ring-sizer">Ring Sizer</a>
+            <a href="/pages/returns-exchanges">Returns &amp; Exchanges</a>
+            <a href="/pages/shipping">Shipping Info</a>
+          </div>
+        </li>
         <li><a href="/pages/about">About</a></li>
-        <li><a href="/pages/contact">Contact</a></li>
       </ul>
       <div class="mobile-nav-bottom">
         <a href="{{ routes.search_url }}" onclick="closeMobileNav(); openSearch(); return false;">Search</a>
