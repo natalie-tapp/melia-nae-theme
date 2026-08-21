@@ -32,7 +32,14 @@
   .contact-cta p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 28px; }
   .contact-cta a { display: inline-block; padding: 13px 40px; border: 1px solid var(--white); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
   .contact-cta a:hover { background: var(--white); color: var(--charcoal); }
-  @media (max-width: 768px) { .faq-layout { padding: 40px 20px 60px; } .faq-tabs { overflow-x: auto; } .faq-tab { white-space: nowrap; padding: 14px 18px; } }
+  @media (max-width: 768px) {
+    .page-hero { padding: 40px 20px; }
+    .faq-layout { padding: 32px 16px 60px; }
+    .faq-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .faq-tab { white-space: nowrap; padding: 14px 14px; font-size: 10px; }
+    .faq-question-text { font-size: 14px; }
+    .contact-cta { padding: 40px 20px; }
+  }
 </style>
 
 <div class="page-hero">
