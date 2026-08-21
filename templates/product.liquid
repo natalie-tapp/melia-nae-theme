@@ -228,7 +228,11 @@
           <span>+</span>
         </div>
         <div class="accordion-body">
-          <p>Store in the pouch provided. Avoid contact with perfume, chemicals, and water. Polish with a soft cloth.</p>
+          {%- if metal contains 'Gold' -%}
+            <p>Store in the pouch provided. Avoid contact with perfume and chemicals. Polish with a soft cloth.</p>
+          {%- else -%}
+            <p>Store in the pouch provided. Avoid contact with perfume, chemicals, and water. Polish with a soft cloth.</p>
+          {%- endif -%}
         </div>
       </div>
     </div>
