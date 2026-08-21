@@ -1,7 +1,11 @@
 <div class="banner-split">
   {%- for block in section.blocks -%}
     <a href="{{ block.settings.link }}" class="banner-panel" {{ block.shopify_attributes }}>
-      {%- if block.settings.image != blank -%}
+      {%- if block.settings.video_url != blank -%}
+        <video class="banner-panel-bg" autoplay muted loop playsinline>
+          <source src="{{ block.settings.video_url }}" type="video/mp4" />
+        </video>
+      {%- elsif block.settings.image != blank -%}
         <img src="{{ block.settings.image | img_url: '900x' }}"
              alt="{{ block.settings.heading }}"
              class="banner-panel-bg"
@@ -30,7 +34,8 @@
       "type": "panel",
       "name": "Panel",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "video_url", "label": "Video URL (from Shopify Files)" },
+        { "type": "image_picker", "id": "image", "label": "Fallback Image (if no video)" },
         { "type": "text", "id": "heading", "label": "Heading", "default": "Customise Your Piece" },
         { "type": "text", "id": "text", "label": "Text", "default": "Our customisable jewellery collection" },
         { "type": "text", "id": "button_label", "label": "Button Label", "default": "View Gallery →" },
