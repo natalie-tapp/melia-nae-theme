@@ -1,23 +1,87 @@
 <style>
+  .fcs-hero { background: var(--blush); padding: 56px 40px; text-align: center; border-bottom: 1px solid var(--border); }
+  .fcs-hero p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+  .fcs-hero h1 { font-family: var(--font-serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; margin-bottom: 16px; }
+  .fcs-hero h1 em { font-style: italic; color: var(--gold); }
+  .fcs-hero .hero-sub { font-size: 15px; color: var(--mid-grey); max-width: 560px; margin: 0 auto; line-height: 1.8; }
 
+  .intro-strip { max-width: 800px; margin: 0 auto; padding: 48px 40px; text-align: center; font-size: 15px; color: var(--mid-grey); line-height: 1.9; }
+
+  .cs-nav { display: flex; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cs-nav-item { flex: 1; padding: 20px; text-align: center; cursor: pointer; border-right: 1px solid var(--border); transition: background 0.2s; }
+  .cs-nav-item:last-child { border-right: none; }
+  .cs-nav-item:hover, .cs-nav-item.active { background: var(--charcoal); }
+  .cs-nav-item:hover .cs-num, .cs-nav-item.active .cs-num,
+  .cs-nav-item:hover .cs-label, .cs-nav-item.active .cs-label { color: var(--white); }
+  .cs-num { display: block; font-family: var(--font-serif); font-size: 28px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+  .cs-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; color: var(--charcoal); }
+
+  .cs-section { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .cs-section:nth-child(odd) { background: var(--white); }
+  .cs-section:nth-child(even) { background: var(--cream); }
+  .cs-content { padding: 64px 48px; }
+  .cs-number { font-family: var(--font-serif); font-size: 80px; font-weight: 300; color: rgba(156,128,96,0.12); line-height: 1; margin-bottom: -16px; }
+  .cs-eyebrow { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 8px; }
+  .cs-content h2 { font-family: var(--font-serif); font-size: clamp(32px, 3.5vw, 48px); font-weight: 300; margin-bottom: 6px; }
+  .cs-content h2 em { font-style: italic; }
+  .cs-tagline { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 20px; font-weight: 500; }
+  .cs-content > p { font-size: 15px; color: var(--mid-grey); line-height: 1.9; margin-bottom: 28px; }
+
+  .cs-grades h4 { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal); font-weight: 500; margin-bottom: 14px; }
+  .grade-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; font-size: 13px; color: var(--mid-grey); }
+  .grade-badge { display: inline-block; padding: 3px 10px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; background: var(--blush); color: var(--charcoal); min-width: 60px; text-align: center; }
+  .grade-badge.gold { background: var(--gold); color: var(--white); }
+  .grade-badge.mid { background: var(--border); }
+  .grade-badge.light { background: transparent; border: 1px solid var(--border); }
+
+  .pro-tip { margin-top: 28px; background: var(--blush); border-left: 3px solid var(--gold); padding: 16px 20px; }
+  .pro-tip strong { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
+  .pro-tip p { font-size: 13px; color: var(--mid-grey); line-height: 1.7; margin: 0; }
+
+  .cs-visual { display: flex; align-items: center; justify-content: center; padding: 40px; background: rgba(0,0,0,0.02); }
+
+  .sparkle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sparkle-cell { background: var(--white); border: 1px solid var(--border); padding: 28px 20px; text-align: center; }
+  .spark { font-size: 40px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+  .spark-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey); }
+
+  .cs-visual-block { text-align: center; }
+  .diamond-icon { font-size: 80px; color: var(--gold); opacity: 0.6; line-height: 1; margin-bottom: 12px; }
+  .diamond-label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey); }
+
+  .color-bar { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; }
+  .color-row { display: flex; align-items: center; gap: 14px; font-size: 13px; color: var(--mid-grey); }
+  .color-swatch { width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; }
+
+  .carat-visual { display: flex; align-items: flex-end; gap: 20px; }
+  .carat-stone { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .carat-diamond { background: linear-gradient(135deg, rgba(156,128,96,0.3), rgba(156,128,96,0.6)); clip-path: polygon(50% 0%, 100% 40%, 50% 100%, 0% 40%); }
+  .carat-stone span { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey); }
+
+  .final-section { background: var(--charcoal); color: var(--white); padding: 80px 40px; text-align: center; }
+  .final-section h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 48px); font-weight: 300; margin-bottom: 16px; }
+  .final-section h2 em { font-style: italic; color: var(--gold); }
+  .final-section > p { font-size: 14px; color: rgba(255,255,255,0.6); max-width: 560px; margin: 0 auto 36px; line-height: 1.8; }
+  .final-cta-wrap { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-light { display: inline-block; padding: 14px 40px; border: 1px solid var(--white); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: all 0.2s; }
+  .btn-light:hover { background: var(--white); color: var(--charcoal); }
+  .btn-gold { display: inline-block; padding: 14px 40px; background: var(--gold); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: background 0.2s; }
+  .btn-gold:hover { background: #8a7054; }
+
+  @media (max-width: 900px) {
+    .cs-section { grid-template-columns: 1fr; }
+    .cs-visual { display: none; }
+    .cs-content { padding: 48px 24px; }
+    .cs-nav-item { padding: 16px 8px; }
+    .cs-num { font-size: 22px; }
+    .fcs-hero { padding: 40px 20px; }
+    .intro-strip { padding: 32px 20px; }
+    .final-section { padding: 56px 20px; }
+  }
 </style>
 
-<!-- Search overlay -->
-  <div class="search-overlay" id="search-overlay" onclick="closeSearchOutside(event)">
-    <div class="search-panel">
-    <div class="search-box">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--mid-grey);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="Search jewellery, collections..." onkeydown="handleSearchKey(event)" oninput="doSearch(this.value)" />
-      <button class="search-close" onclick="closeSearch()">✕</button>
-    </div>
-    <div class="search-results" id="search-results" style="display:none"></div>
-    </div>
-  </div>
-
-</div>
-
 <!-- HERO -->
-<div class="page-hero">
+<div class="fcs-hero">
   <p>Diamond Education</p>
   <h1>The 4 Cs of <em>Diamonds</em></h1>
   <p class="hero-sub">Everything you need to know to choose a diamond that reflects your unique style, personality, and budget.</p>
@@ -94,7 +158,7 @@
   </div>
 </div>
 
-<!-- 3. COLOR -->
+<!-- 3. COLOUR -->
 <div class="cs-section" id="section-color">
   <div class="cs-content">
     <div class="cs-number">03</div>
@@ -103,8 +167,8 @@
     <p class="cs-tagline">D (colourless) to Z (light yellow)</p>
     <p>Diamonds are graded on a scale from D (colourless) to Z (light yellow or brown). The more colourless a diamond, the higher its value. However, slight warmth can be less noticeable in certain settings.</p>
     <div class="cs-grades">
-      <h4>Color Grades</h4>
-      <div class="grade-row"><span class="grade-badge gold">D–F</span><span>Colorless — ideal for white gold or platinum</span></div>
+      <h4>Colour Grades</h4>
+      <div class="grade-row"><span class="grade-badge gold">D–F</span><span>Colourless — ideal for white gold or platinum</span></div>
       <div class="grade-row"><span class="grade-badge">G–J</span><span>Near-colourless — great for yellow or rose gold</span></div>
       <div class="grade-row"><span class="grade-badge light">K–Z</span><span>Noticeable warmth — pairs well with yellow gold</span></div>
     </div>
@@ -115,7 +179,7 @@
   </div>
   <div class="cs-visual">
     <div class="color-bar">
-      <div class="color-row"><div class="color-swatch" style="background: rgba(255,255,255,0.95); border: 1px solid var(--border);"></div><span>D–F &nbsp;Colorless</span></div>
+      <div class="color-row"><div class="color-swatch" style="background: rgba(255,255,255,0.95); border: 1px solid var(--border);"></div><span>D–F &nbsp;Colourless</span></div>
       <div class="color-row"><div class="color-swatch" style="background: rgba(255,252,245,0.95); border: 1px solid var(--border);"></div><span>G–J &nbsp;Near-colourless</span></div>
       <div class="color-row"><div class="color-swatch" style="background: rgba(255,245,210,0.9); border: 1px solid var(--border);"></div><span>K–M &nbsp;Faint yellow</span></div>
       <div class="color-row"><div class="color-swatch" style="background: rgba(255,235,160,0.85); border: 1px solid var(--border);"></div><span>N–Z &nbsp;Light yellow</span></div>
@@ -144,26 +208,11 @@
   </div>
   <div class="cs-visual">
     <div class="carat-visual">
-      <div class="carat-stone">
-        <div class="carat-diamond" style="width:36px;height:48px;"></div>
-        <span>0.25 CT</span>
-      </div>
-      <div class="carat-stone">
-        <div class="carat-diamond" style="width:52px;height:68px;"></div>
-        <span>0.50 CT</span>
-      </div>
-      <div class="carat-stone">
-        <div class="carat-diamond" style="width:72px;height:92px;"></div>
-        <span>1 CT</span>
-      </div>
-      <div class="carat-stone">
-        <div class="carat-diamond" style="width:96px;height:122px;"></div>
-        <span>2 CT</span>
-      </div>
-      <div class="carat-stone">
-        <div class="carat-diamond" style="width:120px;height:152px;"></div>
-        <span>3 CT</span>
-      </div>
+      <div class="carat-stone"><div class="carat-diamond" style="width:36px;height:48px;"></div><span>0.25 CT</span></div>
+      <div class="carat-stone"><div class="carat-diamond" style="width:52px;height:68px;"></div><span>0.50 CT</span></div>
+      <div class="carat-stone"><div class="carat-diamond" style="width:72px;height:92px;"></div><span>1 CT</span></div>
+      <div class="carat-stone"><div class="carat-diamond" style="width:96px;height:122px;"></div><span>2 CT</span></div>
+      <div class="carat-stone"><div class="carat-diamond" style="width:120px;height:152px;"></div><span>3 CT</span></div>
     </div>
   </div>
 </div>
@@ -173,7 +222,7 @@
   <h2>Ready to Find Your <em>Perfect Diamond?</em></h2>
   <p>When choosing your diamond, each of the 4 Cs plays a role in its beauty and value. Our experts at Melia Nae are here to guide you through every step of the journey.</p>
   <div class="final-cta-wrap">
-    <a href="/pages/collection" class="btn-light">Shop Diamond Jewellery</a>
+    <a href="/collections/all" class="btn-light">Shop Diamond Jewellery</a>
     <a href="/pages/services" class="btn-gold">Speak with Our Team</a>
   </div>
 </div>
