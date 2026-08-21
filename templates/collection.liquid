@@ -90,6 +90,7 @@
     </div>
 
     <!-- Product Grid -->
+    {%- paginate collection.products by 48 -%}
     <div class="collection-product-grid" id="product-grid">
       {%- for product in collection.products -%}
         {%- assign type_lower = product.type | downcase -%}
@@ -164,6 +165,7 @@
     </div>
     {%- endif -%}
   </div>
+    {%- endpaginate -%}
 </div>
 
 <script>
