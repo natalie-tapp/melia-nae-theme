@@ -711,7 +711,7 @@ section { padding: 48px 0; }
 .cart-item-price { font-size: 14px; font-weight: 400; }
 .cart-item-remove { font-size: 18px; color: var(--light-grey); cursor: pointer; background: none; border: none; line-height: 1; padding: 0; }
 .cart-item-remove:hover { color: var(--charcoal); }
-.cart-drawer-footer { padding: 20px; border-top: 1px solid var(--border); }
+.cart-drawer-footer { padding: 20px 20px 36px; border-top: 1px solid var(--border); }
 .cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .cart-subtotal-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); }
 .cart-subtotal-amount { font-family: var(--font-serif); font-size: 22px; font-weight: 400; }
