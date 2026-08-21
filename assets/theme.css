@@ -180,6 +180,9 @@ section { padding: 80px 0; }
   background: linear-gradient(90deg, rgba(245,237,226,0.95) 30%, rgba(245,237,226,0.3) 70%);
 }
 .hero-img-block { width: 55%; height: 100%; flex-shrink: 0; object-fit: cover; display: block; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-video-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.25); z-index: 1; }
+.hero .hero-content { position: relative; z-index: 2; }
 .hero-content { position: relative; z-index: 2; max-width: 1440px; margin: 0 auto; padding: 0 80px; width: 100%; }
 .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 500; }
 .hero-title { font-family: var(--font-serif); font-size: clamp(52px, 6vw, 86px); font-weight: 300; line-height: 1.1; color: var(--charcoal); margin-bottom: 24px; max-width: 600px; }
@@ -188,7 +191,7 @@ section { padding: 80px 0; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
 /* ─── TRUST BAR ─── */
-.trust-bar { background: var(--charcoal); padding: 32px 0; }
+.trust-bar { background: var(--charcoal); padding: 56px 0; }
 .trust-bar-inner {
   max-width: 1440px;
   margin: 0 auto;
