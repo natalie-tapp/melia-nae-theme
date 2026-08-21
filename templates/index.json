@@ -8,8 +8,8 @@
         "subheading": "Discover our curated collection of fine jewellery — crafted for every moment that matters.",
         "button_label": "Shop the Collection",
         "button_link": "/collections/all",
-        "button2_label": "Ring Builder",
-        "button2_link": "/pages/ring-builder"
+        "button2_label": "",
+        "button2_link": ""
       }
     },
     "trust-bar": {
