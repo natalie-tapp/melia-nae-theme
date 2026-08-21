@@ -1,0 +1,86 @@
+<style>
+  .cart-page { max-width: 1000px; margin: 0 auto; padding: 64px 40px 80px; }
+  .cart-page h1 { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 48px); font-weight: 300; margin-bottom: 40px; }
+  .cart-page h1 em { font-style: italic; color: var(--gold); }
+  .cart-empty { text-align: center; padding: 80px 0; }
+  .cart-empty p { font-size: 15px; color: var(--mid-grey); margin-bottom: 32px; }
+  .cart-empty a { display: inline-block; padding: 14px 40px; background: var(--charcoal); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .cart-items { border-top: 1px solid var(--border); }
+  .cart-item { display: grid; grid-template-columns: 100px 1fr auto; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--border); }
+  .cart-item-img { aspect-ratio: 1; overflow: hidden; background: var(--blush); }
+  .cart-item-img img { width: 100%; height: 100%; object-fit: contain; }
+  .cart-item-title { font-family: var(--font-serif); font-size: 18px; font-weight: 300; margin-bottom: 6px; }
+  .cart-item-variant { font-size: 12px; color: var(--mid-grey); margin-bottom: 12px; }
+  .cart-item-price { font-size: 14px; color: var(--mid-grey); }
+  .cart-item-qty { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+  .cart-item-qty button { width: 28px; height: 28px; border: 1px solid var(--border); background: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .cart-item-qty span { font-size: 14px; min-width: 24px; text-align: center; }
+  .cart-item-remove { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-grey); border-bottom: 1px solid var(--border); cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; padding: 0; font-family: var(--font-sans); }
+  .cart-summary { margin-top: 40px; border-top: 1px solid var(--border); padding-top: 32px; max-width: 400px; margin-left: auto; }
+  .cart-summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: var(--mid-grey); }
+  .cart-summary-total { display: flex; justify-content: space-between; font-size: 16px; color: var(--charcoal); font-weight: 500; margin: 20px 0 28px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .cart-checkout-btn { display: block; width: 100%; padding: 16px; background: var(--charcoal); color: var(--white); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-align: center; cursor: pointer; border: none; font-family: var(--font-sans); font-weight: 500; }
+  .cart-checkout-btn:hover { background: var(--gold); }
+  .cart-continue { display: block; text-align: center; margin-top: 16px; font-size: 12px; color: var(--mid-grey); border-bottom: 1px solid var(--mid-grey); display: inline-block; }
+  @media (max-width: 768px) { .cart-page { padding: 40px 20px 60px; } .cart-item { grid-template-columns: 80px 1fr auto; gap: 16px; } }
+</style>
+
+<div class="cart-page">
+  <h1>Your <em>Bag</em></h1>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="cart-empty">
+      <p>Your bag is empty.</p>
+      <a href="{{ routes.all_products_collection_url }}">Continue Shopping</a>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post">
+      <div class="cart-items">
+        {%- for item in cart.items -%}
+          <div class="cart-item">
+            <a href="{{ item.url }}">
+              <div class="cart-item-img">
+                {%- if item.image -%}
+                  <img src="{{ item.image | img_url: '200x200' }}" alt="{{ item.title | escape }}" />
+                {%- endif -%}
+              </div>
+            </a>
+            <div>
+              <p class="cart-item-title"><a href="{{ item.url }}">{{ item.product.title }}</a></p>
+              {%- unless item.variant.title == 'Default Title' -%}
+                <p class="cart-item-variant">{{ item.variant.title }}</p>
+              {%- endunless -%}
+              <p class="cart-item-price">{{ item.price | money }}</p>
+              <div class="cart-item-qty">
+                <button type="button" onclick="updateQty({{ item.index }}, {{ item.quantity | minus: 1 }})">−</button>
+                <span>{{ item.quantity }}</span>
+                <button type="button" onclick="updateQty({{ item.index }}, {{ item.quantity | plus: 1 }})">+</button>
+              </div>
+            </div>
+            <a href="{{ routes.cart_change_url }}?line={{ item.index }}&quantity=0" class="cart-item-remove">Remove</a>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="cart-summary">
+        <div class="cart-summary-row"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
+        <p class="cart-summary-row" style="font-size:12px;color:var(--mid-grey);">Shipping &amp; taxes calculated at checkout</p>
+        <div class="cart-summary-total"><span>Total</span><span>{{ cart.total_price | money }} AUD</span></div>
+        <button type="submit" name="checkout" class="cart-checkout-btn">Proceed to Checkout</button>
+        <div style="text-align:center;margin-top:16px;">
+          <a href="{{ routes.all_products_collection_url }}" style="font-size:12px;color:var(--mid-grey);border-bottom:1px solid var(--mid-grey);">Continue Shopping</a>
+        </div>
+      </div>
+    </form>
+  {%- endif -%}
+</div>
+
+<script>
+  function updateQty(line, qty) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ line, quantity: qty })
+    }).then(() => location.reload());
+  }
+</script>
