@@ -191,14 +191,14 @@ section { padding: 80px 0; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
 /* ─── TRUST BAR ─── */
-.trust-bar { background: var(--charcoal); padding: 72px 0; }
+.trust-bar { background: var(--charcoal); padding: 48px 0; }
 .trust-bar-inner {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 80px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 64px;
+  gap: 80px;
   text-align: center;
 }
 .trust-item-icon { font-size: 24px; margin-bottom: 10px; opacity: 0.8; }
