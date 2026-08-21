@@ -42,8 +42,8 @@
 
     <div class="filter-group">
       <div class="filter-group-header"><h4>Metal</h4><span>−</span></div>
-      {%- assign metal_tags = 'gold,rose-gold,silver,platinum,moissanite' | split: ',' -%}
-      {%- assign metal_labels = 'Gold,Rose Gold,Silver,Platinum,Moissanite' | split: ',' -%}
+      {%- assign metal_tags = 'gold,silver,platinum,moissanite' | split: ',' -%}
+      {%- assign metal_labels = 'Gold,Silver,Platinum,Moissanite' | split: ',' -%}
       {%- for tag in metal_tags -%}
         {%- assign is_active = false -%}
         {%- if current_tags contains tag -%}{%- assign is_active = true -%}{%- endif -%}
