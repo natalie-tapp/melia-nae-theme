@@ -440,7 +440,12 @@
     var typeLabel = calcType === 'circ' ? 'circumference' : 'diameter';
     var unitLabel = calcUnit === 'mm' ? 'mm' : 'inches';
     document.getElementById('inputLabel').textContent = 'Enter ' + typeLabel + ' (' + unitLabel + ')';
-    document.getElementById('measureInput').placeholder = calcUnit === 'mm' ? 'e.g. 52.5' : 'e.g. 2.07';
+    var placeholder;
+    if (calcType === 'circ' && calcUnit === 'mm') placeholder = 'e.g. 52.5';
+    else if (calcType === 'circ' && calcUnit === 'in') placeholder = 'e.g. 2.07';
+    else if (calcType === 'diam' && calcUnit === 'mm') placeholder = 'e.g. 16.5';
+    else placeholder = 'e.g. 0.65';
+    document.getElementById('measureInput').placeholder = placeholder;
   }
 
   function calculateSize() {
