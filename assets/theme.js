@@ -218,7 +218,7 @@ function doSearch(q) {
   el.style.display = '';
   el.innerHTML = '<p class="search-no-results">Searching…</p>';
   _searchTimer = setTimeout(function () {
-    fetch('/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=8&resources[options][fields]=title,product_type,vendor')
+    fetch('/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=8&resources[options][fields]=title,product_type,vendor,tag,variants.title')
       .then(res => res.json())
       .then(data => {
         const hits = (data.resources && data.resources.results && data.resources.results.products) || [];
