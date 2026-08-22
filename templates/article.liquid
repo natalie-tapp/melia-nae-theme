@@ -1,7 +1,14 @@
 <style>
-  .article-hero { background: var(--blush); padding: 72px 40px 56px; text-align: center; border-bottom: 1px solid var(--border); }
+  .article-hero { position: relative; background: var(--blush); text-align: center; border-bottom: 1px solid var(--border); overflow: hidden; }
+  .article-hero-img { width: 100%; height: 480px; object-fit: cover; display: block; }
+  .article-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(28,28,26,0.18) 0%, rgba(28,28,26,0.62) 100%); }
+  .article-hero-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 48px 40px; }
+  .article-hero-no-img { padding: 72px 40px 56px; }
   .article-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 16px; }
+  .article-hero-img ~ .article-hero-content .article-eyebrow { color: rgba(255,255,255,0.7); }
   .article-hero h1 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 52px); font-weight: 300; line-height: 1.2; max-width: 760px; margin: 0 auto 20px; }
+  .article-hero-content h1 { color: var(--white); }
+  .article-hero-content .article-meta { color: rgba(255,255,255,0.6); }
   .article-meta { font-size: 12px; color: var(--mid-grey); letter-spacing: 1px; }
 
   .article-body { max-width: 740px; margin: 0 auto; padding: 64px 40px 80px; }
@@ -22,18 +29,31 @@
   .article-back a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid var(--charcoal); padding-bottom: 2px; }
 
   @media (max-width: 768px) {
-    .article-hero { padding: 48px 20px 40px; }
+    .article-hero-img { height: 300px; }
+    .article-hero-content { padding: 24px 20px; }
+    .article-hero-no-img { padding: 48px 20px 40px; }
     .article-body { padding: 40px 20px 60px; }
   }
 </style>
 
 <div class="article-hero">
-  <div class="article-eyebrow">{{ blog.title }}</div>
-  <h1>{{ article.title }}</h1>
-  <div class="article-meta">
-    {{ article.published_at | date: "%d %B %Y" }}
-    {%- if article.author != blank %} &nbsp;·&nbsp; {{ article.author }}{%- endif %}
-  </div>
+  {%- if article.image -%}
+    <img class="article-hero-img"
+         src="{{ article.image | img_url: '1600x' }}"
+         alt="{{ article.image.alt | default: article.title | escape }}" />
+    <div class="article-hero-overlay"></div>
+    <div class="article-hero-content">
+      <div class="article-eyebrow">{{ blog.title }}</div>
+      <h1>{{ article.title }}</h1>
+      <div class="article-meta">{{ article.published_at | date: "%d %B %Y" }}</div>
+    </div>
+  {%- else -%}
+    <div class="article-hero-no-img">
+      <div class="article-eyebrow">{{ blog.title }}</div>
+      <h1>{{ article.title }}</h1>
+      <div class="article-meta">{{ article.published_at | date: "%d %B %Y" }}</div>
+    </div>
+  {%- endif -%}
 </div>
 
 <div class="article-body">
