@@ -388,3 +388,91 @@
   </div>
 
 </div>
+
+<script>
+  var calcType = 'circ';
+  var calcUnit = 'mm';
+
+  var sizeData = [
+    [14.1, 44.2,  3,    'F½',  44],
+    [14.5, 45.6,  3.5,  'G½',  46],
+    [14.9, 46.8,  4,    'H½',  47],
+    [15.3, 48.1,  4.5,  'I½',  48],
+    [15.7, 49.3,  5,    'J½',  50],
+    [16.1, 50.6,  5.5,  'K½',  51],
+    [16.5, 51.9,  6,    'L½',  52],
+    [16.9, 53.1,  6.5,  'M½',  53],
+    [17.3, 54.3,  7,    'N½',  55],
+    [17.7, 55.6,  7.5,  'O½',  56],
+    [18.1, 56.9,  8,    'P½',  57],
+    [18.5, 58.1,  8.5,  'Q½',  58],
+    [18.8, 59.1,  null, null,   null],
+    [19.0, 59.7,  9,    'R½',  59],
+    [19.4, 60.9,  9.5,  'S½',  60],
+    [19.8, 62.2,  10,   'T½',  61],
+    [20.2, 63.5,  10.5, 'U½',  62],
+    [20.6, 64.7,  11,   'V½',  63],
+    [21.0, 66.0,  11.5, 'W½',  64],
+    [21.4, 67.2,  12,   'X½',  66],
+    [21.8, 68.5,  12.5, 'Z',   null],
+    [22.3, 70.1,  13,   null,  70],
+    [22.9, 71.9,  null, 'Z+2', 72],
+    [23.2, 72.9,  14,   'Z+3', null]
+  ];
+
+  function setType(type) {
+    calcType = type;
+    document.getElementById('typeCirc').classList.toggle('active', type === 'circ');
+    document.getElementById('typeDiam').classList.toggle('active', type === 'diam');
+    updateLabel();
+    calculateSize();
+  }
+
+  function setUnit(unit) {
+    calcUnit = unit;
+    document.getElementById('unitMm').classList.toggle('active', unit === 'mm');
+    document.getElementById('unitIn').classList.toggle('active', unit === 'in');
+    updateLabel();
+    calculateSize();
+  }
+
+  function updateLabel() {
+    var typeLabel = calcType === 'circ' ? 'circumference' : 'diameter';
+    var unitLabel = calcUnit === 'mm' ? 'mm' : 'inches';
+    document.getElementById('inputLabel').textContent = 'Enter ' + typeLabel + ' (' + unitLabel + ')';
+    document.getElementById('measureInput').placeholder = calcUnit === 'mm' ? 'e.g. 52.5' : 'e.g. 2.07';
+  }
+
+  function calculateSize() {
+    var val = parseFloat(document.getElementById('measureInput').value);
+    var result = document.getElementById('calcResult');
+    if (isNaN(val) || val <= 0) {
+      result.innerHTML = '<p class="result-placeholder">Enter your measurement above</p>';
+      return;
+    }
+    if (calcUnit === 'in') val = val * 25.4;
+    var circ_mm = calcType === 'diam' ? val * Math.PI : val;
+
+    var best = null, bestDiff = Infinity;
+    sizeData.forEach(function(row) {
+      var diff = Math.abs(row[1] - circ_mm);
+      if (diff < bestDiff) { bestDiff = diff; best = row; }
+    });
+
+    if (!best || bestDiff > 5) {
+      result.innerHTML = '<p class="result-placeholder">Size not found — try a value between 44–73mm circumference.</p>';
+      return;
+    }
+
+    var us = best[2] !== null ? best[2] : '—';
+    var uk = best[3] !== null ? best[3] : '—';
+    var eu = best[4] !== null ? best[4] : '—';
+    result.innerHTML =
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:20px 0;">' +
+        '<div style="text-align:center;"><p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">US</p><p style="font-family:var(--font-serif);font-size:32px;font-weight:300;">' + us + '</p></div>' +
+        '<div style="text-align:center;"><p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">UK</p><p style="font-family:var(--font-serif);font-size:32px;font-weight:300;">' + uk + '</p></div>' +
+        '<div style="text-align:center;"><p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">EU</p><p style="font-family:var(--font-serif);font-size:32px;font-weight:300;">' + eu + '</p></div>' +
+      '</div>' +
+      '<p style="font-size:12px;color:var(--mid-grey);text-align:center;">Based on ' + circ_mm.toFixed(1) + 'mm circumference</p>';
+  }
+</script>
