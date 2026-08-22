@@ -379,7 +379,7 @@
       .container { padding: 0 20px; }
       .services-grid { grid-template-columns: 1fr; }
       .service-card.wide { grid-column: span 1; grid-template-columns: 1fr; }
-      .service-card.wide .service-visual { display: none; }
+      .service-card.wide .service-visual { display: block; height: 260px; }
       .process-steps { grid-template-columns: 1fr 1fr; }
       .page-hero { padding: 56px 24px; }
     }
@@ -547,6 +547,15 @@
     </div>
   </div>
 </section>
+
+<script>
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(el) { el.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
 
 <!-- CTA -->
 <section class="services-cta">
