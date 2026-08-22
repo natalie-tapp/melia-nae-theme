@@ -4,22 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>
-    {%- if page_title == blank -%}
-      {{ shop.name }}
+    {%- if template.name == 'index' -%}
+      Melia Nae Jewellery | Lab Diamonds, Moissanite &amp; Fine Gold | Campbelltown NSW
+    {%- elsif template.name == 'product' -%}
+      {{ product.title }} | {{ product.type }} | Melia Nae Jewellery
+    {%- elsif template.name == 'collection' -%}
+      {{ collection.title }} | Fine Jewellery | Melia Nae
+    {%- elsif template.name == 'page' -%}
+      {{ page.title }} | Melia Nae Jewellery
+    {%- elsif template.name == 'search' -%}
+      Search Results{% if search.terms != blank %} for "{{ search.terms }}"{% endif %} | Melia Nae
+    {%- elsif template.name == 'cart' -%}
+      Your Bag | Melia Nae Jewellery
+    {%- elsif page_title == blank -%}
+      Melia Nae Jewellery | Lab Diamonds, Moissanite &amp; Fine Gold
     {%- else -%}
-      {{ page_title }} — {{ shop.name }}
+      {{ page_title }} | Melia Nae Jewellery
     {%- endif -%}
   </title>
 
-  {%- comment -%}── META DESCRIPTION (fallback when not set in Shopify Admin) ──{%- endcomment -%}
-  {%- if page_description -%}
+  {%- comment -%}── META DESCRIPTION ──{%- endcomment -%}
+  {%- if page_description != blank -%}
     <meta name="description" content="{{ page_description | escape }}" />
+  {%- elsif template.name == 'index' -%}
+    <meta name="description" content="Melia Nae Jewellery — specialists in lab grown diamonds, moissanite, and fine gold jewellery. Shop rings, earrings, necklaces &amp; pendants. Free shipping over $150 AUD. Campbelltown, NSW." />
   {%- elsif template.name == 'product' -%}
-    <meta name="description" content="Shop {{ product.title }} at Melia Nae. {{ product.type }} crafted with fine materials — free shipping on Australian orders over $150 AUD." />
+    <meta name="description" content="Shop {{ product.title }} at Melia Nae Jewellery. {{ product.description | strip_html | truncate: 120 }} Free shipping on Australian orders over $150." />
   {%- elsif template.name == 'collection' -%}
-    <meta name="description" content="Shop {{ collection.title }} at Melia Nae Jewellery. Browse our curated fine jewellery collection — free shipping on orders over $150 AUD. Afterpay &amp; Zip available." />
+    <meta name="description" content="Shop {{ collection.title }} at Melia Nae. {{ collection.products_count }} pieces — lab diamonds, moissanite &amp; fine gold. Free shipping over $150 AUD. Afterpay &amp; Zip available." />
+  {%- elsif template.name == 'page' and page.handle == 'about' -%}
+    <meta name="description" content="Learn about Melia Nae Jewellery — a family jewellery brand founded on a maternal bond, crafting fine jewellery in Campbelltown, NSW." />
+  {%- elsif template.name == 'page' and page.handle == 'contact' -%}
+    <meta name="description" content="Get in touch with Melia Nae Jewellery. Visit us at Campbelltown Mall, NSW, or reach out via our contact form. We'd love to hear from you." />
+  {%- elsif template.name == 'page' and page.handle == 'faq' -%}
+    <meta name="description" content="Frequently asked questions about Melia Nae Jewellery — shipping, returns, custom orders, jewellery care, and more." />
+  {%- elsif template.name == 'page' and page.handle == 'stores' -%}
+    <meta name="description" content="Find Melia Nae Jewellery at Campbelltown Mall, NSW. Visit us in store to browse our full collection of fine jewellery." />
+  {%- elsif template.name == 'page' and page.handle == 'services' -%}
+    <meta name="description" content="Melia Nae offers jewellery repairs, ring resizing, gold buying, and custom jewellery design. Visit us in Campbelltown, NSW." />
   {%- else -%}
-    <meta name="description" content="Melia Nae Jewellery — Fine jewellery crafted with dedication. Shop rings, earrings, necklaces, bracelets, pendants and lab diamonds. Free shipping over $150 AUD. Campbelltown, NSW." />
+    <meta name="description" content="Melia Nae Jewellery — fine jewellery crafted with dedication. Lab grown diamonds, moissanite, and gold jewellery. Free shipping over $150 AUD. Campbelltown, NSW." />
   {%- endif -%}
 
   {%- comment -%}── CANONICAL ──{%- endcomment -%}
@@ -30,7 +54,15 @@
   {%- comment -%}── OPEN GRAPH ──{%- endcomment -%}
   <meta property="og:site_name" content="{{ shop.name }}" />
   <meta property="og:url" content="{{ canonical_url }}" />
-  <meta property="og:title" content="{{ page_title | default: shop.name | escape }}" />
+  {%- capture seo_title -%}
+    {%- if template.name == 'index' -%}Melia Nae Jewellery | Lab Diamonds, Moissanite & Fine Gold
+    {%- elsif template.name == 'product' -%}{{ product.title }} | {{ product.type }} | Melia Nae
+    {%- elsif template.name == 'collection' -%}{{ collection.title }} | Fine Jewellery | Melia Nae
+    {%- elsif page_title != blank -%}{{ page_title }} | Melia Nae Jewellery
+    {%- else -%}Melia Nae Jewellery
+    {%- endif -%}
+  {%- endcapture -%}
+  <meta property="og:title" content="{{ seo_title | strip | escape }}" />
   <meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}" />
   <meta property="og:description" content="{{ page_description | default: 'Fine jewellery crafted with dedication. Shop rings, earrings, necklaces, bracelets and more at Melia Nae.' | escape }}" />
   {%- if template.name == 'product' and product.featured_image -%}
@@ -114,6 +146,37 @@
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ shop.url }}" },
       { "@type": "ListItem", "position": 2, "name": "{{ product.type | default: 'Jewellery' }}", "item": "{{ shop.url }}/collections/all" },
       { "@type": "ListItem", "position": 3, "name": {{ product.title | json }}, "item": "{{ shop.url }}{{ product.url }}" }
+    ]
+  }
+  </script>
+  {%- endif -%}
+
+  {%- comment -%}── JSON-LD: BREADCRUMB (collection pages) ──{%- endcomment -%}
+  {%- if template.name == 'collection' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ shop.url }}" },
+      { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": "{{ shop.url }}{{ collection.url }}" }
+    ]
+  }
+  </script>
+  {%- endif -%}
+
+  {%- comment -%}── JSON-LD: FAQ PAGE ──{%- endcomment -%}
+  {%- if template.suffix == 'faq' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What payment methods do you accept?", "acceptedAnswer": { "@type": "Answer", "text": "We accept Visa, Mastercard, American Express, PayPal, Apple Pay, Google Pay, Afterpay, and Zip." } },
+      { "@type": "Question", "name": "Do you offer free shipping?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free standard shipping on all Australian orders over $150 AUD." } },
+      { "@type": "Question", "name": "Do you ship internationally?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, we ship worldwide via Australia Post International. Rates are calculated at checkout." } },
+      { "@type": "Question", "name": "Do you offer custom jewellery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — visit our Customs Gallery for inspiration, then contact us to start the conversation." } },
+      { "@type": "Question", "name": "What is your returns policy?", "acceptedAnswer": { "@type": "Answer", "text": "We offer exchanges on eligible unworn items within 30 days of delivery. We do not offer refunds. Custom and engraved pieces are not eligible unless faulty." } }
     ]
   }
   </script>
