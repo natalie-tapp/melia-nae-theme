@@ -25,7 +25,7 @@
   .promise-text h2 em { font-style: italic; }
   .promise-text p { font-size: 14px; color: var(--mid-grey); line-height: 1.9; margin-bottom: 14px; }
   .promise-image { position: relative; }
-  .promise-image img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+  .promise-image img, .promise-image video { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
   .promise-image-caption { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid-grey); margin-top: 12px; text-align: center; }
 
   .about-values { padding: 80px 40px; background: var(--cream); }
@@ -98,7 +98,10 @@
       <p>Our commitment to quality is evident in every piece — using only the finest materials to ensure our customers receive long-lasting and beautiful jewellery, delivered promptly and securely.</p>
     </div>
     <div class="promise-image">
-      <img src="https://melianae.com/cdn/shop/files/IMG-0241.jpg" alt="Melia Nae Jewellery" />
+      <video autoplay muted loop playsinline>
+        <source src="{{ 'dream-ring.mp4' | asset_url }}" type="video/mp4" />
+        <source src="{{ 'dream-ring.mov' | asset_url }}" type="video/quicktime" />
+      </video>
       <div class="promise-image-caption">Handcrafted with love</div>
     </div>
   </div>
