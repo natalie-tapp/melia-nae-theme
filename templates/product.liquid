@@ -60,12 +60,7 @@
       or <strong>4 payments of {{ product.price | divided_by: 4 | money }}</strong> with Afterpay
     </p>
 
-    <div class="product-reviews">
-      <span class="review-stars">★★★★★</span>
-      <span class="review-count">4.9 · 48 reviews</span>
-    </div>
-
-    {%- form 'product', product, id: 'product-form' -%}
+{%- form 'product', product, id: 'product-form' -%}
 
       {%- unless product.has_only_default_variant -%}
         {%- for option in product.options_with_values -%}
