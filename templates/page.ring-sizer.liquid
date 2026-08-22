@@ -424,16 +424,18 @@
     calcType = type;
     document.getElementById('typeCirc').classList.toggle('active', type === 'circ');
     document.getElementById('typeDiam').classList.toggle('active', type === 'diam');
+    document.getElementById('measureInput').value = '';
+    document.getElementById('calcResult').innerHTML = '<p class="result-placeholder">Enter your measurement above</p>';
     updateLabel();
-    calculateSize();
   }
 
   function setUnit(unit) {
     calcUnit = unit;
     document.getElementById('unitMm').classList.toggle('active', unit === 'mm');
     document.getElementById('unitIn').classList.toggle('active', unit === 'in');
+    document.getElementById('measureInput').value = '';
+    document.getElementById('calcResult').innerHTML = '<p class="result-placeholder">Enter your measurement above</p>';
     updateLabel();
-    calculateSize();
   }
 
   function updateLabel() {
