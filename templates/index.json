@@ -172,6 +172,13 @@
     "instagram-preview": {
       "type": "instagram-preview",
       "blocks": {
+        "post_gjgr43": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-25_at_10.13.38_pm.png",
+            "alt": ""
+          }
+        },
         "post_eU4efF": {
           "type": "post",
           "settings": {
@@ -180,12 +187,13 @@
         }
       },
       "block_order": [
+        "post_gjgr43",
         "post_eU4efF"
       ],
       "settings": {
         "instagram_handle": "melianaejewellers",
-        "heading": "Follow Us on Instagram",
-        "subtext": "Get a glimpse of our world — new arrivals, behind-the-scenes, and jewellery inspiration."
+        "heading": "Follow Us On Instagram",
+        "subtext": "Get a glimpse of our world... new arrivals, behind-the-scenes, and jewellery inspiration."
       }
     },
     "1787659468e7d9d12b": {
