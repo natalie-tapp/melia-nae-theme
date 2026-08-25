@@ -171,8 +171,6 @@
     },
     "instagram-preview": {
       "type": "instagram-preview",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "instagram_handle": "melianaejewellers",
         "heading": "Follow Us on Instagram",
@@ -188,6 +186,34 @@
         "button_label": "Subscribe",
         "disclaimer": "By subscribing you agree to our privacy policy. Unsubscribe any time."
       }
+    },
+    "1787659468e7d9d12b": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_43NPQB": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "disabled": true,
+          "settings": {
+            "title": "",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": true,
+            "link_alignment": "center",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_43NPQB"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -199,6 +225,7 @@
     "testimonials",
     "fourcs_infographic_hFY386",
     "instagram-preview",
+    "1787659468e7d9d12b",
     "newsletter"
   ]
 }
