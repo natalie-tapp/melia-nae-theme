@@ -383,7 +383,7 @@ function updateWishlistCount() {
   if (!badge) return;
   if (count > 0) {
     badge.textContent = count;
-    badge.style.display = 'inline';
+    badge.style.display = 'flex';
   } else {
     badge.style.display = 'none';
   }
