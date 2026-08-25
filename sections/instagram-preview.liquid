@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/billabong">
-
 {%- assign handle = section.settings.instagram_handle | default: 'melianaejewellers' -%}
 {%- assign heading = section.settings.heading | default: 'Follow Us on Instagram' -%}
 {%- assign subtext = section.settings.subtext | default: 'Get a glimpse of our world — new arrivals, behind-the-scenes, and jewellery inspiration.' -%}
@@ -7,35 +5,26 @@
 <section class="instagram-section">
   <div class="instagram-inner">
 
-    <!-- Phone mockup -->
-    <div class="insta-phone-wrap">
-      <a href="https://www.instagram.com/{{ handle }}/" target="_blank" rel="noopener" class="insta-phone" aria-label="Visit our Instagram @{{ handle }}">
-        <div class="insta-phone-notch"></div>
-        <div class="insta-phone-screen">
-          <!-- Image grid -->
-          <div class="insta-grid">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'post' -%}
-                <div class="insta-cell">
-                  {%- if block.settings.image != blank -%}
-                    <img src="{{ block.settings.image | img_url: '300x300', crop: 'center' }}"
-                         alt="{{ block.settings.alt | default: 'Instagram post' }}"
-                         loading="lazy" />
-                  {%- else -%}
-                    <div class="insta-cell-placeholder"></div>
-                  {%- endif -%}
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
-            {%- if section.blocks.size == 0 -%}
-              {%- for i in (1..9) -%}
-                <div class="insta-cell"><div class="insta-cell-placeholder"></div></div>
-              {%- endfor -%}
+    <!-- Polaroid wall -->
+    <div class="polaroid-wall">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'post' -%}
+          <div class="polaroid-card">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | img_url: '400x400', crop: 'center' }}"
+                   alt="{{ block.settings.alt | default: 'Melia Nae Jewellery' }}"
+                   loading="lazy" />
+            {%- else -%}
+              <div class="polaroid-placeholder"></div>
             {%- endif -%}
           </div>
-        </div>
-        <div class="insta-phone-home"></div>
-      </a>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if section.blocks.size == 0 -%}
+        {%- for i in (1..9) -%}
+          <div class="polaroid-card"><div class="polaroid-placeholder"></div></div>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
 
     <!-- Text side -->
@@ -58,7 +47,6 @@
   "name": "Instagram Preview",
   "settings": [
     { "type": "text", "id": "instagram_handle", "label": "Instagram handle (without @)", "default": "melianaejewellers" },
-    { "type": "image_picker", "id": "profile_image", "label": "Profile photo" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Follow Us on Instagram" },
     { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Get a glimpse of our world — new arrivals, behind-the-scenes, and jewellery inspiration." }
   ],
