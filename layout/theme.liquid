@@ -434,7 +434,11 @@
         <input type="email" id="email-popup-input" name="contact[email]" placeholder="Your email address" required autocomplete="email" />
         <button type="submit" id="email-popup-btn">Claim My 10% Off</button>
       </form>
-      <p id="email-popup-success" style="display:none;">✓ Thank you! Check your inbox for your discount code.</p>
+      <div id="email-popup-success" style="display:none;">
+        <p style="font-size:13px;color:#9C8060;font-weight:500;margin-bottom:16px;">✓ You're in! Here's your exclusive code:</p>
+        <div style="background:#1C1C1A;color:#FAF8F5;font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:300;letter-spacing:6px;padding:18px 24px;margin-bottom:16px;">MNJ10</div>
+        <p style="font-size:12px;color:#6B6B68;line-height:1.7;">Use <strong>MNJ10</strong> at checkout for 10% off your first order.<br/>Screenshot this or copy it before closing.</p>
+      </div>
       <p id="email-popup-fine">No spam, ever. Unsubscribe anytime.</p>
     </div>
   </div>
@@ -530,14 +534,14 @@
       document.getElementById('email-popup-success').style.display = 'block';
       setTimeout(function() {
         document.getElementById('email-popup').style.display = 'none';
-      }, 3000);
+      }, 8000);
     }).catch(function() {
       // Fallback — show success anyway (Shopify contact endpoint may not return JSON)
       form.style.display = 'none';
       document.getElementById('email-popup-success').style.display = 'block';
       setTimeout(function() {
         document.getElementById('email-popup').style.display = 'none';
-      }, 3000);
+      }, 8000);
     });
   }
 </script>
