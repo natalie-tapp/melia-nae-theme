@@ -268,6 +268,7 @@
       <div class="header-actions">
         <a href="{{ routes.search_url }}" class="header-search" onclick="openSearch(); return false;">Search</a>
         <a href="{{ routes.account_url }}" class="header-account">Account</a>
+        <a href="/pages/wishlist" class="header-wishlist" aria-label="Wishlist">♡ <span id="header-wishlist-count" style="display:none;"></span></a>
         <a href="{{ routes.cart_url }}" class="cart-icon" onclick="openCart(); return false;">
           Bag <span class="cart-count">{{ cart.item_count }}</span>
         </a>
@@ -317,6 +318,7 @@
       </ul>
       <div class="mobile-nav-bottom">
         <a href="{{ routes.search_url }}" onclick="closeMobileNav(); openSearch(); return false;">Search</a>
+        <a href="/pages/wishlist">Wishlist</a>
         <a href="{{ routes.account_url }}">Account</a>
         <a href="/pages/ring-sizer">Ring Sizer</a>
         <a href="/pages/4cs">The 4 C's</a>

@@ -367,4 +367,19 @@ function showWishlistToast(msg, added) {
   document.head.appendChild(s);
 })();
 
-document.addEventListener('DOMContentLoaded', initWishlistButtons);
+document.addEventListener('DOMContentLoaded', function() {
+  initWishlistButtons();
+  updateWishlistCount();
+});
+
+function updateWishlistCount() {
+  var count = MNWishlist.count();
+  var badge = document.getElementById('header-wishlist-count');
+  if (!badge) return;
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = 'inline';
+  } else {
+    badge.style.display = 'none';
+  }
+}

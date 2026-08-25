@@ -88,9 +88,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: color 0.2s;
 }
 .header-actions a:hover { color: var(--gold); }
-/* Hide search/account text on mobile, show bag only */
+/* Hide search/account text on mobile, show bag + wishlist only */
 .header-actions .header-search,
 .header-actions .header-account { display: none; }
+.header-wishlist { display: flex; align-items: center; gap: 3px; font-size: 16px; }
+#header-wishlist-count { font-size: 10px; background: var(--gold); color: white; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-sans); }
 .cart-icon { display: flex; align-items: center; gap: 6px; }
 .cart-count {
   background: var(--charcoal);
