@@ -297,8 +297,9 @@
     });
     if (match) {
       document.getElementById('variant-id').value = match.id;
-      // Swap image using the variant→image map
-      const imgSrc = variantImageMap[match.id];
+      // Use variant's featured_image first (most reliable), then fall back to variantImageMap
+      const imgSrc = (match.featured_image && match.featured_image.src)
+                     || variantImageMap[match.id];
       if (imgSrc) {
         const mainImg = document.getElementById('mainImg');
         if (mainImg) mainImg.src = shopifyImageSize(imgSrc, '1200x');

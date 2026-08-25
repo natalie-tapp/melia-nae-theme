@@ -317,8 +317,8 @@ function swapCardVariant(btn) {
   }
   if (!match) return;
 
-  // Swap card image — use variant-linked image, or first image if none assigned
-  var imgSrc = vim[match.id];
+  // Use variant's featured_image (most reliable), then variantImageMap, then first image
+  var imgSrc = (match.featured_image && match.featured_image.src) || vim[match.id];
   if (!imgSrc && data.images.length > 0) imgSrc = data.images[0].src;
   if (imgSrc) {
     var cardImg = document.getElementById('card-img-' + pid);
