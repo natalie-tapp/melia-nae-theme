@@ -287,3 +287,84 @@ function toggleMobileSubmenu(btn) {
     btn.classList.add('open');
   }
 }
+
+/* ── WISHLIST ──────────────────────────────────────────────── */
+var MNWishlist = {
+  key: 'mn_wishlist',
+
+  get: function() {
+    try { return JSON.parse(localStorage.getItem(this.key)) || []; }
+    catch(e) { return []; }
+  },
+
+  save: function(list) {
+    try { localStorage.setItem(this.key, JSON.stringify(list)); } catch(e) {}
+  },
+
+  has: function(id) {
+    return this.get().indexOf(String(id)) > -1;
+  },
+
+  toggle: function(id) {
+    var list = this.get();
+    var idx = list.indexOf(String(id));
+    if (idx > -1) { list.splice(idx, 1); }
+    else { list.push(String(id)); }
+    this.save(list);
+    return idx === -1; // true = added
+  },
+
+  count: function() {
+    return this.get().length;
+  }
+};
+
+// Wire up all wishlist buttons on the page
+function initWishlistButtons() {
+  document.querySelectorAll('[data-wishlist-id]').forEach(function(btn) {
+    var id = btn.getAttribute('data-wishlist-id');
+    updateWishlistBtn(btn, MNWishlist.has(id));
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var added = MNWishlist.toggle(id);
+      updateWishlistBtn(btn, added);
+      // Update any other buttons for the same product
+      document.querySelectorAll('[data-wishlist-id="' + id + '"]').forEach(function(b) {
+        updateWishlistBtn(b, added);
+      });
+      // Show toast
+      showWishlistToast(added ? 'Added to Wishlist' : 'Removed from Wishlist', added);
+    });
+  });
+}
+
+function updateWishlistBtn(btn, isActive) {
+  if (isActive) {
+    btn.classList.add('wishlisted');
+    btn.setAttribute('aria-label', 'Remove from wishlist');
+  } else {
+    btn.classList.remove('wishlisted');
+    btn.setAttribute('aria-label', 'Add to wishlist');
+  }
+}
+
+function showWishlistToast(msg, added) {
+  var existing = document.getElementById('mn-wishlist-toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.id = 'mn-wishlist-toast';
+  toast.textContent = (added ? '♡ ' : '') + msg;
+  toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1C1C1A;color:#FAF8F5;padding:12px 24px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;z-index:99999;animation:wishlistToastIn 0.3s ease;white-space:nowrap;';
+  document.body.appendChild(toast);
+  setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(function() { toast.remove(); }, 300); }, 2500);
+}
+
+// Add toast animation
+(function() {
+  var s = document.createElement('style');
+  s.textContent = '@keyframes wishlistToastIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}} [data-wishlist-id].wishlisted{color:#9C8060!important;}';
+  document.head.appendChild(s);
+})();
+
+document.addEventListener('DOMContentLoaded', initWishlistButtons);
