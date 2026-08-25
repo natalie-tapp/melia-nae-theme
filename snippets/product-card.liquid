@@ -1,7 +1,18 @@
-<a href="{{ product.url }}" class="product-card">
+{%- comment -%}
+  Product card snippet
+  Params: product (required), filter_key (optional), metal_key (optional)
+{%- endcomment -%}
+
+{%- assign _fk = filter_key | default: '' -%}
+{%- assign _mk = metal_key | default: '' -%}
+
+<a href="{{ product.url }}" class="product-card"
+  {% if _fk != '' %}data-type="{{ _fk }}"{% endif %}
+  {% if _mk != '' %}data-metal="{{ _mk }}"{% endif %}>
   <div class="product-card-image">
     {%- if product.featured_image != blank -%}
-      <img src="{{ product.featured_image | img_url: '600x800' }}"
+      <img id="card-img-{{ product.id }}"
+           src="{{ product.featured_image | img_url: '600x800' }}"
            alt="{{ product.featured_image.alt | default: product.title | escape }}"
            class="product-card-image-bg"
            loading="lazy"
@@ -10,7 +21,14 @@
     {%- else -%}
       <div class="product-card-image-bg" style="background: var(--blush);"></div>
     {%- endif -%}
-    <button class="product-wishlist" data-wishlist-id="{{ product.id }}" data-wishlist-handle="{{ product.handle }}" data-wishlist-title="{{ product.title | escape }}" data-wishlist-price="{{ product.price | money }}" data-wishlist-image="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" aria-label="Add to wishlist" onclick="event.preventDefault(); event.stopPropagation();">♡</button>
+    <button class="product-wishlist"
+      data-wishlist-id="{{ product.id }}"
+      data-wishlist-handle="{{ product.handle }}"
+      data-wishlist-title="{{ product.title | escape }}"
+      data-wishlist-price="{{ product.price | money }}"
+      data-wishlist-image="{{ product.featured_image | img_url: '400x400', crop: 'center' }}"
+      aria-label="Add to wishlist"
+      onclick="event.preventDefault(); event.stopPropagation();">♡</button>
     <div class="product-quick-add">Quick Add</div>
     {%- if product.available == false -%}
       <div class="product-badge">Sold Out</div>
@@ -32,4 +50,38 @@
       {{ product.price | money }}
     {%- endif -%}
   </p>
+
+  {%- comment -%}Colour/metal swatches for variant image swap{%- endcomment -%}
+  {%- assign _swatch_opt = nil -%}
+  {%- for opt in product.options_with_values -%}
+    {%- assign _oln = opt.name | downcase -%}
+    {%- if _oln == 'colour' or _oln == 'color' or _oln == 'metal' or _oln == 'material' -%}
+      {%- assign _swatch_opt = opt -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if _swatch_opt != nil and _swatch_opt.values.size > 1 -%}
+    <div class="card-swatches" onclick="event.preventDefault(); event.stopPropagation();">
+      {%- for val in _swatch_opt.values limit: 5 -%}
+        <button class="card-swatch-btn{% if forloop.first %} active{% endif %}"
+          data-pid="{{ product.id }}"
+          data-opt-pos="{{ _swatch_opt.position }}"
+          data-val="{{ val | escape }}"
+          onclick="swapCardVariant(this)"
+          title="{{ val }}">{{ val | truncate: 12, '' }}</button>
+      {%- endfor -%}
+      {%- if _swatch_opt.values.size > 5 -%}
+        <span class="card-swatch-more">+{{ _swatch_opt.values.size | minus: 5 }}</span>
+      {%- endif -%}
+    </div>
+    <script>
+      (function(){
+        window.__mnPD = window.__mnPD || {};
+        window.__mnPD[{{ product.id }}] = {
+          images: {{ product.images | json }},
+          variants: {{ product.variants | json }}
+        };
+      })();
+    </script>
+  {%- endif -%}
 </a>

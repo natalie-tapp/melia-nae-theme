@@ -288,6 +288,49 @@ function toggleMobileSubmenu(btn) {
   }
 }
 
+/* ── IMAGE SIZE HELPER ─────────────────────────────────────── */
+function shopifyImageSize(src, size) {
+  return src.split('?')[0]
+    .replace(/_\d+x\d*(\.[a-zA-Z]+)$/, '$1')
+    .replace(/(\.[a-zA-Z]+)$/, '_' + size + '$1');
+}
+
+/* ── CARD VARIANT IMAGE SWAP ───────────────────────────────── */
+function swapCardVariant(btn) {
+  var pid = btn.getAttribute('data-pid');
+  var optPos = parseInt(btn.getAttribute('data-opt-pos'), 10);
+  var val = btn.getAttribute('data-val');
+  var data = window.__mnPD && window.__mnPD[pid];
+  if (!data) return;
+
+  // Build variant → image map
+  var vim = {};
+  data.images.forEach(function(img) {
+    if (img.variant_ids) img.variant_ids.forEach(function(vid) { vim[vid] = img.src; });
+  });
+
+  // Find first variant matching this option value
+  var optKey = 'option' + optPos;
+  var match = null;
+  for (var i = 0; i < data.variants.length; i++) {
+    if (data.variants[i][optKey] === val) { match = data.variants[i]; break; }
+  }
+  if (!match) return;
+
+  // Swap card image
+  var imgSrc = vim[match.id];
+  if (imgSrc) {
+    var cardImg = document.getElementById('card-img-' + pid);
+    if (cardImg) cardImg.src = shopifyImageSize(imgSrc, '600x800');
+  }
+
+  // Update active swatch
+  btn.closest('.card-swatches').querySelectorAll('.card-swatch-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  btn.classList.add('active');
+}
+
 /* ── WISHLIST ──────────────────────────────────────────────── */
 var MNWishlist = {
   key: 'mn_wishlist',

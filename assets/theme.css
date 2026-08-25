@@ -88,10 +88,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transition: color 0.2s;
 }
 .header-actions a:hover { color: var(--gold); }
-/* Hide search/account text on mobile, show bag + wishlist only */
+/* Hide search/account/wishlist text on mobile, show bag only */
 .header-actions .header-search,
-.header-actions .header-account { display: none; }
-.header-wishlist { display: flex; align-items: center; gap: 6px; font-size: 14px; line-height: 1; }
+.header-actions .header-account,
+.header-actions .header-wishlist { display: none; }
 #header-wishlist-count { background: var(--charcoal); color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; letter-spacing: 0; }
 .cart-icon { display: flex; align-items: center; gap: 6px; }
 .cart-count {
@@ -252,6 +252,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .header-actions a { font-size: 12px; }
   .header-actions .header-search,
   .header-actions .header-account { display: block; }
+  .header-actions .header-wishlist { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 }
 
 /* ─── MEGA MENU ─── */
@@ -456,6 +457,11 @@ a.trust-item:hover { opacity: 0.75; }
 .product-card-price { font-size: 13px; color: var(--mid-grey); display: flex; gap: 8px; align-items: center; }
 .price-original { text-decoration: line-through; color: var(--light-grey); }
 .price-sale { color: var(--gold); }
+/* Card variant swatches */
+.card-swatches { display: flex; gap: 4px; padding: 8px 0 2px; flex-wrap: wrap; }
+.card-swatch-btn { padding: 3px 7px; font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; border: 1px solid var(--charcoal); background: transparent; color: var(--charcoal); cursor: pointer; transition: background 0.15s, color 0.15s; font-family: 'Montserrat', sans-serif; line-height: 1.4; }
+.card-swatch-btn.active, .card-swatch-btn:hover { background: var(--charcoal); color: var(--cream); }
+.card-swatch-more { font-size: 10px; color: var(--charcoal); opacity: 0.5; align-self: center; }
 
 @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
 @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }

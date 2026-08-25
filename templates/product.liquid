@@ -263,6 +263,22 @@
     document.getElementById('quantity-input').value = qty;
   }
 
+  // Build variant → image lookup from product images
+  const variantImageMap = {};
+  {{ product.images | json }}.forEach(function(img) {
+    if (img.variant_ids && img.variant_ids.length > 0) {
+      img.variant_ids.forEach(function(vid) {
+        variantImageMap[vid] = img.src;
+      });
+    }
+  });
+
+  function shopifyImageSize(src, size) {
+    return src.split('?')[0]
+      .replace(/_\d+x\d*(\.[a-zA-Z]+)$/, '$1')
+      .replace(/(\.[a-zA-Z]+)$/, '_' + size + '$1');
+  }
+
   // Variant selection
   function updateVariant(btn) {
     const group = btn.closest('.option-swatches');
@@ -281,14 +297,11 @@
     });
     if (match) {
       document.getElementById('variant-id').value = match.id;
-      // Swap main image if this variant has its own image
-      if (match.featured_image && match.featured_image.src) {
+      // Swap image using the variant→image map
+      const imgSrc = variantImageMap[match.id];
+      if (imgSrc) {
         const mainImg = document.getElementById('mainImg');
-        if (mainImg) {
-          // Strip existing size suffix and force 1200x for sharpness
-          const src = match.featured_image.src.split('?')[0].replace(/_\d+x\d*(\.[a-z]+)$/i, '$1').replace(/(\.[a-z]+)$/i, '_1200x$1');
-          mainImg.src = src;
-        }
+        if (mainImg) mainImg.src = shopifyImageSize(imgSrc, '1200x');
       }
     }
   }
