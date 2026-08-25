@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>
     {%- if template.name == 'index' -%}
-      Melia Nae Jewellery | Lab Diamonds, Moissanite &amp; Fine Gold | Campbelltown NSW
+      Melia Nae Jewellery | Lab Diamonds, Natural Diamonds, Moissanite &amp; Fine Gold | Campbelltown NSW
     {%- elsif template.name == 'product' -%}
       {{ product.title }} | {{ product.type }} | Melia Nae Jewellery
     {%- elsif template.name == 'collection' -%}
@@ -27,11 +27,11 @@
   {%- if page_description != blank -%}
     <meta name="description" content="{{ page_description | escape }}" />
   {%- elsif template.name == 'index' -%}
-    <meta name="description" content="Melia Nae Jewellery — specialists in lab grown diamonds, moissanite, and fine gold jewellery. Shop rings, earrings, necklaces &amp; pendants. Free shipping over $150 AUD. Campbelltown, NSW." />
+    <meta name="description" content="Melia Nae Jewellery — specialists in lab grown diamonds, natural diamonds, moissanite and fine gold. Shop rings, earrings, necklaces &amp; pendants. Free shipping over $150 AUD. Campbelltown, NSW." />
   {%- elsif template.name == 'product' -%}
     <meta name="description" content="Shop {{ product.title }} at Melia Nae Jewellery. {{ product.description | strip_html | truncate: 120 }} Free shipping on Australian orders over $150." />
   {%- elsif template.name == 'collection' -%}
-    <meta name="description" content="Shop {{ collection.title }} at Melia Nae. {{ collection.products_count }} pieces — lab diamonds, moissanite &amp; fine gold. Free shipping over $150 AUD. Afterpay &amp; Zip available." />
+    <meta name="description" content="Shop {{ collection.title }} at Melia Nae. {{ collection.products_count }} pieces — lab grown diamonds, natural diamonds, moissanite &amp; fine gold. Free shipping over $150 AUD. Afterpay &amp; Zip available." />
   {%- elsif template.name == 'page' and page.handle == 'about' -%}
     <meta name="description" content="Learn about Melia Nae Jewellery — a family jewellery brand founded on a maternal bond, crafting fine jewellery in Campbelltown, NSW." />
   {%- elsif template.name == 'page' and page.handle == 'contact' -%}
@@ -43,7 +43,7 @@
   {%- elsif template.name == 'page' and page.handle == 'services' -%}
     <meta name="description" content="Melia Nae offers jewellery repairs, ring resizing, gold buying, and custom jewellery design. Visit us in Campbelltown, NSW." />
   {%- else -%}
-    <meta name="description" content="Melia Nae Jewellery — fine jewellery crafted with dedication. Lab grown diamonds, moissanite, and gold jewellery. Free shipping over $150 AUD. Campbelltown, NSW." />
+    <meta name="description" content="Melia Nae Jewellery — fine jewellery crafted with dedication. Lab grown diamonds, natural diamonds, moissanite and fine gold. Free shipping over $150 AUD. Campbelltown, NSW." />
   {%- endif -%}
 
   {%- comment -%}── CANONICAL ──{%- endcomment -%}
@@ -92,7 +92,7 @@
     "@type": "JewelryStore",
     "name": "Melia Nae",
     "url": "https://melianae.com",
-    "description": "Fine jewellery crafted with dedication and love. Specialists in lab grown diamonds, moissanite, and fine gold jewellery.",
+    "description": "Fine jewellery crafted with dedication and love. Specialists in lab grown diamonds, natural diamonds, moissanite, and fine gold jewellery.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "L03 KU15, 200 Gilchrist Drive",
@@ -347,7 +347,7 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" class="footer-logo" />
-      <p>Fine jewellery specialists in lab grown diamonds, moissanite & gold. Custom pieces, repairs & resizing. Visit us at Macarthur Square, Campbelltown NSW.</p>
+      <p>Fine jewellery specialists in lab grown diamonds, natural diamonds, moissanite & gold. Custom pieces, repairs & resizing. Visit us at Macarthur Square, Campbelltown NSW.</p>
       <div class="footer-social">
         <a href="https://www.instagram.com/melianaejewellers/" aria-label="Instagram" target="_blank" rel="noopener">IG</a>
         <a href="https://www.facebook.com/p/Melia-Nae-Jewellery-100086187806525/" aria-label="Facebook" target="_blank" rel="noopener">FB</a>
