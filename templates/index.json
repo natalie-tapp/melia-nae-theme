@@ -169,6 +169,16 @@
       "name": "4Cs Infographic",
       "settings": {}
     },
+    "instagram-preview": {
+      "type": "instagram-preview",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "instagram_handle": "melianae",
+        "heading": "Follow Us on Instagram",
+        "subtext": "Get a glimpse of our world — new arrivals, behind-the-scenes, and jewellery inspiration."
+      }
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -188,6 +198,7 @@
     "banner-split",
     "testimonials",
     "fourcs_infographic_hFY386",
+    "instagram-preview",
     "newsletter"
   ]
 }
