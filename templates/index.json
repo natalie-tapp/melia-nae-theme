@@ -213,6 +213,13 @@
             "image": "shopify://shop_images/Screenshot_2026-08-25_at_10.16.37_pm.png",
             "alt": ""
           }
+        },
+        "post_w6pWNe": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-25_at_10.17.24_pm.png",
+            "alt": ""
+          }
         }
       },
       "block_order": [
@@ -221,7 +228,8 @@
         "post_eWfE7P",
         "post_NMqcqE",
         "post_kaEfz9",
-        "post_hzFg6U"
+        "post_hzFg6U",
+        "post_w6pWNe"
       ],
       "settings": {
         "instagram_handle": "melianaejewellers",
