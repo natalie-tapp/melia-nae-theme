@@ -302,16 +302,16 @@ var MNWishlist = {
   },
 
   has: function(id) {
-    return this.get().indexOf(String(id)) > -1;
+    return this.get().some(function(p) { return String(p.id) === String(id); });
   },
 
-  toggle: function(id) {
+  toggle: function(id, data) {
     var list = this.get();
-    var idx = list.indexOf(String(id));
+    var idx = list.findIndex(function(p) { return String(p.id) === String(id); });
     if (idx > -1) { list.splice(idx, 1); }
-    else { list.push(String(id)); }
+    else { list.push(data); }
     this.save(list);
-    return idx === -1; // true = added
+    return idx === -1;
   },
 
   count: function() {
@@ -327,13 +327,18 @@ function initWishlistButtons() {
 
     btn.addEventListener('click', function(e) {
       e.preventDefault();
-      var added = MNWishlist.toggle(id);
-      updateWishlistBtn(btn, added);
-      // Update any other buttons for the same product
+      var data = {
+        id: id,
+        handle: btn.getAttribute('data-wishlist-handle') || '',
+        title: btn.getAttribute('data-wishlist-title') || '',
+        price: btn.getAttribute('data-wishlist-price') || '',
+        image: btn.getAttribute('data-wishlist-image') || ''
+      };
+      var added = MNWishlist.toggle(id, data);
       document.querySelectorAll('[data-wishlist-id="' + id + '"]').forEach(function(b) {
         updateWishlistBtn(b, added);
       });
-      // Show toast
+      updateWishlistCount();
       showWishlistToast(added ? 'Added to Wishlist' : 'Removed from Wishlist', added);
     });
   });

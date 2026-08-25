@@ -91,8 +91,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Hide search/account text on mobile, show bag + wishlist only */
 .header-actions .header-search,
 .header-actions .header-account { display: none; }
-.header-wishlist { display: flex; align-items: center; gap: 6px; font-size: 14px; }
-#header-wishlist-count { font-size: 9px; background: var(--gold); color: white; border-radius: 50%; width: 15px; height: 15px; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-sans); line-height: 1; flex-shrink: 0; }
+.header-wishlist { position: relative; font-size: 16px; line-height: 1; }
+#header-wishlist-count { position: absolute; top: -6px; right: -8px; font-size: 9px; background: var(--gold); color: white; border-radius: 50%; width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; font-family: var(--font-sans); line-height: 1; }
 .cart-icon { display: flex; align-items: center; gap: 6px; }
 .cart-count {
   background: var(--charcoal);

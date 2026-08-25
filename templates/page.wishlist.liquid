@@ -11,20 +11,21 @@
   .wishlist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
 
   .wishlist-card { display: flex; flex-direction: column; }
-  .wishlist-card-img { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--blush); margin-bottom: 16px; }
+  .wishlist-card-img { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--blush); margin-bottom: 16px; display: block; }
   .wishlist-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
   .wishlist-card:hover .wishlist-card-img img { transform: scale(1.04); }
-  .wishlist-card-remove { position: absolute; top: 10px; right: 10px; background: white; border: none; width: 28px; height: 28px; border-radius: 50%; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .wishlist-card-remove { position: absolute; top: 10px; right: 10px; background: white; border: none; width: 28px; height: 28px; border-radius: 50%; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0,0,0,0.15); z-index: 1; }
   .wishlist-card h3 { font-family: var(--font-serif); font-size: 16px; font-weight: 400; margin-bottom: 6px; line-height: 1.3; }
   .wishlist-card h3 a { color: inherit; }
-  .wishlist-card .price { font-size: 14px; color: var(--mid-grey); margin-bottom: 12px; }
-  .wishlist-card .btn-atb { display: block; width: 100%; padding: 12px; background: var(--charcoal); color: var(--white); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; text-align: center; border: none; cursor: pointer; font-family: inherit; margin-top: auto; transition: background 0.2s; }
-  .wishlist-card .btn-atb:hover { background: var(--gold); }
+  .wishlist-card .wl-price { font-size: 14px; color: var(--mid-grey); margin-bottom: 14px; }
+  .wishlist-card .btn-view { display: block; width: 100%; padding: 12px; background: var(--charcoal); color: var(--white); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; text-align: center; border: none; cursor: pointer; font-family: inherit; margin-top: auto; transition: background 0.2s; text-decoration: none; }
+  .wishlist-card .btn-view:hover { background: var(--gold); }
 
   @media (max-width: 900px) { .wishlist-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 480px) {
     .wishlist-hero { padding: 48px 20px 36px; }
     .wishlist-wrap { padding: 40px 20px 60px; }
+    .wishlist-grid { gap: 20px; }
   }
 </style>
 
@@ -46,75 +47,45 @@ document.addEventListener('DOMContentLoaded', function() {
   var list = [];
   try { list = JSON.parse(localStorage.getItem('mn_wishlist')) || []; } catch(e) {}
 
-  if (list.length === 0) {
+  var grid = document.getElementById('wishlist-grid');
+
+  if (!list.length) {
     document.getElementById('wishlist-empty').style.display = 'block';
     return;
   }
 
-  var grid = document.getElementById('wishlist-grid');
-  var loaded = 0;
-
-  list.forEach(function(id) {
-    fetch('/products.json?product_id=' + id)
-      .then(function(r) { return r.json(); })
-      .catch(function() { return null; });
-
-    // Use Shopify AJAX API to get product by ID
-    fetch('/search/suggest.json?q=' + id + '&resources[type]=product&resources[options][fields]=id&resources[limit]=1')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        // Fallback: fetch by handle isn't possible with just ID via AJAX
-        // Use storefront product endpoint
-        return fetch('/products/' + id + '.js').then(function(r) {
-          if (!r.ok) throw new Error();
-          return r.json();
-        });
-      })
-      .then(function(p) {
-        var card = buildCard(p);
-        grid.appendChild(card);
-      })
-      .catch(function() {
-        // Product may have been deleted — remove from wishlist
-        list = list.filter(function(i) { return i !== id; });
-        try { localStorage.setItem('mn_wishlist', JSON.stringify(list)); } catch(e) {}
-      })
-      .finally(function() {
-        loaded++;
-        if (loaded === list.length && grid.children.length === 0) {
-          document.getElementById('wishlist-empty').style.display = 'block';
-        }
-      });
-  });
-
-  function buildCard(p) {
-    var img = p.featured_image ? p.featured_image : '';
-    var price = p.price_min ? (p.price_min / 100).toLocaleString('en-AU', {style:'currency', currency:'AUD'}) : '';
+  list.forEach(function(p) {
+    if (!p || !p.handle) return;
     var card = document.createElement('div');
     card.className = 'wishlist-card';
     card.innerHTML =
-      '<div class="wishlist-card-img">' +
-        (img ? '<a href="/products/' + p.handle + '"><img src="' + img + '" alt="' + p.title + '" /></a>' : '') +
+      '<a href="/products/' + p.handle + '" class="wishlist-card-img">' +
+        (p.image ? '<img src="' + p.image + '" alt="' + (p.title || '') + '" loading="lazy" />' : '') +
         '<button class="wishlist-card-remove" data-id="' + p.id + '" aria-label="Remove from wishlist">✕</button>' +
-      '</div>' +
-      '<h3><a href="/products/' + p.handle + '">' + p.title + '</a></h3>' +
-      '<div class="price">' + price + '</div>' +
-      '<a href="/products/' + p.handle + '" class="btn-atb">View Product</a>';
+      '</a>' +
+      '<h3><a href="/products/' + p.handle + '">' + (p.title || '') + '</a></h3>' +
+      '<div class="wl-price">' + (p.price || '') + '</div>' +
+      '<a href="/products/' + p.handle + '" class="btn-view">View Product</a>';
 
-    card.querySelector('.wishlist-card-remove').addEventListener('click', function() {
+    card.querySelector('.wishlist-card-remove').addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
       var id = String(this.getAttribute('data-id'));
-      list = list.filter(function(i) { return i !== id; });
+      list = list.filter(function(item) { return String(item.id) !== id; });
       try { localStorage.setItem('mn_wishlist', JSON.stringify(list)); } catch(e) {}
       card.remove();
-      // Update heart buttons sitewide
-      document.querySelectorAll('[data-wishlist-id="' + id + '"]').forEach(function(b) {
-        b.classList.remove('wishlisted');
-      });
+      // Update count badge
+      if (typeof updateWishlistCount === 'function') updateWishlistCount();
       if (grid.children.length === 0) {
         document.getElementById('wishlist-empty').style.display = 'block';
       }
     });
-    return card;
+
+    grid.appendChild(card);
+  });
+
+  if (grid.children.length === 0) {
+    document.getElementById('wishlist-empty').style.display = 'block';
   }
 });
 </script>

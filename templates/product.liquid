@@ -43,7 +43,7 @@
   <div class="product-details">
     <div class="product-meta">
       <span class="product-brand">{{ shop.name }}</span>
-      <button class="product-wishlist-btn" data-wishlist-id="{{ product.id }}" aria-label="Add to wishlist">♡ Wishlist</button>
+      <button class="product-wishlist-btn" data-wishlist-id="{{ product.id }}" data-wishlist-handle="{{ product.handle }}" data-wishlist-title="{{ product.title | escape }}" data-wishlist-price="{{ product.price | money }}" data-wishlist-image="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" aria-label="Add to wishlist">♡ Wishlist</button>
     </div>
 
     <h1 class="product-title">{{ product.title }}</h1>
@@ -107,7 +107,7 @@
             {%- if product.available -%}Add to Bag{%- else -%}Sold Out{%- endif -%}
           </button>
         </div>
-        <button type="button" class="btn-wishlist" data-wishlist-id="{{ product.id }}" aria-label="Add to wishlist">♡ Add to Wishlist</button>
+        <button type="button" class="btn-wishlist" data-wishlist-id="{{ product.id }}" data-wishlist-handle="{{ product.handle }}" data-wishlist-title="{{ product.title | escape }}" data-wishlist-price="{{ product.price | money }}" data-wishlist-image="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" aria-label="Add to wishlist">♡ Add to Wishlist</button>
       </div>
 
     {%- endform -%}
