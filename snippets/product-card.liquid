@@ -10,7 +10,7 @@
     {%- else -%}
       <div class="product-card-image-bg" style="background: var(--blush);"></div>
     {%- endif -%}
-    <div class="product-wishlist">♡</div>
+    <button class="product-wishlist" data-wishlist-id="{{ product.id }}" data-wishlist-handle="{{ product.handle }}" data-wishlist-title="{{ product.title | escape }}" data-wishlist-price="{{ product.price | money }}" data-wishlist-image="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" aria-label="Add to wishlist" onclick="event.preventDefault(); event.stopPropagation();">♡</button>
     <div class="product-quick-add">Quick Add</div>
     {%- if product.available == false -%}
       <div class="product-badge">Sold Out</div>
