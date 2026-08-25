@@ -182,13 +182,30 @@
         "post_eU4efF": {
           "type": "post",
           "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-25_at_10.14.32_pm.png",
+            "alt": ""
+          }
+        },
+        "post_eWfE7P": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-25_at_10.14.47_pm.png",
+            "alt": ""
+          }
+        },
+        "post_NMqcqE": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-08-25_at_10.15.38_pm.png",
             "alt": ""
           }
         }
       },
       "block_order": [
         "post_gjgr43",
-        "post_eU4efF"
+        "post_eU4efF",
+        "post_eWfE7P",
+        "post_NMqcqE"
       ],
       "settings": {
         "instagram_handle": "melianaejewellers",
