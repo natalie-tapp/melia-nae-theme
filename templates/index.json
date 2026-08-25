@@ -171,7 +171,17 @@
     },
     "instagram-preview": {
       "type": "instagram-preview",
-      "disabled": true,
+      "blocks": {
+        "post_eU4efF": {
+          "type": "post",
+          "settings": {
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_eU4efF"
+      ],
       "settings": {
         "instagram_handle": "melianaejewellers",
         "heading": "Follow Us on Instagram",
@@ -183,6 +193,7 @@
       "blocks": {
         "instafeed_app_block_43NPQB": {
           "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "disabled": true,
           "settings": {
             "title": "",
             "title_color": "",
