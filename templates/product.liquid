@@ -67,7 +67,7 @@
           {%- assign opt_index = option.position | minus: 1 -%}
           <div class="option-group">
             <div class="option-label">
-              {{ option.name }}
+              {{ option.name | replace: 'Color', 'Colour' | replace: 'color', 'colour' }}
               {%- if option.name == 'Length' or option.name == 'Size' -%}
                 <a class="size-guide" href="/pages/size-guide">Size Guide</a>
               {%- endif -%}
