@@ -61,13 +61,13 @@
     {%- endif -%}
   {%- endfor -%}
   {%- if _swatch_opt != nil and _swatch_opt.values.size > 1 -%}
-    <div class="card-swatches" onclick="event.preventDefault(); event.stopPropagation();">
+    <div class="card-swatches">
       {%- for val in _swatch_opt.values limit: 5 -%}
         <button class="card-swatch-btn{% if forloop.first %} active{% endif %}"
           data-pid="{{ product.id }}"
           data-opt-pos="{{ _swatch_opt.position }}"
           data-val="{{ val | escape }}"
-          onclick="swapCardVariant(this)"
+          onclick="event.preventDefault(); event.stopPropagation(); swapCardVariant(this);"
           title="{{ val }}">{{ val | truncate: 12, '' }}</button>
       {%- endfor -%}
       {%- if _swatch_opt.values.size > 5 -%}
