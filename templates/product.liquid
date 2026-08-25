@@ -285,15 +285,9 @@
       if (match.featured_image && match.featured_image.src) {
         const mainImg = document.getElementById('mainImg');
         if (mainImg) {
-          // Use a larger size for the main image
-          const src = match.featured_image.src.replace(/(\.[^.]+)$/, '_1200x$1').replace(/\/\/cdn/, '//cdn');
-          mainImg.src = match.featured_image.src;
-          // Also highlight the matching thumb if present
-          document.querySelectorAll('.gallery-thumb img').forEach(function(img) {
-            if (img.src.includes(match.featured_image.src.split('?')[0].split('/').pop().split('_')[0])) {
-              img.closest('.gallery-thumb').click();
-            }
-          });
+          // Strip existing size suffix and force 1200x for sharpness
+          const src = match.featured_image.src.split('?')[0].replace(/_\d+x\d*(\.[a-z]+)$/i, '$1').replace(/(\.[a-z]+)$/i, '_1200x$1');
+          mainImg.src = src;
         }
       }
     }
