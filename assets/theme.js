@@ -325,6 +325,15 @@ function swapCardVariant(btn) {
     if (cardImg) cardImg.src = shopifyImageSize(imgSrc, '600x800');
   }
 
+  // Update price on card
+  if (match.price) {
+    var priceEl = document.getElementById('card-price-' + pid);
+    if (priceEl) {
+      var dollars = (match.price / 100).toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+      priceEl.textContent = dollars;
+    }
+  }
+
   // Update active swatch
   btn.closest('.card-swatches').querySelectorAll('.card-swatch-btn').forEach(function(b) {
     b.classList.remove('active');

@@ -42,7 +42,7 @@
   </div>
   <p class="product-card-brand">{{ shop.name }}</p>
   <h3 class="product-card-name">{{ product.title }}</h3>
-  <p class="product-card-price">
+  <p class="product-card-price" id="card-price-{{ product.id }}">
     {%- if product.compare_at_price > product.price -%}
       <span class="price-original">{{ product.compare_at_price | money }}</span>
       <span class="price-sale">{{ product.price | money }}</span>
