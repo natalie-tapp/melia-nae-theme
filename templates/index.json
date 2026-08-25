@@ -171,20 +171,11 @@
     },
     "instagram-preview": {
       "type": "instagram-preview",
+      "disabled": true,
       "settings": {
         "instagram_handle": "melianaejewellers",
         "heading": "Follow Us on Instagram",
         "subtext": "Get a glimpse of our world — new arrivals, behind-the-scenes, and jewellery inspiration."
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "heading": "Join the Melia Nae Family",
-        "subheading": "Sign up for exclusive offers, new arrivals, and jewellery inspiration. Get 10% off your first order.",
-        "placeholder": "Your email address",
-        "button_label": "Subscribe",
-        "disclaimer": "By subscribing you agree to our privacy policy. Unsubscribe any time."
       }
     },
     "1787659468e7d9d12b": {
@@ -192,7 +183,6 @@
       "blocks": {
         "instafeed_app_block_43NPQB": {
           "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
-          "disabled": true,
           "settings": {
             "title": "",
             "title_color": "",
@@ -214,6 +204,16 @@
         "instafeed_app_block_43NPQB"
       ],
       "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join the Melia Nae Family",
+        "subheading": "Sign up for exclusive offers, new arrivals, and jewellery inspiration. Get 10% off your first order.",
+        "placeholder": "Your email address",
+        "button_label": "Subscribe",
+        "disclaimer": "By subscribing you agree to our privacy policy. Unsubscribe any time."
+      }
     }
   },
   "order": [
