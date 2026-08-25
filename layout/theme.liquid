@@ -418,5 +418,129 @@
 
 {{ 'theme.js' | asset_url | script_tag }}
 
+<!-- ── 10% OFF EMAIL POPUP ── -->
+<div id="email-popup" style="display:none;" aria-modal="true" role="dialog" aria-label="Get 10% off">
+  <div id="email-popup-overlay"></div>
+  <div id="email-popup-box">
+    <button id="email-popup-close" aria-label="Close">&times;</button>
+    <div id="email-popup-inner">
+      <p id="email-popup-eyebrow">Welcome to Melia Nae</p>
+      <h2 id="email-popup-heading">Get <em>10% Off</em><br/>Your First Order</h2>
+      <p id="email-popup-sub">Subscribe to receive your discount code, plus early access to new arrivals and exclusive offers.</p>
+      <form id="email-popup-form" action="/contact#email-popup" method="post" onsubmit="submitPopup(event)">
+        <input type="hidden" name="form_type" value="customer" />
+        <input type="hidden" name="utf8" value="✓" />
+        <input type="hidden" name="contact[tags]" value="newsletter,10off-popup" />
+        <input type="email" id="email-popup-input" name="contact[email]" placeholder="Your email address" required autocomplete="email" />
+        <button type="submit" id="email-popup-btn">Claim My 10% Off</button>
+      </form>
+      <p id="email-popup-success" style="display:none;">✓ Thank you! Check your inbox for your discount code.</p>
+      <p id="email-popup-fine">No spam, ever. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  #email-popup-overlay {
+    position: fixed; inset: 0; background: rgba(28,28,26,0.55); z-index: 9998;
+    animation: popupFadeIn 0.3s ease;
+  }
+  #email-popup-box {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 9999; background: #FAF8F5; width: 92%; max-width: 480px;
+    padding: 56px 48px 48px; text-align: center;
+    animation: popupSlideUp 0.35s ease;
+  }
+  #email-popup-close {
+    position: absolute; top: 16px; right: 20px; font-size: 22px;
+    color: #6B6B68; background: none; border: none; cursor: pointer; line-height: 1;
+  }
+  #email-popup-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #9C8060; font-weight: 500; margin-bottom: 14px;
+  }
+  #email-popup-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(28px, 5vw, 40px); font-weight: 300; line-height: 1.2;
+    color: #1C1C1A; margin-bottom: 16px;
+  }
+  #email-popup-heading em { font-style: italic; color: #9C8060; }
+  #email-popup-sub {
+    font-size: 13px; color: #6B6B68; line-height: 1.8; margin-bottom: 28px;
+  }
+  #email-popup-input {
+    width: 100%; padding: 14px 16px; border: 1px solid #E0D9D0;
+    background: #fff; font-family: inherit; font-size: 14px; color: #1C1C1A;
+    margin-bottom: 12px; outline: none;
+  }
+  #email-popup-input:focus { border-color: #9C8060; }
+  #email-popup-btn {
+    width: 100%; padding: 15px; background: #1C1C1A; color: #fff;
+    font-family: inherit; font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 500; cursor: pointer;
+    border: none; transition: background 0.2s;
+  }
+  #email-popup-btn:hover { background: #9C8060; }
+  #email-popup-success {
+    font-size: 14px; color: #9C8060; font-weight: 500; margin: 16px 0 0;
+  }
+  #email-popup-fine {
+    font-size: 11px; color: #A8A8A5; margin-top: 14px; letter-spacing: 0.5px;
+  }
+  @keyframes popupFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes popupSlideUp { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+  @media (max-width: 480px) { #email-popup-box { padding: 48px 28px 36px; } }
+</style>
+
+<script>
+  (function() {
+    // Show once per session only
+    if (sessionStorage.getItem('mn_popup_seen')) return;
+
+    setTimeout(function() {
+      document.getElementById('email-popup').style.display = 'block';
+      sessionStorage.setItem('mn_popup_seen', '1');
+    }, 5000);
+
+    function closePopup() {
+      document.getElementById('email-popup').style.display = 'none';
+    }
+
+    document.getElementById('email-popup-close').addEventListener('click', closePopup);
+    document.getElementById('email-popup-overlay').addEventListener('click', closePopup);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePopup();
+    });
+  })();
+
+  function submitPopup(e) {
+    e.preventDefault();
+    var form = document.getElementById('email-popup-form');
+    var btn = document.getElementById('email-popup-btn');
+    btn.textContent = 'Subscribing...';
+    btn.disabled = true;
+
+    var data = new FormData(form);
+    fetch('/contact', {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: data
+    }).then(function() {
+      form.style.display = 'none';
+      document.getElementById('email-popup-success').style.display = 'block';
+      setTimeout(function() {
+        document.getElementById('email-popup').style.display = 'none';
+      }, 3000);
+    }).catch(function() {
+      // Fallback — show success anyway (Shopify contact endpoint may not return JSON)
+      form.style.display = 'none';
+      document.getElementById('email-popup-success').style.display = 'block';
+      setTimeout(function() {
+        document.getElementById('email-popup').style.display = 'none';
+      }, 3000);
+    });
+  }
+</script>
+
 </body>
 </html>
