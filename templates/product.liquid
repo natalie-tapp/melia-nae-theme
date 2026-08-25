@@ -51,9 +51,9 @@
     <div class="product-price-wrap">
       {%- if product.compare_at_price > product.price -%}
         <span class="product-price-original">{{ product.compare_at_price | money }}</span>
-        <span class="product-price product-price-sale">{{ product.price | money }}</span>
+        <span class="product-price product-price-sale" id="product-price">{{ product.price | money }}</span>
       {%- else -%}
-        <span class="product-price">{{ product.price | money }}</span>
+        <span class="product-price" id="product-price">{{ product.price | money }}</span>
       {%- endif -%}
     </div>
     <p class="product-afterpay">
@@ -414,6 +414,12 @@
       if (imgSrc) {
         const mainImg = document.getElementById('mainImg');
         if (mainImg) mainImg.src = shopifyImageSize(imgSrc, '1200x');
+      }
+      // Update price
+      const priceEl = document.getElementById('product-price');
+      if (priceEl && match.price) {
+        const formatted = (match.price / 100).toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+        priceEl.textContent = formatted;
       }
     }
   }

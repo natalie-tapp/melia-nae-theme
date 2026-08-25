@@ -68,7 +68,7 @@
           data-opt-pos="{{ _swatch_opt.position }}"
           data-val="{{ val | escape }}"
           onclick="event.preventDefault(); event.stopPropagation(); swapCardVariant(this);"
-          title="{{ val }}">{{ val | truncate: 12, '' }}</button>
+          title="{{ val }}">{{ val | truncate: 16, '' }}</button>
       {%- endfor -%}
       {%- if _swatch_opt.values.size > 5 -%}
         <span class="card-swatch-more">+{{ _swatch_opt.values.size | minus: 5 }}</span>
