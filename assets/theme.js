@@ -15,11 +15,19 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ── Product gallery thumb click ───────────────────────── */
   document.querySelectorAll('.gallery-thumb').forEach(thumb => {
     thumb.addEventListener('click', () => {
-      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
-      const mainImg = document.getElementById('mainImg');
-      if (mainImg) {
-        mainImg.src = thumb.querySelector('img').src;
+      const idx = parseInt(thumb.dataset.index, 10);
+      if (window.__galleryGoTo) {
+        // Use the full-size image map set up in product.liquid
+        window.__galleryGoTo(idx);
+      } else {
+        // Fallback (should not normally be needed)
+        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        const mainImg = document.getElementById('mainImg');
+        const imgs = window.__galleryImages;
+        if (mainImg && imgs && imgs[idx]) {
+          mainImg.src = imgs[idx].full;
+        }
       }
     });
   });
@@ -95,15 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ── Gallery prev/next arrows ──────────────────────────── */
   const galleryPrev = document.querySelector('.gallery-nav .gallery-prev');
   const galleryNext = document.querySelector('.gallery-nav .gallery-next');
-  if ((galleryPrev || galleryNext) && mainImgEl) {
+  if (galleryPrev || galleryNext) {
     const stepGallery = function (delta) {
-      const thumbs = Array.from(document.querySelectorAll('.gallery-thumb'));
-      if (!thumbs.length) return;
-      let idx = thumbs.findIndex(t => t.classList.contains('active'));
-      idx = (idx + delta + thumbs.length) % thumbs.length;
-      thumbs.forEach(t => t.classList.remove('active'));
-      thumbs[idx].classList.add('active');
-      mainImgEl.src = thumbs[idx].querySelector('img').src;
+      if (window.__galleryGoTo) {
+        const thumbs = Array.from(document.querySelectorAll('.gallery-thumb'));
+        let idx = thumbs.findIndex(t => t.classList.contains('active'));
+        window.__galleryGoTo(idx + delta);
+      }
     };
     if (galleryPrev) galleryPrev.addEventListener('click', () => stepGallery(-1));
     if (galleryNext) galleryNext.addEventListener('click', () => stepGallery(1));
