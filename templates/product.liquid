@@ -11,14 +11,14 @@
 <div class="product-layout">
 
   <!-- GALLERY -->
-  <div class="gallery">
-    <div class="gallery-thumbs">
+  <div class="gallery" id="productGallery">
+    <div class="gallery-thumbs" id="galleryThumbs">
       {%- for image in product.images -%}
-        <div class="gallery-thumb {% if forloop.first %}active{% endif %}"
-             onclick="document.getElementById('mainImg').src='{{ image | img_url: '1200x' }}'; document.querySelectorAll('.gallery-thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active')">
+        <div class="gallery-thumb {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}">
           <img src="{{ image | img_url: '160x160', crop: 'center' }}"
                alt="{{ image.alt | default: product.title | escape }}"
-               class="gallery-thumb-bg" />
+               class="gallery-thumb-bg"
+               loading="lazy" />
         </div>
       {%- endfor -%}
     </div>
@@ -31,13 +31,63 @@
       {%- endif -%}
       {%- if product.images.size > 1 -%}
         <div class="gallery-nav">
-          <button type="button" class="gallery-prev" aria-label="Previous image">‹</button>
-          <button type="button" class="gallery-next" aria-label="Next image">›</button>
+          <button type="button" class="gallery-prev" id="galleryPrev" aria-label="Previous image">‹</button>
+          <button type="button" class="gallery-next" id="galleryNext" aria-label="Next image">›</button>
         </div>
       {%- endif -%}
       <div class="gallery-zoom-hint">Hover to zoom</div>
     </div>
   </div>
+
+  <script>
+    // Gallery image URLs from Shopify (safe — no inline quote issues)
+    window.__galleryImages = [
+      {%- for image in product.images -%}
+        {
+          full: {{ image | img_url: '1200x' | json }},
+          thumb: {{ image | img_url: '160x160', crop: 'center' | json }},
+          alt: {{ image.alt | default: product.title | json }},
+          variantIds: {{ image.variants | map: 'id' | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ];
+
+    (function() {
+      var images  = window.__galleryImages;
+      if (!images || images.length === 0) return;
+
+      var mainImg = document.getElementById('mainImg');
+      var thumbs  = document.querySelectorAll('.gallery-thumb');
+      var prev    = document.getElementById('galleryPrev');
+      var next    = document.getElementById('galleryNext');
+      var current = 0;
+
+      function goTo(index) {
+        current = (index + images.length) % images.length;
+        if (mainImg) {
+          mainImg.src = images[current].full;
+          mainImg.alt = images[current].alt || '';
+        }
+        thumbs.forEach(function(t, i) {
+          t.classList.toggle('active', i === current);
+        });
+      }
+
+      // Thumbnail clicks
+      thumbs.forEach(function(thumb) {
+        thumb.addEventListener('click', function() {
+          goTo(parseInt(this.dataset.index, 10));
+        });
+      });
+
+      // Prev / Next
+      if (prev) prev.addEventListener('click', function() { goTo(current - 1); });
+      if (next) next.addEventListener('click', function() { goTo(current + 1); });
+
+      // Expose so updateVariant() can switch to variant image
+      window.__galleryGoTo = goTo;
+    })();
+  </script>
 
   <!-- PRODUCT DETAILS -->
   <div class="product-details">
@@ -412,8 +462,19 @@
       const imgSrc = (match.featured_image && match.featured_image.src)
                      || variantImageMap[match.id];
       if (imgSrc) {
-        const mainImg = document.getElementById('mainImg');
-        if (mainImg) mainImg.src = shopifyImageSize(imgSrc, '1200x');
+        // Try to find gallery index so thumbnail highlight stays in sync
+        const cleanSrc = imgSrc.replace(/\?.*$/, '').replace(/_\d+x\d+(\.\w+)$/, '$1');
+        const galleryImages = window.__galleryImages || [];
+        const idx = galleryImages.findIndex(img => {
+          const clean = img.full.replace(/\?.*$/, '').replace(/_\d+x\d+(\.\w+)$/, '$1');
+          return clean === cleanSrc || img.full.includes(cleanSrc) || cleanSrc.includes(clean.split('/').pop());
+        });
+        if (idx !== -1 && window.__galleryGoTo) {
+          window.__galleryGoTo(idx);
+        } else {
+          const mainImg = document.getElementById('mainImg');
+          if (mainImg) mainImg.src = shopifyImageSize(imgSrc, '1200x');
+        }
       }
       // Update price
       const priceEl = document.getElementById('product-price');
