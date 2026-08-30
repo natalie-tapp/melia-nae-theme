@@ -441,61 +441,7 @@
   }
 
   // Variant selection
-  function updateVariant(btn) {
-    const group = btn.closest('.option-swatches');
-    group.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const selected = [];
-    document.querySelectorAll('.option-swatches').forEach(g => {
-      const a = g.querySelector('.swatch-btn.active');
-      if (a) selected.push(a.dataset.value);
-    });
-
-    const variants = {{ product.variants | json }};
-    const match = variants.find(v =>
-      selected.every((s, i) => v['option' + (i + 1)] === s)
-    );
-
-    if (match) {
-      // Update hidden variant ID
-      const vidEl = document.getElementById('variant-id');
-      if (vidEl) vidEl.value = match.id;
-
-      // Format money: Shopify Liquid JSON gives price in cents
-      const fmt = c => '$' + (c / 100).toFixed(2).replace(/\.00$/, '');
-
-      // Update price — element has id="product-price"
-      const priceEl = document.getElementById('product-price');
-      if (priceEl) priceEl.textContent = fmt(match.price);
-
-      // Update Afterpay
-      const apEl = document.querySelector('.product-afterpay');
-      if (apEl) {
-        apEl.innerHTML = 'or <strong>4 payments of ' + fmt(Math.round(match.price / 4)) + '</strong> with Afterpay';
-      }
-
-      // Update add to cart button
-      const addBtn = document.querySelector('button[name="add"]');
-      if (addBtn) {
-        addBtn.textContent = match.available ? 'Add to Bag' : 'Sold Out';
-        addBtn.disabled = !match.available;
-      }
-
-      // Update URL
-      const url = new URL(window.location.href);
-      url.searchParams.set('variant', match.id);
-      window.history.replaceState({}, '', url);
-
-      // Switch gallery image if variant has one
-      if (match.featured_image && window.__galleryGoTo) {
-        const fname = match.featured_image.src.split('?')[0].split('/').pop().split('_')[0];
-        document.querySelectorAll('.thumb-item img').forEach((img, idx) => {
-          if (img.src.includes(fname)) window.__galleryGoTo(idx);
-        });
-      }
-    }
-  }
+  // updateVariant defined in variant-selector.js
       // Update price
       const priceEl = document.getElementById('product-price');
       if (priceEl && match.price) {
