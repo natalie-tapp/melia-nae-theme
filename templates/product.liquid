@@ -446,28 +446,25 @@
     group.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Collect all selected option values
     const selected = [];
     document.querySelectorAll('.option-swatches').forEach(g => {
-      const active = g.querySelector('.swatch-btn.active');
-      if (active) selected.push(active.dataset.value);
+      const a = g.querySelector('.swatch-btn.active');
+      if (a) selected.push(a.dataset.value);
     });
 
-    // Find matching variant
     const variants = {{ product.variants | json }};
     const match = variants.find(v =>
       selected.every((s, i) => v['option' + (i + 1)] === s)
     );
 
     if (match) {
-      // Update hidden variant ID for form submission
       const vidEl = document.getElementById('variant-id');
       if (vidEl) vidEl.value = match.id;
 
-      // Update price display
+      // Update price
+      const fmt = c => '$' + (c / 100).toFixed(2).replace(/\.00$/, '');
       const priceEl = document.querySelector('.product-price');
       if (priceEl) {
-        const fmt = cents => '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');
         if (match.compare_at_price && match.compare_at_price > match.price) {
           priceEl.innerHTML = '<span style="color:var(--gold)">' + fmt(match.price) + '</span>'
             + ' <span style="text-decoration:line-through;opacity:0.5;font-size:0.85em">' + fmt(match.compare_at_price) + '</span>';
@@ -476,11 +473,10 @@
         }
       }
 
-      // Update Afterpay instalment
-      const apEl = document.querySelector('.afterpay-line, .product-afterpay');
+      // Update Afterpay
+      const apEl = document.querySelector('.afterpay-line, .product-afterpay, [class*="afterpay"]');
       if (apEl) {
-        const inst = '$' + (match.price / 400).toFixed(2).replace(/\.00$/, '');
-        apEl.innerHTML = 'or 4 payments of <strong>' + inst + '</strong> with Afterpay';
+        apEl.innerHTML = 'or 4 payments of <strong>' + fmt(Math.round(match.price / 4)) + '</strong> with Afterpay';
       }
 
       // Update add to cart button
@@ -495,14 +491,11 @@
       url.searchParams.set('variant', match.id);
       window.history.replaceState({}, '', url);
 
-      // Switch gallery image if variant has one
+      // Switch gallery to variant image if available
       if (match.featured_image && window.__galleryGoTo) {
-        const imgSrc = match.featured_image.src;
-        const thumbs = document.querySelectorAll('.thumb-item img');
-        thumbs.forEach((img, i) => {
-          if (img.src.includes(imgSrc.split('?')[0].split('/').pop().split('_')[0])) {
-            window.__galleryGoTo(i);
-          }
+        const fname = match.featured_image.src.split('?')[0].split('/').pop().split('_')[0];
+        document.querySelectorAll('.thumb-item img').forEach((img, i) => {
+          if (img.src.includes(fname)) window.__galleryGoTo(i);
         });
       }
     }
