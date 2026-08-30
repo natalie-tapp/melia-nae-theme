@@ -5,11 +5,14 @@
   }
 
   function init() {
-    var variants = window.__variants;
-    if (!variants || !variants.length) {
-      console.warn('MN: __variants missing or empty', window.__variants);
-      return;
-    }
+    var el = document.getElementById('mn-variants-data');
+    if (!el) { console.warn('MN: mn-variants-data element not found'); return; }
+
+    var variants;
+    try { variants = JSON.parse(el.textContent); }
+    catch(e) { console.error('MN: JSON parse error', e); return; }
+
+    if (!variants || !variants.length) { console.warn('MN: no variants'); return; }
     console.log('MN: loaded', variants.length, 'variants');
 
     window.updateVariant = function(btn) {
@@ -59,7 +62,6 @@
     console.log('MN: updateVariant ready');
   }
 
-  // Run after DOM is parsed (defer already handles this, but be safe)
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
