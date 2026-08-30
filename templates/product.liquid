@@ -140,6 +140,17 @@
         url.searchParams.set('variant', match.id);
         window.history.replaceState({}, '', url.toString());
       }
+
+      // Switch gallery to the first image assigned to this variant
+      if (window.__galleryGoTo && window.__galleryImages) {
+        for (var gi = 0; gi < window.__galleryImages.length; gi++) {
+          var imgVariantIds = window.__galleryImages[gi].variantIds || [];
+          if (imgVariantIds.indexOf(match.id) !== -1) {
+            window.__galleryGoTo(gi);
+            break;
+          }
+        }
+      }
     }
 
     // Define updateVariant immediately so onclick never throws "not defined"
