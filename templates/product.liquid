@@ -458,25 +458,21 @@
     );
 
     if (match) {
+      // Update hidden variant ID
       const vidEl = document.getElementById('variant-id');
       if (vidEl) vidEl.value = match.id;
 
-      // Update price
+      // Format money: Shopify Liquid JSON gives price in cents
       const fmt = c => '$' + (c / 100).toFixed(2).replace(/\.00$/, '');
-      const priceEl = document.querySelector('.product-price');
-      if (priceEl) {
-        if (match.compare_at_price && match.compare_at_price > match.price) {
-          priceEl.innerHTML = '<span style="color:var(--gold)">' + fmt(match.price) + '</span>'
-            + ' <span style="text-decoration:line-through;opacity:0.5;font-size:0.85em">' + fmt(match.compare_at_price) + '</span>';
-        } else {
-          priceEl.textContent = fmt(match.price);
-        }
-      }
+
+      // Update price — element has id="product-price"
+      const priceEl = document.getElementById('product-price');
+      if (priceEl) priceEl.textContent = fmt(match.price);
 
       // Update Afterpay
-      const apEl = document.querySelector('.afterpay-line, .product-afterpay, [class*="afterpay"]');
+      const apEl = document.querySelector('.product-afterpay');
       if (apEl) {
-        apEl.innerHTML = 'or 4 payments of <strong>' + fmt(Math.round(match.price / 4)) + '</strong> with Afterpay';
+        apEl.innerHTML = 'or <strong>4 payments of ' + fmt(Math.round(match.price / 4)) + '</strong> with Afterpay';
       }
 
       // Update add to cart button
@@ -491,11 +487,11 @@
       url.searchParams.set('variant', match.id);
       window.history.replaceState({}, '', url);
 
-      // Switch gallery to variant image if available
+      // Switch gallery image if variant has one
       if (match.featured_image && window.__galleryGoTo) {
         const fname = match.featured_image.src.split('?')[0].split('/').pop().split('_')[0];
-        document.querySelectorAll('.thumb-item img').forEach((img, i) => {
-          if (img.src.includes(fname)) window.__galleryGoTo(i);
+        document.querySelectorAll('.thumb-item img').forEach((img, idx) => {
+          if (img.src.includes(fname)) window.__galleryGoTo(idx);
         });
       }
     }
