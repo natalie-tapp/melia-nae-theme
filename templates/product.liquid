@@ -87,7 +87,83 @@
       // Expose so updateVariant() can switch to variant image
       window.__galleryGoTo = goTo;
     })();
-  </script>
+  
+    // ── Variant selector ──────────────────────────────────────────────────────
+    var _variantsCache = null;
+    var _pendingClicks = [];
+
+    function _fmtPrice(cents) {
+      return '$' + (cents / 100).toFixed(2).replace(/\.00$/, '');
+    }
+
+    function _doVariantUpdate(btn) {
+      var variants = _variantsCache;
+      if (!variants) return;
+
+      var group = btn.closest('.option-swatches');
+      group.querySelectorAll('.swatch-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var selected = [];
+      document.querySelectorAll('.option-swatches').forEach(function(g) {
+        var a = g.querySelector('.swatch-btn.active');
+        if (a) selected.push(a.dataset.value);
+      });
+
+      var match = null;
+      for (var i = 0; i < variants.length; i++) {
+        var v = variants[i];
+        var opts = [v.option1, v.option2, v.option3].filter(function(x) { return x != null; });
+        if (selected.every(function(s, idx) { return opts[idx] === s; })) {
+          match = v; break;
+        }
+      }
+      if (!match) return;
+
+      var vid = document.getElementById('variant-id');
+      if (vid) vid.value = match.id;
+
+      var priceEl = document.getElementById('product-price');
+      if (priceEl) priceEl.textContent = _fmtPrice(match.price);
+
+      var apEl = document.querySelector('.product-afterpay');
+      if (apEl) apEl.innerHTML = 'or <strong>4 payments of ' + _fmtPrice(Math.round(match.price / 4)) + '<\/strong> with Afterpay';
+
+      var addBtn = document.querySelector('button[name="add"]');
+      if (addBtn) {
+        addBtn.textContent = match.available ? 'Add to Bag' : 'Sold Out';
+        addBtn.disabled = !match.available;
+      }
+
+      if (window.history && window.history.replaceState) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', match.id);
+        window.history.replaceState({}, '', url.toString());
+      }
+    }
+
+    // Define updateVariant immediately so onclick never throws "not defined"
+    window.updateVariant = function(btn) {
+      if (_variantsCache) {
+        _doVariantUpdate(btn);
+      } else {
+        _pendingClicks.push(btn);
+      }
+    };
+
+    // Fetch variant data (async — resolves before user can click on any real device)
+    (function() {
+      var m = window.location.pathname.match(/\/products\/([^/?#]+)/);
+      if (!m) return;
+      fetch('/products/' + m[1] + '.js')
+        .then(function(r) { return r.json(); })
+        .then(function(p) {
+          _variantsCache = p.variants;
+          _pendingClicks.forEach(function(b) { _doVariantUpdate(b); });
+          _pendingClicks = [];
+        });
+    })();
+</script>
 
   <!-- PRODUCT DETAILS -->
   <div class="product-details">
