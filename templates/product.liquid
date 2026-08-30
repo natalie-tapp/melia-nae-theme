@@ -51,7 +51,6 @@
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
     ];
-    window.__variants = {{ product.variants | json }};
 
     (function() {
       var images  = window.__galleryImages;
@@ -442,6 +441,7 @@
   }
 
   // Variant selection
+<script>window.__variants = {{ product.variants | json }};</script>
   // updateVariant defined in variant-selector.js
       // Update price
       const priceEl = document.getElementById('product-price');
