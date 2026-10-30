@@ -15,7 +15,7 @@
       {%- assign col_handle = handle -%}
       {%- if handle == 'all' -%}{%- assign col_handle = 'all' -%}{%- endif -%}
       {%- assign is_active = '' -%}
-      {%- if collection.handle == handle or (handle == 'all' and collection.handle == 'all') -%}
+      {%- if collection.handle == handle or handle == 'all' and collection.handle == 'all' -%}
         {%- assign is_active = ' active' -%}
       {%- endif -%}
       <a href="/collections/{{ col_handle }}" class="pill{{ is_active }}">
@@ -147,3 +147,15 @@
   });
 
 </script>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- if collection.handle == handle or (handle == 'all' and collection.handle
+    == 'all') -%}"
+  to: "{%- if collection.handle == handle or handle == 'all' and collection.handle
+    == 'all' -%}"
+  position: 825..913
+{% endcomment %}
