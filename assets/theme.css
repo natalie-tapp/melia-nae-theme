@@ -5,7 +5,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --cream: #e5cdbf;
+  --cream: #faf8f5;
   --blush: #F2EBE2;
   --warm-nude: #E8DDD2;
   --gold: #9C8060;
