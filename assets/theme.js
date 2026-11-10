@@ -419,7 +419,7 @@ function showWishlistToast(msg, added) {
   var toast = document.createElement('div');
   toast.id = 'mn-wishlist-toast';
   toast.textContent = (added ? '♡ ' : '') + msg;
-  toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1C1C1A;color:#FAF8F5;padding:12px 24px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;z-index:99999;animation:wishlistToastIn 0.3s ease;white-space:nowrap;';
+  toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1C1C1A;color:#e5cdbf;padding:12px 24px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;z-index:99999;animation:wishlistToastIn 0.3s ease;white-space:nowrap;';
   document.body.appendChild(toast);
   setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(function() { toast.remove(); }, 300); }, 2500);
 }
