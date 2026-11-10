@@ -14,7 +14,7 @@
       "settings": {
         "eyebrow": "New Collection",
         "heading": "<p>Timeless<br/>jewellery made<br/>with <em>dedication</em><br/>and love.</p>",
-        "subheading": "Discover our curated collection of fine jewellery — crafted for every moment that matters.",
+        "subheading": "Discover our curated collection of fine jewellery \u2014 crafted for every moment that matters.",
         "button_label": "Shop the Collection",
         "button_link": "/collections/all",
         "button2_label": "",
@@ -108,7 +108,7 @@
             "image": "shopify://shop_images/RG67822R6_YELLOW_DOWN_c10b33e1-f57d-4f05-af9d-e93854a43fe8.jpg",
             "heading": "Customise Your Piece",
             "text": "Our customisable jewellery collection",
-            "button_label": "View Gallery →",
+            "button_label": "View Gallery \u2192",
             "link": "/pages/customs-gallery"
           }
         },
@@ -117,8 +117,8 @@
           "settings": {
             "video_url": "https://cdn.shopify.com/videos/c/o/v/b9294f675150492ca25a38e713b5b300.mp4",
             "heading": "Create Your Dream Ring",
-            "text": "Built for a lifetime — speak with our team",
-            "button_label": "Our Services →",
+            "text": "Built for a lifetime \u2014 speak with our team",
+            "button_label": "Our Services \u2192",
             "link": "/pages/services"
           }
         }
@@ -290,6 +290,10 @@
         "button_label": "Subscribe",
         "disclaimer": "By subscribing you agree to our privacy policy. Unsubscribe any time."
       }
+    },
+    "meet-enzo": {
+      "type": "meet-enzo",
+      "settings": {}
     }
   },
   "order": [
@@ -302,6 +306,7 @@
     "fourcs_infographic_hFY386",
     "instagram-preview",
     "1787659468e7d9d12b",
+    "meet-enzo",
     "newsletter"
   ]
 }
